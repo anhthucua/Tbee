@@ -1,0 +1,27 @@
+.modal {
+    &-title {
+        text-align: center;
+    }
+    &-body {
+        .checkbox, .radio {
+            padding-left: 20px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button.btn {
+            max-width: 200px;
+            margin: 10px auto;
+        }
+    }
+    .close {
+        font-size: 40px;
+        margin-top: -22px;
+    }
+}
+
+#signup-modal {
+    .modal-footer {
+        justify-content: center;
+    }
+}

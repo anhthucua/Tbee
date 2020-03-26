@@ -1,0 +1,55 @@
+@import "settings.colors";
+@import "settings.defaults";
+@import 'components/header';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// ==========================================================================
+// ICON FONTS
+// ==========================================================================
+@import "base.icon-fonts";
+
+// ==========================================================================
+// ADD MIXINS
+// ==========================================================================
+@import "settings.colors";
+@import "settings.defaults";
+
+// ==========================================================================
+// Externals
+// ==========================================================================
+@import "externals/normalize";
+@import "externals/nouislider";
+@import "externals/slick";
+@import "externals/slick-theme";
+
+// ==========================================================================
+// BASE
+// ==========================================================================
+@import "base.type";
+
+// ==========================================================================
+// LAYOUT
+// ==========================================================================
+@import 'global';
+// ==========================================================================
+// COMPONENTS
+// ==========================================================================
+@import 'components/button';
+@import 'components/form-elements';
+@import 'components/elements';
+@import 'components/section';
+@import 'components/breadcrumb';
+@import 'components/navigation';
+@import 'components/category';
+@import 'components/hot-deal';
+@import 'components/product'; 
+@import 'components/product-page';
+@import 'components/product-detail';
+@import 'components/checkout';
+@import 'components/newsletter';
+// @import 'components/footer';
+@import 'components/slick-edit';
+@import 'components/responsive';
+@import 'components/modals';

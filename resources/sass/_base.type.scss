@@ -1,0 +1,42 @@
+
+%vertical-align {
+  position: relative;
+  top: 50%; 
+  transform: translateY(-50%);
+}
+
+%grayscale {
+  filter: grayscale(100%);
+  transition: filter $default-duration;
+}
+
+%none-grayscale {
+  filter: grayscale(0);
+}
+
+%fl {
+  float: left;
+}
+
+%fr {
+  float: right;
+}
+
+%fn {
+  float: none;
+}
+%list-unstyled {
+  list-style: none;
+}
+
+%bgd {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
+}
+
+%flex {
+  display: flex;
+  flex-wrap: wrap;
+}

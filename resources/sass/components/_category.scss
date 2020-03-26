@@ -1,0 +1,77 @@
+.shop {
+    position: relative;
+    overflow: hidden;
+    margin: 15px 0px;
+}
+
+.shop:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0px;
+    width: 60%;
+    background: $color-primary-1;
+    opacity: 0.9;
+    -webkit-transform: skewX(-45deg);
+    -ms-transform: skewX(-45deg);
+    transform: skewX(-45deg);
+}
+
+.shop:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 128px;
+    width: 100%;
+    background: $color-primary-1;
+    opacity: 0.8;
+    -webkit-transform: skewX(-45deg) translateX(-100%);
+    -ms-transform: skewX(-45deg) translateX(-100%);
+    transform: skewX(-45deg) translateX(-100%);
+}
+
+.shop .shop-img {
+    position: relative;
+    background-color: #d6dae0;
+    z-index: 0;
+    height: 170px;
+    width: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 0.2s all;
+    &:hover {
+        transform: scale(1.125);
+    }
+}
+
+.shop .shop-img>img {
+    width: 100%;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.shop:hover .shop-img>img {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.shop .shop-body {
+    position: absolute;
+    top: 0;
+    width: 75%;
+    padding: 15px;
+    z-index: 10;
+}
+
+.shop .shop-body h3 {
+    color: #FFF;
+}
+
+.shop .shop-body .cta-btn {
+    color: #FFF;
+    text-transform: uppercase;
+}

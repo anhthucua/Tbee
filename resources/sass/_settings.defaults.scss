@@ -1,0 +1,62 @@
+// DEFAULTS
+// ==========================================================================
+$font-default:    'Montserrat', sans-serif;
+$font-title:      'Montserrat', sans-serif;
+$font-sub: 'Montserrat', sans-serif;
+$font-chinese: 'Noto Serif SC', serif;
+// High-level base settings.
+
+
+$base-font-weight: normal      !default;
+
+$base-font-size:   16px         !default;
+$base-line-height: 20px         !default;
+$base-site-width:  1170px       !default;
+
+// $base-header-utility-font-size: 12px         !default;
+$base-heading-font-family:      $font-default !default;
+// $base-heading-font-weight:      bold         !default;
+$base-heading-font-style:       null         !default;
+$base-heading-text-transform:   null         !default;
+$base-menu-primary-font-family: $font-default !default;
+$base-menu-primary-font-weight: semibold     !default;
+$base-menu-primary-font-style:  null         !default;
+$base-footer-nav-font-family:   $font-default !default;
+$base-footer-nav-font-style:    null         !default;
+
+// These variables are framework variables, sourced from variables defined
+// above. Feel free to use these variables throughout your project, but do not
+// modify or reassign them.
+
+$base-spacing-unit:           $base-line-height;
+$base-spacing-unit--small:    round($base-spacing-unit / 2);
+$base-spacing-unit--large:    round($base-spacing-unit * 2);
+
+
+//Animation CSS duration
+$default-duration: 0.5s;
+$fast-duration: 0.3s;
+$slow-duration: 1s;
+$default-effect: ease-in-out;
+$effect-ease: ease;
+
+
+//
+// Z-Layer Variables
+//
+// These key/value pairs will be used by mixins/_layering.scss.
+// 
+// All z-index definitions will be stored in a Sass map
+// and managed here to get a perfect stacking overview.
+//
+
+$z-layers: (
+    "header" : 999,
+    "dropdown": 500,
+    "modal": (
+        "base": 1000,
+        "close": 1001
+    ),
+    "default": 1,
+    "below": -1
+);
