@@ -10,5 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.docker/data/*/*
-!/.docker/data/*/.gitkeep
+/public/mix-manifest.json

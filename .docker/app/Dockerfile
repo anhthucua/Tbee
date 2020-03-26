@@ -3,10 +3,8 @@ FROM php:7.2-fpm-alpine
 
 # Install Additional dependencies
 RUN apk update && apk add --no-cache \
-    build-base shadow supervisor \
+    build-base shadow \
     php7-common \
-    php7-pdo \
-    php7-pdo_mysql \
     php7-mysqli \
     php7-mcrypt \
     php7-mbstring \
