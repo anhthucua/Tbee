@@ -2,8 +2,6 @@
 @import "settings.defaults";
 @import 'components/header';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
 // ==========================================================================
 // ICON FONTS
@@ -15,14 +13,6 @@
 // ==========================================================================
 @import "settings.colors";
 @import "settings.defaults";
-
-// ==========================================================================
-// Externals
-// ==========================================================================
-@import "externals/normalize";
-@import "externals/nouislider";
-@import "externals/slick";
-@import "externals/slick-theme";
 
 // ==========================================================================
 // BASE
@@ -44,7 +34,7 @@
 @import 'components/navigation';
 @import 'components/category';
 @import 'components/hot-deal';
-@import 'components/product'; 
+@import 'components/product';
 @import 'components/product-page';
 @import 'components/product-detail';
 @import 'components/checkout';
