@@ -7,12 +7,13 @@
 
   <title>@yield('title', config('app.name', 'Laravel'))</title>
 
+  @yield('include-more', '')
+
   <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-  @yield('header', 'Vui long them header vao')
-  {{-- @include('includes.header') --}}
+  @yield('header', View::make('includes.header'))
   @yield('content', 'Hello')
 </body>
 </html>
