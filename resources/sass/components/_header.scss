@@ -151,9 +151,10 @@
   -webkit-box-shadow: 0px 0px 0px 2px $color-primary-3;
   box-shadow: 0px 0px 0px 2px $color-primary-3;
   z-index: 99;
-  right: 0;
-  opacity: 0;
-  visibility: hidden;
+  right: 0 !important;
+  left: auto !important;
+  transform: none !important;
+  top: auto !important;
 }
 
 .dropdown.open > .cart-dropdown {

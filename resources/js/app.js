@@ -1,29 +1,75 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-require('./bootstrap');
-require('./jquery.zoom.min');
-require('./nouislider.min');
-require('./slick.min');
-
-(function ($) {
+$(document).ready(function () {
   "use strict"
 
-  // Mobile Nav toggle
-  $('.menu-toggle > a').on('click', function (e) {
-    e.preventDefault();
-    $('#responsive-nav').toggleClass('active');
-  })
-
-  // Fix cart dropdown from closing
-  $('.cart-dropdown').on('click', function (e) {
-    e.stopPropagation();
+  // Not closing cart dropdown on click inside
+  $('.cart-dropdown.dropdown-menu').on("click.bs.dropdown", function () {
+    return $('.dropdown.cart').one('hide.bs.dropdown', function () {
+      return false;
+    });
   });
 
-  /////////////////////////////////////////
+  // Login form submit
+  $('#login-modal .form-signin .btn-lg').click(function (e) {
+    e.preventDefault();
+    $('.error-username').text('');
+    $('.error-password').text('');
+    axios({
+      method: 'post',
+      url: '/login',
+      data: {
+        username: $('.lg-username').val(),
+        password: $('.lg-password').val(),
+      }
+    }).then(function () {
+      location.reload();
+    })
+      .catch(function (error) {
+        let errors = error.response.data.errors;
+        _.forOwn(errors, (value, key) => {
+          value.forEach(el => {
+            let err = document.createElement('div');
+            err.textContent = el;
+            document.querySelector(`.form-signin .error-login`).appendChild(err);
+          });
+        })
+      });
+  });
+
+  // Sign up form submit
+  $('#signup-modal .form-signup .btn-signup').click(function (e) {
+    e.preventDefault();
+    $('.error-username').text('');
+    $('.error-phone').text('');
+    $('.error-email').text('');
+    $('.error-password').text('');
+    axios({
+      method: 'post',
+      url: '/register',
+      data: {
+        username: $('.su-username').val(),
+        phone: $('.su-phone').val(),
+        email: $('.su-email').val(),
+        password: $('.su-password').val(),
+        password_confirmation: $('.su-password_confirmation').val(),
+      }
+    }).then(function () {
+      location.reload();
+    })
+      .catch(function (error) {
+        let errors = error.response.data.errors;
+        _.forOwn(errors, (value, key) => {
+          value.forEach(el => {
+            let err = document.createElement('div');
+            if (el == 'Định dạng trường tên đăng nhập không hợp lệ.') {
+              console.log(123);
+              el = 'Tên đăng nhập chỉ gồm chữ và số, với ít nhất 1 chữ';
+            }
+            err.textContent = el;
+            document.querySelector(`.form-signup .error-${key}`).appendChild(err);
+          });
+        })
+      });
+  });
 
   // Products Slick
   $('.products-slick').each(function () {
@@ -184,5 +230,4 @@ require('./slick.min');
       handle ? priceInputMax.value = value : priceInputMin.value = value
     });
   }
-
-})(jQuery);
+});

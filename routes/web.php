@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Route::get('/category', function () {
     return view('category');
 });
@@ -24,5 +25,16 @@ Route::get('/product-detail', function () {
 });
 
 Auth::routes();
+=======
+// Authentication routes
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('register', 'Auth\RegisterController@register')->name('register');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+>>>>>>> d726ed45fee0cc1ff9fbb9dca124def8f895c2fe
 
 Route::get('/home', 'HomeController@index')->name('home');

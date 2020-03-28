@@ -10,6 +10,7 @@
   @yield('include-more', '')
   <link href="{{ asset('css/requires.css') }}" rel="stylesheet">
   <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+  <script src="{{ asset('js/requires.js') }}" defer></script>
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>

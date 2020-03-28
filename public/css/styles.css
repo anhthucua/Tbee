@@ -154,9 +154,11 @@
   padding: 15px;
   box-shadow: 0px 0px 0px 2px #E4E7ED;
   z-index: 99;
-  right: 0;
-  opacity: 0;
-  visibility: hidden;
+  right: 0 !important;
+  left: auto !important;
+  -webkit-transform: none !important;
+          transform: none !important;
+  top: auto !important;
 }
 
 .dropdown.open > .cart-dropdown {
