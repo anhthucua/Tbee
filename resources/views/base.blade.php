@@ -15,5 +15,6 @@
 <body>
   @yield('header', View::make('includes.header'))
   @yield('content', 'Hello')
+  @yield('footer', View::make('includes.footer'))
 </body>
 </html>

@@ -129,6 +129,7 @@
                 <div class="products-tabs">
                   <div class="tab-pane active" id="tab1">
                     <div class="products-slick" data-nav="#slick-nav-1">
+                      <!-- PRODUCT -->
                       <div class="product"><a class="product-link" href="#"></a>
                         <div class="product-img" style="background-image: url('../images/man-fashion.png');">
                           <div class="product-label"><span class="sale">-30%</span></div>
@@ -177,6 +178,7 @@
                           </h4>
                         </div>
                       </div>
+                      <!-- /PRODUCT -->
                     </div>
                     <div class="products-slick-nav" id="slick-nav-1"></div>
                   </div>
