@@ -94,8 +94,8 @@
         <div class="shop-info">
           <a href="#">Tên shop</a>
           <div class="shop-link">
-            <div class="primary-btn">Xem shop</div>
-            <div class="secondary-btn">Chat ngay</div>
+            <a href="#" class="primary-btn primary-btn--normal">Xem shop</a>
+            <a href="#" class="secondary-btn">Chat ngay</a>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
      <!-- /shop infor -->
     <!-- description -->
     <div class="product-desc">
-      <h5 class="product-desc-title">Description</h5>
+      <h5 class="product-desc-title">Mô tả</h5>
       <div class="product-desc-content">
         <p>Xuất xứ: Việt Nam</p>
         <p>Có màu đỏ</p>
@@ -130,7 +130,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');">
+          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
             <div class="product-label"><span class="sale">-30%</span></div>
           </div>
           <div class="product-body">
@@ -148,7 +148,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');">
+          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
             <div class="product-label"><span class="sale">-30%</span></div>
           </div>
           <div class="product-body">
@@ -166,7 +166,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');">
+          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
             <div class="product-label"><span class="sale">-30%</span></div>
           </div>
           <div class="product-body">
@@ -184,7 +184,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');">
+          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
             <div class="product-label"><span class="sale">-30%</span></div>
           </div>
           <div class="product-body">

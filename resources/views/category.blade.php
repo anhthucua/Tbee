@@ -82,8 +82,8 @@
         <div class="aside">
           <h3 class="aside-title">Sản phẩm bán chạy</h3>
           <div class="product-widget">
-            <div class="product-img" style="background-image: url('images/man-fashion.png');">
-            </div>
+            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
+            </a>
             <div class="product-body">
               <p class="product-category">Category</p>
               <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -92,8 +92,8 @@
           </div>
 
           <div class="product-widget">
-            <div class="product-img" style="background-image: url('images/man-fashion.png');">
-            </div>
+            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
+            </a>
             <div class="product-body">
               <p class="product-category">Category</p>
               <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -102,8 +102,8 @@
           </div>
 
           <div class="product-widget">
-            <div class="product-img" style="background-image: url('images/man-fashion.png');">
-            </div>
+            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
+            </a>
             <div class="product-body">
               <p class="product-category">Category</p>
               <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -126,6 +126,7 @@
                 <option value="0">Giá từ thấp lên cao</option>
                 <option value="1">Giá từ cao xuống thấp</option>
                 <option value="2">Sản phẩm mới nhất</option>
+                <option value="3">Sản phẩm bán chạy</option>
               </select>
             </label>
           </div>
@@ -225,17 +226,23 @@
       </div>
       <!-- /STORE -->
     </div>
-    <!-- store bottom filter -->
-    <div class="store-filter float-right">
-      <ul class="store-pagination">
-        <li class="active">1</li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-      </ul>
+
+    <div class="row">
+      <div class="col-12">
+        <!-- store bottom filter -->
+        <div class="store-filter float-right">
+          <ul class="store-pagination">
+            <li class="active">1</li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+          </ul>
+        </div>
+        <!-- /store bottom filter -->
+      </div>
     </div>
-    <!-- /store bottom filter -->
+
   </div>
 </div>
 <!-- /SECTION -->
