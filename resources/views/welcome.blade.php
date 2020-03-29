@@ -46,9 +46,9 @@
             @foreach ($cat_lv1 as $category)
               <div class="col-md-3 col-xs-6">
                 <a href="#">
-                  <div class="shop">
-                    <div class="shop-img" style="background-image: url('{{ asset("images/categories/{$category->image}") }}');"></div>
-                    <div class="shop-body">
+                  <div class="category">
+                    <div class="category-img" style="background-image: url('{{ asset("images/categories/{$category->image}") }}');"></div>
+                    <div class="category-body">
                       <h3>{{ $category->name }}</h3>
                       <a class="cta-btn" href="#">>Bộ sưu tập&nbsp;
                         <i class="fa fa-arrow-circle-right"></i>
