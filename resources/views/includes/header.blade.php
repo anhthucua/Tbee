@@ -36,7 +36,7 @@
   </div>
   <div id="header">
     <div class="container">
-      <div class="row">
+      <div class="row align-items-center">
 
         <!-- logo -->
         <div class="col-md-3">
@@ -98,8 +98,8 @@
                     </button>
                   </div>
                 </div>
-                <div class="cart-btn">
-                  <a href="#">Xem giỏ hàng</a>
+                <div class="cart-btn text-right">
+                  <a href="#" class="primary-btn primary-btn--square">Xem giỏ hàng</a>
                 </div>
               </div>
             </div>
@@ -133,9 +133,9 @@
             <input class="form-control lg-username" type="text" name="username" placeholder="Tên đăng nhập" required autofocus autocomplete="username">
             <input class="form-control lg-password" type="password" name="password" placeholder="Mật khẩu" required autocomplete="current-password">
             <label class="checkbox">
-              <input id="rememberMe" type="checkbox" value="remember-me" name="rememberMe">Lưu tài khoản
+              <input id="rememberMe" type="checkbox" value="remember-me" name="rememberMe"> Lưu tài khoản
             </label>
-            <div class="error-login"></div>
+            <div class="error error-login"></div>
             <div class="d-flex">
               <button class="btn btn-lg primary-btn btn-block" type="submit">Đăng nhập</button>
             </div>
@@ -159,13 +159,13 @@
           <form class="form-signup" method="POST" action="{{ route('register') }}">
             @csrf
             <input class="form-control su-username" type="text" name="username" placeholder="Tên đăng nhập *" required autofocus autocomplete="username">
-            <div class="error-username"></div>
+            <div class="error error-username"></div>
             <input class="form-control su-phone" type="tel" name="phone" placeholder="Số điện thoại *" required>
-            <div class="error-phone"></div>
+            <div class="error error-phone"></div>
             <input class="form-control su-email" type="text" name="email" placeholder="Email *" required>
-            <div class="error-email"></div>
+            <div class="error error-email"></div>
             <input class="form-control su-password" type="password" name="password" placeholder="Mật khẩu *" required autocomplete="new-password">
-            <div class="error-password"></div>
+            <div class="error error-password"></div>
             <input class="form-control su-password_confirmation" type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu *" required autocomplete="">
             <div class="d-flex">
               <button class="btn btn-signup primary-btn btn-block" type="submit">Đăng ký</button>

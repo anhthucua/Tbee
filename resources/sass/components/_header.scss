@@ -187,20 +187,8 @@
   color: $color-primary-2;
 }
 
-.cart-dropdown .cart-btns {
-  margin: 0px -17px -17px;
-}
-
-.cart-dropdown .cart-btns > a {
-  display: inline-block;
-  width: calc(50% - 0px);
-  padding: 12px;
-  background-color: $color-primary-1;
-  color: #fff;
-  text-align: center;
-  font-weight: 700;
-  -webkit-transition: 0.2s all;
-  transition: 0.2s all;
+.cart-dropdown .cart-btn > a {
+  font-size: 16px;
 }
 
 .cart-dropdown .cart-btns > a:first-child {

@@ -37,7 +37,9 @@ textarea.input {
 .input-number .qty-up,
 .input-number .qty-down {
 	position: absolute;
-	display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 	width: 20px;
 	height: 20px;
 	border: 1px solid $color-primary-3;
@@ -182,4 +184,12 @@ textarea.input {
 .input-radio input[type="radio"]:checked~.caption,
 .input-checkbox input[type="checkbox"]:checked~.caption {
 	max-height: 800px;
+}
+
+/*-- Error --*/
+.error {
+  color: $color-primary-1;
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-left: 5px;
 }

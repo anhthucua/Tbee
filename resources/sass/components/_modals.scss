@@ -1,27 +1,33 @@
 .modal {
-    &-title {
-        text-align: center;
+  &-title {
+    text-align: center;
+  }
+
+  &-body {
+
+    .checkbox input {
+      margin-right: 5px;
     }
-    &-body {
-        .checkbox, .radio {
-            padding-left: 20px;
-        }
-        input {
-            margin-bottom: 10px;
-        }
-        button.btn {
-            max-width: 200px;
-            margin: 10px auto;
-        }
+
+    input {
+      margin-bottom: 3px;
+      margin-top: 10px;
     }
-    .close {
-        font-size: 40px;
-        margin-top: -22px;
+
+    button.btn {
+      max-width: 200px;
+      margin: 10px auto;
     }
+  }
+
+  .close {
+    font-size: 40px;
+    margin-top: -22px;
+  }
 }
 
 #signup-modal {
-    .modal-footer {
-        justify-content: center;
-    }
+  .modal-footer {
+    justify-content: center;
+  }
 }

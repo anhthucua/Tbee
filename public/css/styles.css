@@ -190,20 +190,8 @@
   color: #2B2D42;
 }
 
-.cart-dropdown .cart-btns {
-  margin: 0px -17px -17px;
-}
-
-.cart-dropdown .cart-btns > a {
-  display: inline-block;
-  width: calc(50% - 0px);
-  padding: 12px;
-  background-color: #D10024;
-  color: #fff;
-  text-align: center;
-  font-weight: 700;
-  -webkit-transition: 0.2s all;
-  transition: 0.2s all;
+.cart-dropdown .cart-btn > a {
+  font-size: 16px;
 }
 
 .cart-dropdown .cart-btns > a:first-child {
@@ -219,6 +207,60 @@
   border-top: 1px solid #E4E7ED;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+#footer {
+  color: #B9BABC;
+}
+
+#bottom-footer {
+  background: #1E1F29;
+}
+
+.footer {
+  margin: 30px 0px;
+}
+
+.footer .footer-title {
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 0px 0px 30px;
+}
+
+.footer-links li + li {
+  margin-top: 15px;
+}
+
+.footer-links li a {
+  color: #B9BABC;
+}
+
+.footer-links li i {
+  margin-right: 15px;
+  color: #D10024;
+  width: 14px;
+  text-align: center;
+}
+
+.footer-links li a:hover {
+  color: #D10024;
+}
+
+.copyright {
+  display: block;
+  font-size: 12px;
+}
+
+.footer-payments li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.footer-payments li a {
+  color: #15161D;
+  font-size: 36px;
+  display: block;
 }
 
 .product .product-img {
@@ -297,6 +339,10 @@ input {
   background-color: white;
 }
 
+.primary-btn--square {
+  border-radius: initial;
+}
+
 .secondary-btn {
   display: inline-block;
   padding: 12px 30px;
@@ -356,7 +402,12 @@ textarea.input {
 .input-number .qty-up,
 .input-number .qty-down {
   position: absolute;
-  display: block;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
   width: 20px;
   height: 20px;
   border: 1px solid #E4E7ED;
@@ -497,6 +548,15 @@ textarea.input {
 .input-radio input[type=radio]:checked ~ .caption,
 .input-checkbox input[type=checkbox]:checked ~ .caption {
   max-height: 800px;
+}
+
+/*-- Error --*/
+
+.error {
+  color: #D10024;
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
 
 .section {
@@ -2160,13 +2220,13 @@ textarea.input {
   text-align: center;
 }
 
-.modal-body .checkbox,
-.modal-body .radio {
-  padding-left: 20px;
+.modal-body .checkbox input {
+  margin-right: 5px;
 }
 
 .modal-body input {
-  margin-bottom: 10px;
+  margin-bottom: 3px;
+  margin-top: 10px;
 }
 
 .modal-body button.btn {
