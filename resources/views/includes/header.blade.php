@@ -1,7 +1,7 @@
 <header>
   <div id="top-header">
     <div class="container">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between align-items-center">
         <ul class="header-links left">
           <li><a href="#">Kênh người bán</a></li>
           <li><a href="#">Quản lý</a></li>
@@ -68,8 +68,8 @@
               <div class="cart-dropdown dropdown-menu">
                 <div class="cart-list">
                   <div class="product-widget">
-                    <div class="product-img">
-                      <img src="../images/product01.png" alt="product01"></div>
+                    <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');" alt="">
+                    </a>
                     <div class="product-body">
                       <h3 class="product-name">
                         <a href="#">product name goes here</a>
@@ -83,8 +83,8 @@
                     </button>
                   </div>
                   <div class="product-widget">
-                    <div class="product-img">
-                      <img src="../images/product01.png" alt="product01"></div>
+                    <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');" alt="">
+                    </a>
                     <div class="product-body">
                       <h3 class="product-name">
                         <a href="#">product name goes here</a>
