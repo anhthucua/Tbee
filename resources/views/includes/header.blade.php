@@ -175,8 +175,27 @@
       </div>
     </div>
   </div>
+
+  {{-- Modal sign up successfully --}}
+  <div class="modal fade" id="signup-success-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Bạn đã đăng ký thành công!</h2>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex">
+            <button class="btn btn-ok primary-btn btn-block" type="submit">Đồng ý</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @else
-  {{-- Logout modal --}}
+  {{-- Modal logout --}}
   <div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">

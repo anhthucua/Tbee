@@ -89,7 +89,7 @@ CREATE TABLE `category_level1` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,6 +98,7 @@ CREATE TABLE `category_level1` (
 
 LOCK TABLES `category_level1` WRITE;
 /*!40000 ALTER TABLE `category_level1` DISABLE KEYS */;
+INSERT INTO `category_level1` VALUES (1,'Thời trang nam','man-fashion.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(2,'Thời trang nữ','woman-fashion.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(3,'Laptop','laptop.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(4,'Tai nghe','headphone.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(5,'Điện thoại','smartphone.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(6,'Giày dép','giay-dep.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(7,'Túi ví','tui-vi.png','2020-03-29 03:56:32','2020-03-29 03:56:32'),(8,'Mỹ phẩm','mypham.png','2020-03-29 03:56:32','2020-03-29 03:56:32');
 /*!40000 ALTER TABLE `category_level1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,4 +526,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-28 15:59:19
+-- Dump completed on 2020-03-29  4:54:32

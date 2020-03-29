@@ -36,85 +36,34 @@
             </div>
           </div>
         </div>
-      </div><!-- category -->
+      </div>
+
+      <!-- category wrapper -->
       <div class="section">
         <div class="container">
           <div class="row">
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/man-fashion.png');"></div>
-                  <div class="shop-body">
-                    <h3>Thời trang nam</h3><a class="cta-btn" href="#">Mua ngay&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
+            {{-- Each category --}}
+            @foreach ($cat_lv1 as $category)
+              <div class="col-md-3 col-xs-6">
+                <a href="#">
+                  <div class="shop">
+                    <div class="shop-img" style="background-image: url('{{ asset("images/categories/{$category->image}") }}');"></div>
+                    <div class="shop-body">
+                      <h3>{{ $category->name }}</h3>
+                      <a class="cta-btn" href="#">>Bộ sưu tập&nbsp;
+                        <i class="fa fa-arrow-circle-right"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/woman-fashion.png');"></div>
-                  <div class="shop-body">
-                    <h3>Thời trang nữ</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/laptop.png');"></div>
-                  <div class="shop-body">
-                    <h3>Laptop</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/headphone.png');"></div>
-                  <div class="shop-body">
-                    <h3>Tai nghe</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/smartphone.png');"></div>
-                  <div class="shop-body">
-                    <h3>Điện thoại</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/giay-dep.png');"></div>
-                  <div class="shop-body">
-                    <h3>Giày dép</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/tui-vi.png');"></div>
-                  <div class="shop-body">
-                    <h3>Túi ví</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-md-3 col-xs-6"><a href="#">
-                <div class="shop">
-                  <div class="shop-img" style="background-image: url('../images/mypham.png');"></div>
-                  <div class="shop-body">
-                    <h3>Mỹ phẩm</h3><a class="cta-btn" href="#">Bộ sưu tập&nbsp;<i
-                        class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-              </a></div>
+                </a>
+              </div>
+            @endforeach
           </div>
         </div>
       </div>
+      {{-- End category --}}
+
+      {{-- Section new products --}}
       <div class="section">
         <div class="container">
           <div class="row">
