@@ -21,6 +21,10 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
+Route::get('/seller', function () {
+    return view('seller');
+});
+
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
