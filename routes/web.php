@@ -21,6 +21,14 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
+Route::get('cart', function () {
+    return view('cart');
+});
+
+Route::get('checkout', function () {
+    return view('checkout');
+});
+
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
