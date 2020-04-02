@@ -50,7 +50,7 @@
                     <div class="category-img" style="background-image: url('{{ asset("images/categories/{$category->image}") }}');"></div>
                     <div class="category-body">
                       <h3>{{ $category->name }}</h3>
-                      <a class="cta-btn" href="#">>Bộ sưu tập&nbsp;
+                      <a class="cta-btn" href="#">Mua ngay&nbsp;
                         <i class="fa fa-arrow-circle-right"></i>
                       </a>
                     </div>

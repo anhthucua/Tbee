@@ -14,6 +14,7 @@
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
+  @yield('top-header', View::make('includes.top-header'))
   @yield('header', View::make('includes.header'))
   @yield('content', 'Hello')
   @yield('footer', View::make('includes.footer'))

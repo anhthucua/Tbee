@@ -21,8 +21,12 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
-Route::get('/seller', function () {
-    return view('seller');
+Route::get('cart', function () {
+    return view('cart');
+});
+
+Route::get('checkout', function () {
+    return view('checkout');
 });
 
 // Authentication routes

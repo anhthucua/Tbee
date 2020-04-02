@@ -176,6 +176,10 @@ $(document).ready(function () {
     location.reload();
   }); // Products Slick
 
+  $(".noti-icon").click(function () {
+    $(this).next(".noti").slideToggle( "medium");
+  });
+
   $('.products-slick').each(function () {
     var $this = $(this),
         $nav = $this.attr('data-nav');
