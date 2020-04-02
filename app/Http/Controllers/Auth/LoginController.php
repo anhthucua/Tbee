@@ -28,6 +28,13 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Username to be use
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -35,6 +42,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->username = $this->findUsername();
+    }
+
+    /**
+     * Check if using phone. email or username
+     *
+     * @return void
+     */
+    public function findUsername()
+    {
+        $login = request()->input('username');
+
+        if (is_numeric($login)) {
+            $type = 'phone';
+        } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $type = 'email';
+        } else {
+            $type = 'username';
+        }
+
+        request()->merge([$type => $login]);
+
+        return $type;
     }
 
     /**
@@ -44,6 +74,6 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'username';
+        return $this->username;
     }
 }

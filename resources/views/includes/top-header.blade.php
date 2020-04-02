@@ -19,37 +19,52 @@
               </a>
             </li>
           @else
-            <li>
-              <a class="primary-btn primary-btn--normal" href="#" data-toggle="modal" data-target="#logout-modal">
-                Đăng xuất
+            {{-- Thong bao --}}
+            <li class="noti-block dropdown">
+              <a class="noti-icon dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell"></i>
+                <div class="qty">3</div>
               </a>
-            </li>
-            <li class="noti-block">
-              <a class="noti-icon">
-                <i class="fa fa-bell"></i>Thông báo
-                <div class="qty">New</div>
-              </a>
-              <ul class="noti">
-                <li class="noti-item">
-                  <a href="#" class="noti-content">
-                    <span>this is notice content</span>
-                  </a>
+              <ul class="noti dropdown-menu">
+                <li class="mark-read">
+                  <a href="#">Danh dau tat ca la da doc</a>
                 </li>
-                <li class="noti-item">
-                  <a href="#" class="noti-content">
-                    <span>this is notice content</span>
-                  </a>
+                <li class="noti-list">
+                  <ul>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="noti-item">
-                  <a href="#" class="noti-content">
-                    <span>this is notice content</span>
-                  </a>
+                <li class="see-more">
+                  <a href="#">Xem them thong bao</a>
                 </li>
               </ul>
             </li>
+
+            {{-- Trang nguoi dung --}}
             <li>
               <a href="myaccount.html">
                 <i class="fa fa-user-o"></i>{{ Auth::user()->username }}
+              </a>
+            </li>
+
+            {{-- Dang xuat --}}
+            <li>
+              <a class="primary-btn primary-btn--normal" href="#" data-toggle="modal" data-target="#logout-modal">
+                Đăng xuất
               </a>
             </li>
           @endguest
@@ -72,8 +87,8 @@
         </div>
         <div class="modal-body">
           <form class="form-signin" method="POST" action="{{ route('login') }}">
-            <input class="form-control lg-username" type="text" name="username" placeholder="Tên đăng nhập" required autofocus autocomplete="username">
-            <input class="form-control lg-password" type="password" name="password" placeholder="Mật khẩu" required autocomplete="current-password">
+            <input class="form-control lg-username" type="text" name="username" placeholder="Tên đăng nhập\Điện thoại\Email" required autofocus autocomplete="off">
+            <input class="form-control lg-password" type="password" name="password" placeholder="Mật khẩu" required autocomplete="off">
             <label class="checkbox">
               <input id="rememberMe" type="checkbox" value="remember-me" name="rememberMe"> Lưu tài khoản
             </label>
@@ -100,15 +115,15 @@
         <div class="modal-body">
           <form class="form-signup" method="POST" action="{{ route('register') }}">
             @csrf
-            <input class="form-control su-username" type="text" name="username" placeholder="Tên đăng nhập *" required autofocus autocomplete="username">
+            <input class="form-control su-username" type="text" name="username" placeholder="Tên đăng nhập *" required autofocus autocomplete="off">
             <div class="error error-username"></div>
             <input class="form-control su-phone" type="tel" name="phone" placeholder="Số điện thoại *" required>
             <div class="error error-phone"></div>
-            <input class="form-control su-email" type="text" name="email" placeholder="Email *" required>
+            <input class="form-control su-email" type="text" name="email" placeholder="Email *" required autocomplete="off">
             <div class="error error-email"></div>
-            <input class="form-control su-password" type="password" name="password" placeholder="Mật khẩu *" required autocomplete="new-password">
+            <input class="form-control su-password" type="password" name="password" placeholder="Mật khẩu *" required autocomplete="off">
             <div class="error error-password"></div>
-            <input class="form-control su-password_confirmation" type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu *" required autocomplete="">
+            <input class="form-control su-password_confirmation" type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu *" required  autocomplete="off">
             <div class="d-flex">
               <button class="btn btn-signup primary-btn btn-block" type="submit">Đăng ký</button>
             </div>

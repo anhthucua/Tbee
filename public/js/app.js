@@ -94,18 +94,22 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  "use strict"; // Not closing cart dropdown on click inside
-
+  // Not closing cart dropdown on click inside
   $('.cart-dropdown.dropdown-menu').on("click.bs.dropdown", function () {
     return $('.dropdown.cart').one('hide.bs.dropdown', function () {
+      return false;
+    });
+  }); // Not closing noti dropdown on click inside
+
+  $('.noti.dropdown-menu').on("click.bs.dropdown", function () {
+    return $('.dropdown.noti-block').one('hide.bs.dropdown', function () {
       return false;
     });
   }); // Login form submit
 
   $('#login-modal .form-signin .btn-lg').click(function (e) {
     e.preventDefault();
-    $('.error-username').text('');
-    $('.error-password').text('');
+    $('.error-login').text('');
     axios({
       method: 'post',
       url: '/login',
@@ -175,10 +179,6 @@ $(document).ready(function () {
   $('#signup-success-modal').on('hidden.bs.modal', function () {
     location.reload();
   }); // Products Slick
-
-  $(".noti-icon").click(function () {
-    $(this).next(".noti").slideToggle( "medium");
-  });
 
   $('.products-slick').each(function () {
     var $this = $(this),
@@ -342,8 +342,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
+__webpack_require__(/*! /home/hieu/projects/tbee/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hieu/projects/tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
 
 
 /***/ })
