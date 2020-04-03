@@ -6,9 +6,7 @@
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
-  <!-- container -->
   <div class="container">
-    <!-- row -->
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
@@ -19,9 +17,7 @@
         </ul>
       </div>
     </div>
-    <!-- /row -->
   </div>
-  <!-- /container -->
 </div>
 <!-- /BREADCRUMB -->
 
@@ -39,7 +35,6 @@
             <div class="input-checkbox">
               <input type="checkbox" id="category-1">
               <label for="category-1">
-                <span></span>
                 Category 1
                 <small>(120)</small>
               </label>
@@ -48,7 +43,6 @@
             <div class="input-checkbox">
               <input type="checkbox" id="category-2">
               <label for="category-2">
-                <span></span>
                 Category 2
                 <small>(740)</small>
               </label>
