@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  "use strict"
 
   // Not closing cart dropdown on click inside
   $('.cart-dropdown.dropdown-menu').on("click.bs.dropdown", function () {
@@ -8,11 +7,17 @@ $(document).ready(function () {
     });
   });
 
+  // Not closing noti dropdown on click inside
+  $('.noti.dropdown-menu').on("click.bs.dropdown", function () {
+    return $('.dropdown.noti-block').one('hide.bs.dropdown', function () {
+      return false;
+    });
+  });
+
   // Login form submit
   $('#login-modal .form-signin .btn-lg').click(function (e) {
     e.preventDefault();
-    $('.error-username').text('');
-    $('.error-password').text('');
+    $('.error-login').text('');
     axios({
       method: 'post',
       url: '/login',
