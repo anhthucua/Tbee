@@ -37,25 +37,21 @@
   .qty {
     @extend %qty;
     font-size: 8px;
-    top: -10px;
-    left: 70px;
-    opacity: 0.8;
+    top: -16px;
+    left: 9px;
   }
 }
 
 .noti {
   position: absolute;
   padding: 5px;
-  background-color: $color-primary-3;
+  background-color: white;
   width: 230px;
   border-radius: 5px;
-  top: 40px;
+  top: 15px;
   left: -100%;
   z-index: 100;
   display: none;
-  max-height: 200px;
-  overflow: hidden;
-  overflow-y: auto;
   &::before {
     content: "";
     position: absolute;
@@ -66,18 +62,37 @@
     left: 50%;
     top: -20px;
     transform: translate(-50%);
+    display: none;
+  }
+  li a {
+    color: $color-primary-1;
+  }
+  &-list {
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
   }
   &-item {
     width: 100%;
     border-bottom: 1px solid $color-primary-1;
     margin: 5px 0;
+    display: inline-flex !important;
+    padding: 5px;
     a.noti-content {
       color: $color-primary-2;
+      width: 100%;
       &:hover {
         color: $color-primary-2;
       }
+      .date, .hour {
+        opacity: 0.6;
+      }
+    }
+    &.no-read {
+      background-color: #f7d4d4;
     }
   }
+
 }
 /*----------------------------*\
 	  Logo

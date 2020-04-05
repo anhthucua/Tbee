@@ -27,10 +27,52 @@
               </a>
               <ul class="noti dropdown-menu">
                 <li class="mark-read">
-                  <a href="#">Danh dau tat ca la da doc</a>
+                  <a href="#">Đánh dấu tất cả là đã đọc</a>
                 </li>
                 <li class="noti-list">
                   <ul>
+                    <li class="noti-item no-read">
+                      <a href="#" class="noti-content">
+                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
+                        <br>
+                        <span class="hour">5:00</span>&nbsp;&nbsp;<span class="date">1/4/2020</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
+                    <li class="noti-item">
+                      <a href="#" class="noti-content">
+                        <span>this is notice content</span>
+                      </a>
+                    </li>
                     <li class="noti-item">
                       <a href="#" class="noti-content">
                         <span>this is notice content</span>
@@ -49,7 +91,7 @@
                   </ul>
                 </li>
                 <li class="see-more">
-                  <a href="#">Xem them thong bao</a>
+                  <a href="#">Xem thêm thông báo</a>
                 </li>
               </ul>
             </li>
@@ -89,8 +131,8 @@
           <form class="form-signin" method="POST" action="{{ route('login') }}">
             <input class="form-control lg-username" type="text" name="username" placeholder="Tên đăng nhập\Điện thoại\Email" required autofocus autocomplete="off">
             <input class="form-control lg-password" type="password" name="password" placeholder="Mật khẩu" required autocomplete="off">
-            <label class="checkbox">
-              <input id="rememberMe" type="checkbox" value="remember-me" name="rememberMe"> Lưu tài khoản
+            <input id="rememberMe" type="checkbox" value="remember-me" name="rememberMe">
+            <label class="checkbox" for="rememberMe">Lưu tài khoản
             </label>
             <div class="error error-login"></div>
             <div class="d-flex">
