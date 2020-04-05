@@ -2410,6 +2410,7 @@ input[type=checkbox]:checked + label:before {
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
+  background-color: white;
 }
 
 .footer-cart:before {
