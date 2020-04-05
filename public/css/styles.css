@@ -393,6 +393,12 @@ input {
   outline: none;
 }
 
+.text-success {
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
 .primary-btn {
   display: inline-block;
   padding: 12px 30px;
@@ -447,6 +453,11 @@ input {
 .secondary-btn:focus {
   color: #fff;
   background-color: #D10024;
+}
+
+.btn--small {
+  padding: 5px 10px;
+  font-weight: normal;
 }
 
 /*-- Text input --*/
@@ -2393,6 +2404,66 @@ input[type=checkbox]:checked + label:before {
 .cart-item__cell-actions .cart-item__action {
   font-weight: normal;
   padding: 5px 10px;
+}
+
+.footer-cart {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+}
+
+.footer-cart:before {
+  content: "";
+  position: absolute;
+  top: -1.25rem;
+  left: 0;
+  height: 1.25rem;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.06)));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.06));
+}
+
+.voucher {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  margin-top: 20px;
+}
+
+.voucher .voucher-title {
+  padding-right: 5px;
+}
+
+.voucher input {
+  margin: 0 5px;
+}
+
+.voucher .btn {
+  margin-left: 5px;
+}
+
+.total {
+  display: -webkit-box;
+  display: flex;
+  border-top: 1px solid #E4E7ED;
+  padding-top: 10px;
+  margin-top: 10px;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.total .total-title {
+  padding-right: 5px;
+}
+
+.total .total-money {
+  font-size: 24px;
+  font-weight: bold;
+  color: #D10024;
 }
 
 @media only screen and (max-width: 991px) {

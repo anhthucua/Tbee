@@ -144,6 +144,35 @@
   </div>
 </div>
 <!-- /SECTION -->
-
+<div class="footer-cart">
+  <div class="container">
+    <!-- VOUCHER -->
+    <div class="row">
+      <div class="col-md-7"></div>
+      <div class="col-md-5">
+        <div class="voucher">
+          <label class="voucher-title">Mã giảm giá</label>
+          <input type="text">
+          <button type="submit" class="primary-btn btn btn--small">Áp dụng</button>
+        </div>
+        <div class="error">Mã giảm giá không hợp lệ!</div>
+        <div class="text-success">Mã giảm giá hợp lệ</div>
+      </div>
+    </div>
+    <!-- /VOUCHER -->
+    <!-- TOTAL -->
+    <div class="row">
+      <div class="col-md-7"></div>
+      <div class="col-md-5">
+        <div class="total">
+          <div class="total-title">Tổng tiền hàng:</div>
+          <div class="total-money">2000000</div>
+          <a href="#" class="primary-btn primary-btn--square">Mua hàng</a>
+        </div>
+      </div>
+    </div>
+    <!-- /TOTAL -->
+  </div>
+</div>
 
 @endsection

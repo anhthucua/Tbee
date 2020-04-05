@@ -76,3 +76,51 @@
     }
   }
 }
+
+// voucher and checkout
+.footer-cart {
+  position: sticky;
+  bottom: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -1.25rem;
+    left: 0;
+    height: 1.25rem;
+    width: 100%;
+    background: linear-gradient(transparent,rgba(0,0,0,.06));
+  }
+}
+
+.voucher {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  .voucher-title {
+    padding-right: 5px;
+  }
+  input {
+    margin: 0 5px;
+  }
+  .btn {
+    margin-left: 5px;
+  }
+}
+
+.total {
+  display: flex;
+  border-top: 1px solid $color-primary-3;
+  padding-top: 10px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .total-title {
+    padding-right: 5px;
+  }
+  .total-money {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-primary-1;
+  }
+}
