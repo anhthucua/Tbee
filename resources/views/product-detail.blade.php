@@ -22,6 +22,31 @@
 </div>
 <!-- /BREADCRUMB -->
 
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li>
+            {{-- <a href="#">Trang chủ</a> --}}
+            <div class="header-logo">
+              <a class="logo" href="home.html">
+                <img src="images/logo.svg" alt="logo">
+              </a>
+            </div>
+          </li>
+          <li><a href="#">All Categories</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Headphones</a></li>
+          <li class="active">Product name goes here</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /BREADCRUMB -->
+
 <!-- SECTION -->
 <div class="section">
   <div class="container">

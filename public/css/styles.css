@@ -773,6 +773,10 @@ input[type=checkbox]:checked + label:before {
   margin-bottom: 30px;
 }
 
+#breadcrumb .header-logo {
+  width: 100%;
+}
+
 #breadcrumb .breadcrumb-header {
   display: inline-block;
   margin-top: 0px;
@@ -782,7 +786,10 @@ input[type=checkbox]:checked + label:before {
 }
 
 #breadcrumb .breadcrumb-tree {
-  display: inline-block;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
 }
 
 #breadcrumb .breadcrumb-tree li {
@@ -797,14 +804,15 @@ input[type=checkbox]:checked + label:before {
 }
 
 #breadcrumb .breadcrumb-tree li + li:before {
-  content: "/";
+  content: "|";
   display: inline-block;
-  color: #8D99AE;
   margin-right: 10px;
+  font-size: 24px;
 }
 
 #breadcrumb .breadcrumb-tree li a {
-  color: #8D99AE;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
 #breadcrumb .breadcrumb-tree li a:hover {

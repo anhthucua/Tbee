@@ -11,7 +11,14 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
-          <li><a href="#">Trang chủ</a></li>
+          <li>
+            {{-- <a href="#">Trang chủ</a> --}}
+            <div class="header-logo">
+              <a class="logo" href="home.html">
+                <img src="images/logo.svg" alt="logo">
+              </a>
+            </div>
+          </li>
           <li><a href="#">Đặt hàng</a></li>
         </ul>
       </div>
