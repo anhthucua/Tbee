@@ -1,70 +1,112 @@
 .billing-details {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
+
+  h3.title, .fa {
+    color: $color-primary-1;
+  }
+
+  .fa {
+    font-size: 20px;
+    padding-right: 5px;
+  }
 }
 
 .shiping-details {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .order-details {
-    position: relative;
-    padding: 0px 30px 30px;
-    border-right: 1px solid #E4E7ED;
-    border-left: 1px solid #E4E7ED;
-    border-bottom: 1px solid #E4E7ED;
+  position: relative;
+  padding: 0px 30px 30px;
+  border-right: 1px solid #E4E7ED;
+  border-left: 1px solid #E4E7ED;
+  border-bottom: 1px solid #E4E7ED;
+  .title {
+    color: $color-primary-1;
+  }
 }
 
 .order-details:before {
-    content: "";
-    position: absolute;
-    left: -1px;
-    right: -1px;
-    top: -15px;
-    height: 30px;
-    border-top: 1px solid #E4E7ED;
-    border-left: 1px solid #E4E7ED;
-    border-right: 1px solid #E4E7ED;
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -15px;
+  height: 30px;
+  border-top: 1px solid #E4E7ED;
+  border-left: 1px solid #E4E7ED;
+  border-right: 1px solid #E4E7ED;
 }
 
 .order-summary {
-    margin: 15px 0px;
+  margin: 15px 0px;
 }
 
 .order-summary .order-col {
-    display: table;
-    width: 100%;
+  display: table;
+  width: 100%;
 }
 
 .order-summary .order-col:after {
-    content: "";
-    display: block;
-    clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .order-summary .order-col>div {
-    display: table-cell;
-    padding: 10px 0px;
+  display: table-cell;
+  padding: 10px 0px;
 }
 
 .order-summary .order-col>div:first-child {
-    width: calc(100% - 150px);
+  width: calc(100% - 150px);
 }
 
 .order-summary .order-col>div:last-child {
-    width: 150px;
-    text-align: right;
+  width: 150px;
+  text-align: right;
 }
 
 .order-summary .order-col .order-total {
-    font-size: 24px;
-    color: #D10024;
+  font-size: 24px;
+  color: #D10024;
 }
 
 .order-details .payment-method {
-    margin: 30px 0px;
+  margin: 30px 0px;
 }
 
 .order-details .order-submit {
-    display: block;
-    margin-top: 30px;
+  display: block;
+  margin-top: 30px;
+}
+
+.detail-address {
+  border-radius: 25px;
+  margin: 15px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.3), 0 10px 12px rgba(0, 0, 0, 0.02);
+  dl {
+    margin-bottom: 3rem;
+
+    dt {
+      line-height: 20px;
+      color: $color-primary-1;
+    }
+
+    dd {
+      margin-bottom: 0;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.voucher-wrapper {
+  width: 100% !important;
+  .error, .text-success {
+    text-align: left;
+    margin-left: 90px;
+  }
 }
