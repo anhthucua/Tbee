@@ -29,6 +29,10 @@ Route::get('checkout', function () {
     return view('checkout');
 });
 
+Route::get('seller', function () {
+    return view('seller');
+});
+
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
