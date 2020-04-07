@@ -17,7 +17,7 @@ class CreateCouponsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code');
             $table->string('sale_in_percent')->nullable();
-            $table->string('sale_in_money');
+            $table->string('sale_in_money')->nullable();
             $table->date('start_at');
             $table->date('end_at');
             $table->integer('numbers')->nullable();

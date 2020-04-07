@@ -33,6 +33,12 @@ Route::get('seller', function () {
     return view('seller');
 });
 
+Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth'], function () {
+    Route::get('/', 'SupplierController@create')->name('new');
+    Route::post('/create', 'SupplierController@store')->name('create');
+    Route::get('/home', 'SupplierController@home')->name('home');
+});
+
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');

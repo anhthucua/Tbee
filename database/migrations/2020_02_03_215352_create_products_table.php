@@ -25,6 +25,8 @@ class CreateProductsTable extends Migration
             $table->mediumInteger('stock');
             $table->mediumInteger('purchased_number')->default(0);
             $table->timestamps();
+            $table->softDeletes();
+            $table->boolean('is_banned')->default(false);
             $table->foreign('image_id')->references('id')->on('images');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('category_level2_id')->references('id')->on('category_level2');

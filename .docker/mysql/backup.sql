@@ -141,7 +141,7 @@ CREATE TABLE `coupons` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sale_in_percent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sale_in_money` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sale_in_money` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `start_at` date NOT NULL,
   `end_at` date NOT NULL,
   `numbers` int(11) DEFAULT NULL,
@@ -161,6 +161,36 @@ LOCK TABLES `coupons` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `image_product`
+--
+
+DROP TABLE IF EXISTS `image_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_product` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `image_id` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `image_product_image_id_foreign` (`image_id`),
+  KEY `image_product_product_id_foreign` (`product_id`),
+  CONSTRAINT `image_product_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
+  CONSTRAINT `image_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_product`
+--
+
+LOCK TABLES `image_product` WRITE;
+/*!40000 ALTER TABLE `image_product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `images`
 --
 
@@ -170,8 +200,6 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imageable_id` bigint(20) NOT NULL,
-  `imageable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -226,7 +254,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +263,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (33,'2020_02_02_223707_create_images_table',1),(34,'2020_02_03_000000_create_users_table',1),(35,'2020_02_03_100000_create_password_resets_table',1),(36,'2020_02_03_144836_create_messages_table',1),(37,'2020_02_03_144903_create_notifications_table',1),(38,'2020_02_03_144921_create_roles_table',1),(39,'2020_02_03_155729_create_role_user_table',1),(40,'2020_02_03_215105_create_address_info_table',1),(41,'2020_02_03_215120_create_suppliers_table',1),(42,'2020_02_03_215220_create_category_level1_table',1),(43,'2020_02_03_215244_create_category_level2_table',1),(44,'2020_02_03_215352_create_products_table',1),(45,'2020_02_03_215725_create_coupons_table',1),(46,'2020_02_03_215938_create_orders_table',1),(47,'2020_02_03_220020_create_order_detail_table',1),(48,'2020_02_03_223543_create_cart_table',1);
+INSERT INTO `migrations` VALUES (18,'2020_02_02_223707_create_images_table',1),(19,'2020_02_03_000000_create_users_table',1),(20,'2020_02_03_100000_create_password_resets_table',1),(21,'2020_02_03_144836_create_messages_table',1),(22,'2020_02_03_144903_create_notifications_table',1),(23,'2020_02_03_144921_create_roles_table',1),(24,'2020_02_03_155729_create_role_user_table',1),(25,'2020_02_03_215105_create_address_info_table',1),(26,'2020_02_03_215120_create_suppliers_table',1),(27,'2020_02_03_215220_create_category_level1_table',1),(28,'2020_02_03_215244_create_category_level2_table',1),(29,'2020_02_03_215352_create_products_table',1),(30,'2020_02_03_215725_create_coupons_table',1),(31,'2020_02_03_215938_create_orders_table',1),(32,'2020_02_03_220020_create_order_detail_table',1),(33,'2020_02_03_223543_create_cart_table',1),(34,'2020_04_07_100513_create_image_product_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,6 +405,8 @@ CREATE TABLE `products` (
   `purchased_number` mediumint(9) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_banned` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `products_image_id_foreign` (`image_id`),
   KEY `products_supplier_id_foreign` (`supplier_id`),
@@ -423,7 +453,7 @@ CREATE TABLE `role_user` (
 
 LOCK TABLES `role_user` WRITE;
 /*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
-INSERT INTO `role_user` VALUES (1,1,1,NULL,NULL),(2,1,2,NULL,NULL),(3,1,3,NULL,NULL);
+INSERT INTO `role_user` VALUES (1,1,1,NULL,NULL),(3,1,3,NULL,NULL);
 /*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,11 +496,13 @@ CREATE TABLE `suppliers` (
   `shop_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_banned` tinyint(1) DEFAULT NULL,
+  `banner` bigint(20) unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `suppliers_user_id_foreign` (`user_id`),
+  KEY `suppliers_banner_foreign` (`banner`),
+  CONSTRAINT `suppliers_banner_foreign` FOREIGN KEY (`banner`) REFERENCES `images` (`id`),
   CONSTRAINT `suppliers_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -498,12 +530,15 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_banned` tinyint(1) NOT NULL DEFAULT '0',
+  `avatar` bigint(20) unsigned DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
-  UNIQUE KEY `users_phone_unique` (`phone`)
+  UNIQUE KEY `users_phone_unique` (`phone`),
+  KEY `users_avatar_foreign` (`avatar`),
+  CONSTRAINT `users_avatar_foreign` FOREIGN KEY (`avatar`) REFERENCES `images` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -513,7 +548,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'tbee','tbee@gmail.com','$2y$10$rz5ZUh2r.XFRiUX.MvAbxuz6uut6HoQWIEfJZpvOppn7iBnyd7Gqq','0912345678',0,NULL,'2020-03-28 22:54:22','2020-03-28 22:54:22');
+INSERT INTO `users` VALUES (1,'tbee','tbee@gmail.com','$2y$10$rz5ZUh2r.XFRiUX.MvAbxuz6uut6HoQWIEfJZpvOppn7iBnyd7Gqq','0912345678',0,NULL,NULL,'2020-03-28 22:54:22','2020-03-28 22:54:22');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -526,4 +561,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-29  4:54:32
+-- Dump completed on 2020-04-07  3:18:18

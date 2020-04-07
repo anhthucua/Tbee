@@ -19,9 +19,10 @@ class CreateSuppliersTable extends Migration
             $table->string('shop_name', 50);
             $table->string('address');
             $table->text('notes');
-            $table->boolean('is_banned')->nullable();
+            $table->bigInteger('banner')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('banner')->references('id')->on('images');
         });
     }
 
@@ -33,7 +34,8 @@ class CreateSuppliersTable extends Migration
     public function down()
     {
         Schema::table('suppliers', function (Blueprint $table) {
-            $table->dropForeign('suppliers_user_id_foreign');
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['banner']);
         });
         Schema::dropIfExists('suppliers');
     }

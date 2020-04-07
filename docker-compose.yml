@@ -39,10 +39,12 @@ services:
   # DB UI management service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.9
-    container_name: phpmyadmin
+    container_name: pma_tbee
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+      PMA_USER: tbee
+      PMA_PASSWORD: tbee
     restart: unless-stopped
     ports:
       - 8080:80
@@ -57,9 +59,9 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: tbee
+      MYSQL_USER: tbee
+      MYSQL_PASSWORD: tbee
       MYSQL_ROOT_PASSWORD: rootpass
     volumes:
       - .docker/mysql:/docker-entrypoint-initdb.d:cached
