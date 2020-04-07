@@ -264,7 +264,32 @@ $(document).ready(function () {
 
   if (zoomMainProduct) {
     $('#product-main-img .product-preview').zoom();
-  } /////////////////////////////////////////
+  } // Danh cho nguoi ban
+  // upload anh bia
+
+
+  $('.page-supplier.create .btn-image').click(function (e) {
+    e.preventDefault();
+    $('.page-supplier.create #shopBanner').trigger('click');
+  });
+  $('.page-supplier.create #shopBanner').on('change', function () {
+    var input = document.querySelector('.page-supplier.create #shopBanner'),
+        url = $(input).val(),
+        ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase(),
+        accepted_ext = ['gif', 'png', 'jpg', 'jpeg', 'jfif', 'svg'];
+
+    if (input.files && input.files[0] && $.inArray(ext, accepted_ext) !== -1) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.page-supplier.create .image-name').text(input.files[0].name);
+        $('.page-supplier.create .shop-banner').attr('src', e.target.result);
+        $('.page-supplier.create .shop-banner').removeClass('d-none');
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }); /////////////////////////////////////////
   // Input number
   // $('.input-number').each(function () {
   //   var $this = $(this),
@@ -319,7 +344,6 @@ $(document).ready(function () {
   //     handle ? priceInputMax.value = value : priceInputMin.value = value
   //   });
   // }
-
 });
 
 /***/ }),
@@ -342,8 +366,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
+__webpack_require__(/*! /home/hieu/projects/tbee/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hieu/projects/tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
 
 
 /***/ })

@@ -3,8 +3,12 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <ul class="header-links left">
-          <li><a href="#">Kênh người bán</a></li>
-          <li><a href="#">Quản lý</a></li>
+          @auth
+            <li><a href="{{ route('supplier.new') }}">Kênh người bán</a></li>
+            @if (Auth::user()->is('admin'))
+              <li><a href="#">Quản lý</a></li>
+            @endif
+          @endauth
         </ul>
         <ul class="header-links right">
           @guest

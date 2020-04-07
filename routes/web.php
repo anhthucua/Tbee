@@ -29,10 +29,6 @@ Route::get('checkout', function () {
     return view('checkout');
 });
 
-Route::get('seller', function () {
-    return view('seller');
-});
-
 Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth'], function () {
     Route::get('/', 'SupplierController@create')->name('new');
     Route::post('/create', 'SupplierController@store')->name('create');

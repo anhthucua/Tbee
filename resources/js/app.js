@@ -185,6 +185,30 @@ $(document).ready(function () {
     $('#product-main-img .product-preview').zoom();
   }
 
+  // Danh cho nguoi ban
+  // upload anh bia
+  $('.page-supplier.create .btn-image').click((e) => {
+    e.preventDefault();
+    $('.page-supplier.create #shopBanner').trigger('click');
+  });
+
+  $('.page-supplier.create #shopBanner').on('change', () => {
+    let input = document.querySelector('.page-supplier.create #shopBanner'),
+      url = $(input).val(),
+      ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase(),
+      accepted_ext = ['gif', 'png', 'jpg', 'jpeg', 'jfif', 'svg'];
+
+    if (input.files && input.files[0] && ($.inArray(ext, accepted_ext) !== -1)) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        $('.page-supplier.create .image-name').text(input.files[0].name)
+        $('.page-supplier.create .shop-banner').attr('src', e.target.result);
+        $('.page-supplier.create .shop-banner').removeClass('d-none');
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  })
+
   /////////////////////////////////////////
 
   // Input number
