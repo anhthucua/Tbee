@@ -44,25 +44,12 @@ class SupplierController extends Controller
     {
         // Check if supplier is created or not
         if ($this->checkInitShop()) {
-            return redirect(route('supplier.home'));
+            return redirect(route('supplier.new'));
         }
 
         // if not, show form
         return view('supplier.create');
-
     }
-
-    /**
-     * Show home page of shop
-     *
-     * @return void
-     */
-    public function home()
-    {
-        return view('supplier.home');
-    }
-
-
 
     /**
      * Store a newly created supplier
@@ -95,7 +82,7 @@ class SupplierController extends Controller
 
         Auth::user()->roles()->attach('2');
 
-        return redirect(route('supplier.home'));
+        return redirect(route('supplier.manage-products'));
     }
 
     /**

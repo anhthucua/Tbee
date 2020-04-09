@@ -1,9 +1,6 @@
 <div class="sidebar col-md-3">
   <ul class="sidebar-menu">
     <li>
-      <a href="{{ route('supplier.home') }}">Trang thống kê</a>
-    </li>
-    <li>
       <a href="{{ route('supplier.manage-products') }}">Quản lý sản phẩm</a>
     </li>
     <li>
