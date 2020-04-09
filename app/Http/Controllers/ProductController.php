@@ -24,7 +24,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.add-product');
+    }
+
+    public function supplierProductList()
+    {
+        return view('supplier.products');
     }
 
     /**

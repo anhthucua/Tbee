@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use App\Image as ImageModel;
 
 class SupplierController extends Controller
 {
@@ -58,25 +59,43 @@ class SupplierController extends Controller
      */
     public function home()
     {
-        return 'home';
+        return view('supplier.home');
     }
 
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created supplier
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Upload image
         $origin_img = $request->file('shopBanner');
         $img = Image::make($origin_img);
         $img->fit(1200, 300);
         $time = Carbon::now()->format('Ymd_His');
-        $img->save(public_path("images/suppliers/{$time}_{$origin_img->getClientOriginalName()}"));
-        dd(1);
+        $url = public_path("images/suppliers/{$time}_{$origin_img->getClientOriginalName()}");
+        $img->save($url);
+
+        // Insert image into database
+        $image = new ImageModel(['url' => $url]);
+        $image->save();
+
+        // Insert supplier into database
+        $supplier = new Supplier();
+        $supplier->banner = $image->id;
+        $supplier->user_id = Auth::user()->id;
+        $supplier->shop_name = $request->shop_name;
+        $supplier->address = $request->address;
+        $supplier->notes = $request->note;
+        $supplier->save();
+
+        Auth::user()->roles()->attach('2');
+
+        return redirect(route('supplier.home'));
     }
 
     /**
