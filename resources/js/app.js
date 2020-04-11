@@ -18,13 +18,17 @@ $(document).ready(function () {
   $('#login-modal .form-signin .btn-lg').click(function (e) {
     e.preventDefault();
     $('.error-login').text('');
+    let data = {
+      username: $('.lg-username').val(),
+      password: $('.lg-password').val()
+    };
+    if ($('#rememberMe').is(':checked')) {
+      data.remember = "on";
+    };
     axios({
       method: 'post',
       url: '/login',
-      data: {
-        username: $('.lg-username').val(),
-        password: $('.lg-password').val(),
-      }
+      data: data
     }).then(function () {
       location.reload();
     })
