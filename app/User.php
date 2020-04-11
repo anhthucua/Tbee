@@ -56,4 +56,25 @@ class User extends Authenticatable
 
         return false;
     }
+
+    /**
+     * Create an user with role
+     *
+     * @param array $attributes
+     */
+    public static function create(array $attributes = [])
+    {
+        $user = new static($attributes);
+
+        // Register as normal user
+        $attributes['role'] = 3;
+
+        // Save records in user table
+        $user->save();
+
+        // Add role to user
+        $user->roles()->attach($attributes['role']);
+
+        return $user;
+    }
 }
