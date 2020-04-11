@@ -720,6 +720,49 @@ input[type=checkbox]:checked + label:before {
   text-overflow: ellipsis;
 }
 
+.upload-image-wrapper {
+  width: 100%;
+  overflow: auto;
+  border: 3px dashed #D10024;
+  position: relative;
+}
+
+.upload-image-wrapper::before {
+  margin-top: 25%;
+  content: "";
+  display: block;
+}
+
+.upload-image-wrapper::after {
+  content: "H\E3y ch\1ECDn \1EA3nh c\F3   chi\1EC1u r\1ED9ng l\1EDBn h\1A1n nhi\1EC1u chi\1EC1u d\E0i \111\1EC3   ph\F9   h\1EE3p v\1EDBi banner, \1EA3nh s\1EBD   t\1EF1   ch\1EC9nh v\E0o gi\1EEF  a!";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.upload-image-wrapper .upload-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.upload-image-wrapper .shop-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
 .section {
   padding-top: 30px;
   padding-bottom: 30px;

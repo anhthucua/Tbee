@@ -20,7 +20,12 @@
         <button class="btn primary-btn primary-btn--square btn-image" type="button">Chọn ảnh</button>
         <p class="image-name"></p>
       </div>
-      <img class="shop-banner img-responsive d-none" src="" alt="shop banner">
+      <br>
+      <div class="upload-image-wrapper">
+        <div class="upload-image">
+          <img class="shop-banner img-responsive d-none" src="" alt="image banner of shop">
+        </div>
+      </div>
       <br>
       <label for="shop_name">Tên shop</label>
       <input type="text" name="shop_name" id="shop_name" class="form-control" required>
@@ -28,7 +33,8 @@
       <input type="text" name="address" id="address" class="form-control" required>
       <label for="note">Mô tả</label>
       <textarea class="form-control" name="note" id="note" rows="5"></textarea>
-      <input type="submit" value="Lưu" class="btn btn-primary">
+      <br>
+      <input type="submit" value="Lưu" class="btn primary-btn primary-btn--square">
     </form>
   </div>
 @endsection
