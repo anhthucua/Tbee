@@ -399,6 +399,11 @@ input {
   margin-left: 5px;
 }
 
+h2.title,
+h3.title {
+  color: #D10024;
+}
+
 .primary-btn {
   display: inline-block;
   padding: 12px 30px;
@@ -696,6 +701,23 @@ input[type=checkbox]:checked + label:before {
   background-color: #D10024;
   border-color: #D10024;
   color: #fff;
+}
+
+.form-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.input-file {
+  display: -webkit-box;
+  display: flex;
+  border: 1px solid #D10024;
+}
+
+.input-file .image-name {
+  padding: 10px 10px 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .section {
