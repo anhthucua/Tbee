@@ -135,9 +135,8 @@
           <form class="form-signin" method="POST" action="{{ route('login') }}">
             <input class="form-control lg-username" type="text" name="username" placeholder="Tên đăng nhập\Điện thoại\Email" required autofocus autocomplete="off">
             <input class="form-control lg-password" type="password" name="password" placeholder="Mật khẩu" required autocomplete="off">
-            <input id="rememberMe" type="checkbox">
-            <label class="checkbox" for="rememberMe">Lưu tài khoản
-            </label>
+            {{-- <input id="rememberMe" type="checkbox"> --}}
+            {{-- <label class="checkbox" for="rememberMe">Lưu tài khoản</label> --}}
             <div class="error error-login"></div>
             <div class="d-flex">
               <button class="btn btn-lg primary-btn btn-block" type="submit">Đăng nhập</button>

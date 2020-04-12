@@ -44,7 +44,7 @@ class SupplierController extends Controller
     {
         // Check if supplier is created or not
         if ($this->checkInitShop()) {
-            return redirect(route('supplier.new'));
+            return redirect(route('supplier.add-product'));
         }
 
         // if not, show form

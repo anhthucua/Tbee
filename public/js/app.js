@@ -113,13 +113,10 @@ $(document).ready(function () {
     var data = {
       username: $('.lg-username').val(),
       password: $('.lg-password').val()
-    };
+    }; // if ($('#rememberMe').is(':checked')) {
+    //   data.remember = "on";
+    // };
 
-    if ($('#rememberMe').is(':checked')) {
-      data.remember = "on";
-    }
-
-    ;
     axios({
       method: 'post',
       url: '/login',
@@ -373,8 +370,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
+__webpack_require__(/*! /home/hieu/projects/tbee/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hieu/projects/tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
 
 
 /***/ })

@@ -22,9 +22,9 @@ $(document).ready(function () {
       username: $('.lg-username').val(),
       password: $('.lg-password').val()
     };
-    if ($('#rememberMe').is(':checked')) {
-      data.remember = "on";
-    };
+    // if ($('#rememberMe').is(':checked')) {
+    //   data.remember = "on";
+    // };
     axios({
       method: 'post',
       url: '/login',
