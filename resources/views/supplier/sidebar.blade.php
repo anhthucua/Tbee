@@ -28,7 +28,7 @@
 		<!-- /Sidebar Category -->
 		<div class="sidebar-category sidebar-default">
 			<div class="category-content">
-				<ul id="fruits-nav" class="nav flex-column">
+				<ul class="nav flex-column">
 					<li class="nav-item">
 						<a href="{{ route('supplier.manage-products') }}" class="nav-link">
 							<i class="fa fa-pencil" aria-hidden="true"></i>

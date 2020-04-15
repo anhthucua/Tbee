@@ -332,7 +332,8 @@
 #product-imgs .product-preview,
 #product-main-img .product-preview,
 .product-widget .product-img,
-.product .product-img {
+.product .product-img,
+.table .table-product-img {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -463,6 +464,7 @@ h3.title {
 .btn--small {
   padding: 5px 10px;
   font-weight: normal;
+  border: 2px solid #D10024;
 }
 
 /*-- Text input --*/
@@ -763,6 +765,38 @@ input[type=checkbox]:checked + label:before {
   z-index: 20;
 }
 
+.dropdown {
+  border: 1px solid #333;
+  height: 34px;
+}
+
+.search {
+  min-width: 400px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.search::-webkit-input-placeholder {
+  color: #9E9E9E;
+}
+
+.search::-moz-placeholder {
+  color: #9E9E9E;
+}
+
+.search:-ms-input-placeholder {
+  color: #9E9E9E;
+}
+
+.search::-ms-input-placeholder {
+  color: #9E9E9E;
+}
+
+.search::placeholder {
+  color: #9E9E9E;
+}
+
 .sidebar {
   position: relative;
   width: 100%;
@@ -887,6 +921,85 @@ input[type=checkbox]:checked + label:before {
   .content-wrapper {
     display: table-cell;
   }
+}
+
+.page-pads-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.page-pads-container .heading {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.page-pads-container .pad-filters {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+  margin: 20px auto;
+}
+
+.page-pads-container .pad-filters #filter-status {
+  margin-left: 5px;
+}
+
+.table .table-product-img {
+  height: 120px;
+  width: 120px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.product-list tr td:first-child {
+  width: 120px;
+}
+
+.product-list tr td:nth-child(2) {
+  text-align: left;
+  width: 35%;
+}
+
+.product-list tr td:nth-child(3) {
+  width: 18%;
+}
+
+.product-list tr td:nth-child(4) {
+  width: 17%;
+}
+
+.product-list tr td:nth-child(5) {
+  width: 10%;
+}
+
+.product-list tr td:nth-child(6) {
+  width: 10%;
+}
+
+.product-list tr td:nth-child(7) {
+  width: 5%;
+}
+
+.product-list tr td:nth-child(8) {
+  width: 5%;
+}
+
+.product-list .product-old-price {
+  color: #8D99AE;
+  text-decoration: line-through;
+}
+
+.product-list .product-price {
+  color: #D10024;
 }
 
 .section {

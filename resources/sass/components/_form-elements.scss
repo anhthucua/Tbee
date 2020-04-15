@@ -242,10 +242,6 @@ input[type=checkbox]:checked + label:before {
   margin-bottom: 30px;
 }
 
-.form {
-
-}
-
 .input-file {
   display: flex;
   border: 1px solid $color-primary-1;
@@ -293,19 +289,20 @@ input[type=checkbox]:checked + label:before {
   }
 }
 
-// .upload-image-wrapper {
-//   width: 1000px;
-//   height: 250px;
-//   border: 3px dashed $color-primary-1;
-//   position: relative;
-//   overflow: hidden;
+//dropdown
+.dropdown {
+  border: 1px solid $color-gray;
+  height: 34px;
+}
 
-// }
-// .shop-banner {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   z-index: 20;
-// }
-// end form
+//search
+.search {
+  min-width: 400px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid $color-gray;
+  &::placeholder {
+    color: $color-gray-3;
+  }
+}
+
