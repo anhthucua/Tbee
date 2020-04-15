@@ -93,6 +93,9 @@ $(document).ready(function () {
     location.reload();
   });
 
+  ////////////////////////////////////////
+  // Home page
+
   // Products Slick
   $('.products-slick').each(function () {
     var $this = $(this),
@@ -189,7 +192,11 @@ $(document).ready(function () {
     $('#product-main-img .product-preview').zoom();
   }
 
-  // Danh cho nguoi ban
+  ///////////////////////////////////////////////////////////////////////
+  /*
+  * Danh cho nguoi ban
+  */
+
   // upload anh bia
   $('.page-supplier.create .btn-image').click((e) => {
     e.preventDefault();
@@ -212,6 +219,166 @@ $(document).ready(function () {
       reader.readAsDataURL(input.files[0]);
     }
   })
+
+  /*
+  * Create product form
+  */
+
+  // Click on category_lv1 show cat_lv2
+  $('.form .cat-lv1-section .cat-lv1').click(function (e) {
+    if (!$(this).hasClass('active')) {
+      e.preventDefault();
+      $('.cat-lv1-section .cat-lv1').removeClass('active');
+      $(this).addClass('active');
+      $('.cat-lv2-section .cat-lv2.show').removeClass('show');
+      let cat1_id = $(this).data('id');
+      $(`.cat-lv2.parent-id-${cat1_id}`).addClass('show');
+      $('input#catLv2').val('');
+    }
+  });
+
+  // Click on category lv2
+  $('.form .cat-lv2-section .cat-lv2').click(function (e) {
+    if (!$(this).hasClass('active')) {
+      e.preventDefault();
+      $(this).siblings('.active').removeClass('active');
+      $(this).addClass('active');
+      let cat2_id = $(this).data('id');
+      $('input#catLv2').val(cat2_id);
+    }
+  });
+
+  // Product images adding
+  $('.form .choose-img-btn').click((e) => {
+    e.preventDefault();
+    $('.add-product-form #images').trigger('click');
+  })
+
+  // Validate max 5 images
+  $('.form #images').on('click', function (e) {
+    if ($('.form .upload-img-container .img-wrapper').length >= 5) {
+      e.preventDefault();
+      alert('Chỉ được chọn tối đa 5 ảnh');
+    }
+  });
+
+  // Array store prodcut images
+  let img_arr = [];
+
+  // Insert product image
+  $('.add-product-form #images').on('change', function () {
+    if (this.files) {
+      let images = this.files;
+      for (let i = 0; i < images.length; i++) {
+        if (img_arr.length + i >= 5) {
+          alert('Chỉ được chọn tối đa 5 ảnh');
+          break;
+        }
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          let tpl = document.querySelector('#imageTemplate'),
+            clone = tpl.content.cloneNode(true),
+            wrapper = clone.querySelector('.img-wrapper'),
+            img = clone.querySelector('img'),
+            container = document.querySelector('.form .upload-img-container');
+          if (img_arr.length + i === 0) {
+            wrapper.classList.add('active');
+          }
+          // Insert to UI
+          wrapper.dataset.el = img_arr.length + i;
+          img.src = e.target.result;
+          $(container).removeClass('d-none');
+          container.appendChild(clone);
+
+          // Insert to array
+          if ((i == images.length - 1) || (img_arr.length + i == 4)) {
+            appendToArray(images);
+          }
+        }
+        reader.readAsDataURL(this.files[i]);
+      }
+      function appendToArray(file_list) {
+        let new_img_arr = Array.from(file_list);
+        img_arr = img_arr.concat(new_img_arr);
+        let arr_len = img_arr.length;
+        if (arr_len > 5) {
+          img_arr.splice(5);
+        }
+      }
+    }
+  });
+
+  // Click on image set main image
+  $('.form .upload-img-container').on('click', '.img-wrapper img', function (e) {
+    if (!$(this).parent().hasClass('active')) {
+      $(this).parent().siblings().removeClass('active');
+      $(this).parent().addClass('active');
+      $('.form .main-img-input').val($(this).parent().attr('data-el'));
+    }
+  })
+
+  // Delete image
+  $('.add-product-form .upload-img-container').on('click', '.img-wrapper .remove-image', function (e) {
+    e.preventDefault();
+    let wrapper = $(this).parent(),
+      number = parseInt($(wrapper).attr('data-el'));
+    if (!wrapper.hasClass('active')) {
+      img_arr.splice(number, 1);
+      $(this).parent().remove();
+      $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+        if (parseInt($(element).attr('data-el')) > number) {
+          $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+        }
+      });
+    } else {
+      if (img_arr.length === 1) {
+        img_arr.splice(number, 1);
+        $(wrapper).remove();
+        $('.add-product-form .upload-img-container').hide();
+        $('.form .main-img-input').val('');
+      } else {
+        if (number != 0) {
+          img_arr.splice(number, 1);
+          $(wrapper).remove();
+          $('.form .main-img-input').val('0');
+          $('.add-product-form .upload-img-container .img-wrapper[data-el="0"]').addClass('active');
+          $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+            if (parseInt($(element).attr('data-el')) > number) {
+              $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+            }
+          });
+        } else {
+          img_arr.splice(number, 1);
+          $(wrapper).remove();
+          $('.add-product-form .upload-img-container .img-wrapper[data-el="1"]').addClass('active');
+          $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+            if (parseInt($(element).attr('data-el')) > number) {
+              $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+            }
+          });
+        }
+      }
+    }
+  })
+
+  // Form submit
+  $('#addProductForm').submit(function (e) {
+    e.preventDefault();
+    let formData = new FormData($(this)[0]);
+    img_arr.forEach((el, i) => {
+      formData.append('images[]', el);
+    })
+    // return false;
+    axios({
+      method: 'POST',
+      url: '/product/create',
+      data: formData
+    }).then(function () {
+      window.location.replace('/supplier/products');
+    })
+  })
+
+  /* End create product form */
 
   /////////////////////////////////////////
 

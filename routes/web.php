@@ -36,6 +36,11 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
     Route::get('/add-product', 'ProductController@create')->name('add-product');
 });
 
+// Product routes
+Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'supplier'], function () {
+    Route::post('/create', 'ProductController@store')->name('create');
+});
+
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');

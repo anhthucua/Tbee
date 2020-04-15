@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -52,6 +53,21 @@ class User extends Authenticatable
             {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get supplier id of user
+     *
+     * @return void
+     */
+    public function getSupId()
+    {
+        if (Auth::user()->is('supplier')) {
+            $supplier = Supplier::where('user_id', Auth::user()->id)->get();
+            return $supplier[0]->id;
         }
 
         return false;

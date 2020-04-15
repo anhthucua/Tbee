@@ -14,4 +14,14 @@ class Image extends Model
     protected $fillable = [
         'url',
     ];
+
+    /**
+     * Many to many relationship
+     *
+     * @return void
+     */
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
 }

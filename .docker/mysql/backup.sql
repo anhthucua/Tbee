@@ -118,7 +118,7 @@ CREATE TABLE `category_level2` (
   PRIMARY KEY (`id`),
   KEY `category_level2_category_level1_id_foreign` (`category_level1_id`),
   CONSTRAINT `category_level2_category_level1_id_foreign` FOREIGN KEY (`category_level1_id`) REFERENCES `category_level1` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,6 +127,7 @@ CREATE TABLE `category_level2` (
 
 LOCK TABLES `category_level2` WRITE;
 /*!40000 ALTER TABLE `category_level2` DISABLE KEYS */;
+INSERT INTO `category_level2` VALUES (1,1,'Áo nam',NULL,NULL),(2,1,'Quần nam',NULL,NULL),(3,2,'Áo nữ',NULL,NULL),(4,2,'Quần nữ',NULL,NULL),(5,2,'Váy nữ',NULL,NULL);
 /*!40000 ALTER TABLE `category_level2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `image_product` (
   KEY `image_product_product_id_foreign` (`product_id`),
   CONSTRAINT `image_product_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
   CONSTRAINT `image_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,6 +188,7 @@ CREATE TABLE `image_product` (
 
 LOCK TABLES `image_product` WRITE;
 /*!40000 ALTER TABLE `image_product` DISABLE KEYS */;
+INSERT INTO `image_product` VALUES (1,2,1,NULL,NULL),(2,3,1,NULL,NULL),(3,4,1,NULL,NULL),(4,5,1,NULL,NULL);
 /*!40000 ALTER TABLE `image_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +205,7 @@ CREATE TABLE `images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +214,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (1,'/var/www/public/images/suppliers/20200411_225251_anhrua4.jpg','2020-04-11 22:52:51','2020-04-11 22:52:51');
+INSERT INTO `images` VALUES (1,'/var/www/public/images/suppliers/20200411_225251_anhrua4.jpg','2020-04-11 22:52:51','2020-04-11 22:52:51'),(2,'/var/www/public/images/products/20200415_231658_phpNgiMhJ_1.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(3,'/var/www/public/images/products/20200415_231659_phpkPFPFA_2.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(4,'/var/www/public/images/products/20200415_231659_phpnmniKh_3.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(5,'/var/www/public/images/products/20200415_231659_phpgDdpDd_4.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +417,7 @@ CREATE TABLE `products` (
   CONSTRAINT `products_category_level2_id_foreign` FOREIGN KEY (`category_level2_id`) REFERENCES `category_level2` (`id`),
   CONSTRAINT `products_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
   CONSTRAINT `products_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,6 +426,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,1,1,4,'Áo Thun Cộc Tay Nam Ariza chất Cotton','- Chất liệu: Áo thun nam body Ariza cao cấp được làm từ Vải thun cotton 100% co giãn tốt, mềm mịn, thấm hút mồ hôi tốt, đường chỉ may chắc chắn, tỉ mỉ theo tiêu chuẩn hàng công ty.\r\n- Chất cotton làm tự sợi bông tự nhiên đặc điểm thấm hút tốt, thoáng mát vì vậy Áo thun nam cotton Ariza mỏng vừa phải, thoáng mát thấm hút mồ hôi tốt, tạo sự thoải mải, dễ chịu không giống như các loại áo PE không thấm mồ hôi, mặc khó chịu, bí đặc biệt vào mùa hè khi thời tiết nóng, nhiệt độ cao 39-40 độ, hoặc khi vận động nếu không thoáng mát thấm mồ hôi sẽ rất khó chịu, ảnh hưởng đến sức khỏe.\r\n- Quý khách có thể thử áo, khi đã giặt áo và phơi áo 1 lần với áo mới, thử nhỏ nước từng giọt vào áo nếu thấm hút thì có sợi cotton, thấm hút nhanh là áo càng nhiều cotton.\r\n- Kiểu dáng: Thời trang, trẻ trung, năng động thích hợp cho mọi lứa tuổi. Dáng áo thun nam cotton 100% Ariza  body trẻ trung, chất liệu co giãn tạo cảm giác thoải mái, áo mỏng vừa phải thoáng mát.\r\n- Xuất xứ: Việt Nam do xưởng Shop sản xuất',80000,NULL,215,0,'2020-04-15 23:16:59','2020-04-15 23:16:59',NULL,0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,4 +566,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-11 15:54:38
+-- Dump completed on 2020-04-15 16:25:11
