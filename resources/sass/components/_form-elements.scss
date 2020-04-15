@@ -242,6 +242,39 @@ input[type=checkbox]:checked + label:before {
   margin-bottom: 30px;
 }
 
+.form {
+  .cat-lv1-section,
+  .cat-lv2-section {
+    padding: 10px;
+    min-width: 200px;
+    border-radius: 10px;
+    border: solid 1px #333333;
+    .cat-lv1 {
+      cursor: pointer;
+    }
+    .cat-lv2 {
+      display: none;
+      &.show {
+        display: list-item;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.add-product-form {
+    .upload-img-container {
+      display: flex;
+      flex-wrap: wrap;
+      .img-wrapper {
+        width: 30%;
+        .product-img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
 .input-file {
   display: flex;
   border: 1px solid $color-primary-1;
