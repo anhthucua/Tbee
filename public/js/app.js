@@ -182,7 +182,9 @@ $(document).ready(function () {
 
   $('#signup-success-modal').on('hidden.bs.modal', function () {
     location.reload();
-  }); // Products Slick
+  }); ////////////////////////////////////////
+  // Home page
+  // Products Slick
 
   $('.products-slick').each(function () {
     var $this = $(this),
@@ -268,7 +270,11 @@ $(document).ready(function () {
 
   if (zoomMainProduct) {
     $('#product-main-img .product-preview').zoom();
-  } // Danh cho nguoi ban
+  } ///////////////////////////////////////////////////////////////////////
+
+  /*
+  * Danh cho nguoi ban
+  */
   // upload anh bia
 
 
@@ -293,7 +299,176 @@ $(document).ready(function () {
 
       reader.readAsDataURL(input.files[0]);
     }
-  }); /////////////////////////////////////////
+  });
+  /*
+  * Create product form
+  */
+  // Click on category_lv1 show cat_lv2
+
+  $('.form .cat-lv1-section .cat-lv1').click(function (e) {
+    if (!$(this).hasClass('active')) {
+      e.preventDefault();
+      $('.cat-lv1-section .cat-lv1').removeClass('active');
+      $(this).addClass('active');
+      $('.cat-lv2-section .cat-lv2.show').removeClass('show');
+      var cat1_id = $(this).data('id');
+      $(".cat-lv2.parent-id-".concat(cat1_id)).addClass('show');
+      $('input#catLv2').val('');
+    }
+  }); // Click on category lv2
+
+  $('.form .cat-lv2-section .cat-lv2').click(function (e) {
+    if (!$(this).hasClass('active')) {
+      e.preventDefault();
+      $(this).siblings('.active').removeClass('active');
+      $(this).addClass('active');
+      var cat2_id = $(this).data('id');
+      $('input#catLv2').val(cat2_id);
+    }
+  }); // Product images adding
+
+  $('.form .choose-img-btn').click(function (e) {
+    e.preventDefault();
+    $('.add-product-form #images').trigger('click');
+  }); // Validate max 5 images
+
+  $('.form #images').on('click', function (e) {
+    if ($('.form .upload-img-container .img-wrapper').length >= 5) {
+      e.preventDefault();
+      alert('Chỉ được chọn tối đa 5 ảnh');
+    }
+  }); // Array store prodcut images
+
+  var img_arr = []; // Insert product image
+
+  $('.add-product-form #images').on('change', function () {
+    var _this = this;
+
+    if (this.files) {
+      (function () {
+        var appendToArray = function appendToArray(file_list) {
+          var new_img_arr = Array.from(file_list);
+          img_arr = img_arr.concat(new_img_arr);
+          var arr_len = img_arr.length;
+
+          if (arr_len > 5) {
+            img_arr.splice(5);
+          }
+        };
+
+        var images = _this.files;
+
+        var _loop = function _loop(i) {
+          if (img_arr.length + i >= 5) {
+            alert('Chỉ được chọn tối đa 5 ảnh');
+            return "break";
+          }
+
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var tpl = document.querySelector('#imageTemplate'),
+                clone = tpl.content.cloneNode(true),
+                wrapper = clone.querySelector('.img-wrapper'),
+                img = clone.querySelector('img'),
+                container = document.querySelector('.form .upload-img-container');
+
+            if (img_arr.length + i === 0) {
+              wrapper.classList.add('active');
+            } // Insert to UI
+
+
+            wrapper.dataset.el = img_arr.length + i;
+            img.src = e.target.result;
+            $(container).removeClass('d-none');
+            container.appendChild(clone); // Insert to array
+
+            if (i == images.length - 1 || img_arr.length + i == 4) {
+              appendToArray(images);
+            }
+          };
+
+          reader.readAsDataURL(_this.files[i]);
+        };
+
+        for (var i = 0; i < images.length; i++) {
+          var _ret = _loop(i);
+
+          if (_ret === "break") break;
+        }
+      })();
+    }
+  }); // Click on image set main image
+
+  $('.form .upload-img-container').on('click', '.img-wrapper img', function (e) {
+    if (!$(this).parent().hasClass('active')) {
+      $(this).parent().siblings().removeClass('active');
+      $(this).parent().addClass('active');
+      $('.form .main-img-input').val($(this).parent().attr('data-el'));
+    }
+  }); // Delete image
+
+  $('.add-product-form .upload-img-container').on('click', '.img-wrapper .remove-image', function (e) {
+    e.preventDefault();
+    var wrapper = $(this).parent(),
+        number = parseInt($(wrapper).attr('data-el'));
+
+    if (!wrapper.hasClass('active')) {
+      img_arr.splice(number, 1);
+      $(this).parent().remove();
+      $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+        if (parseInt($(element).attr('data-el')) > number) {
+          $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+        }
+      });
+    } else {
+      if (img_arr.length === 1) {
+        img_arr.splice(number, 1);
+        $(wrapper).remove();
+        $('.add-product-form .upload-img-container').hide();
+        $('.form .main-img-input').val('');
+      } else {
+        if (number != 0) {
+          img_arr.splice(number, 1);
+          $(wrapper).remove();
+          $('.form .main-img-input').val('0');
+          $('.add-product-form .upload-img-container .img-wrapper[data-el="0"]').addClass('active');
+          $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+            if (parseInt($(element).attr('data-el')) > number) {
+              $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+            }
+          });
+        } else {
+          img_arr.splice(number, 1);
+          $(wrapper).remove();
+          $('.add-product-form .upload-img-container .img-wrapper[data-el="1"]').addClass('active');
+          $('.form .upload-img-container .img-wrapper').each(function (index, element) {
+            if (parseInt($(element).attr('data-el')) > number) {
+              $(element).attr('data-el', parseInt($(element).attr('data-el')) - 1);
+            }
+          });
+        }
+      }
+    }
+  }); // Form submit
+
+  $('#addProductForm').submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);
+    img_arr.forEach(function (el, i) {
+      formData.append('images[]', el);
+    }); // return false;
+
+    axios({
+      method: 'POST',
+      url: '/product/create',
+      data: formData
+    }).then(function () {
+      window.location.replace('/supplier/products');
+    });
+  });
+  /* End create product form */
+  /////////////////////////////////////////
   // Input number
   // $('.input-number').each(function () {
   //   var $this = $(this),
@@ -370,8 +545,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/laoton/Desktop/thu/chuyen_de/Tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
+__webpack_require__(/*! /home/hieu/projects/tbee/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hieu/projects/tbee/resources/sass/styles.scss */"./resources/sass/styles.scss");
 
 
 /***/ })

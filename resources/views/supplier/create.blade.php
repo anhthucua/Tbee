@@ -12,7 +12,7 @@
     <form action="{{ route('supplier.create') }}" method="POST" enctype="multipart/form-data" class="form">
       @csrf
       {{-- Hidden input --}}
-      <input type="file" name="shopBanner" id="shopBanner" class="d-none" accept="image/*">
+      <input type="file" name="shopBanner" id="shopBanner" class="d-none" accept="image/*" required>
 
       <label for="shopBanner">Ảnh bìa: </label>
       <br>
