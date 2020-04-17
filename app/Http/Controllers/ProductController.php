@@ -35,9 +35,24 @@ class ProductController extends Controller
         return view('supplier.add-product', compact('cat_lv1', 'cat_lv2'));
     }
 
+    /**
+     * Get products list of supplier
+     *
+     * @return void
+     */
     public function supplierProductList()
     {
-        return view('supplier.products');
+        $supplier_id = Auth::user()->getSupId();
+        $cat_lv1 = CategoryLvl1::all(['id', 'name']);
+        $products = Product::where('supplier_id', $supplier_id)->get();
+
+        foreach ($products as $product) {
+            $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
+            $product->img = ImageModel::find($product->image_id)->url;
+            $product->date = $product->created_at->format('d/m/Y');
+        }
+
+        return view('supplier.products', compact('products', 'cat_lv1'));
     }
 
     /**
@@ -61,8 +76,9 @@ class ProductController extends Controller
             $img = Image::make($product_img);
             $img->fit(360, 360);
             $time = Carbon::now()->format('Ymd_His');
-            $url = public_path("images/products/{$time}_{$product_img->getFilename()}_{$product_img->getClientOriginalName()}");
-            $img->save($url);
+            $url = "/images/products/{$time}_{$product_img->getFilename()}_{$product_img->getClientOriginalName()}";
+            $public_url = public_path($url);
+            $img->save($public_url);
 
             // insert images to db
             $image[$k] = new ImageModel(['url' => $url]);

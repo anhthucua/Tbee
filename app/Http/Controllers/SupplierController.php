@@ -44,7 +44,7 @@ class SupplierController extends Controller
     {
         // Check if supplier is created or not
         if ($this->checkInitShop()) {
-            return redirect(route('supplier.add-product'));
+            return redirect(route('supplier.manage-products'));
         }
 
         // if not, show form
@@ -64,8 +64,9 @@ class SupplierController extends Controller
         $img = Image::make($origin_img);
         $img->fit(1200, 300);
         $time = Carbon::now()->format('Ymd_His');
-        $url = public_path("images/suppliers/{$time}_{$origin_img->getClientOriginalName()}");
-        $img->save($url);
+        $url = "/images/suppliers/{$time}_{$origin_img->getClientOriginalName()}";
+        $public_url = public_path($url);
+        $img->save($public_url);
 
         // Insert image into database
         $image = new ImageModel(['url' => $url]);
