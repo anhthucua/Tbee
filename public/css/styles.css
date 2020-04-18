@@ -983,7 +983,7 @@ input[type=checkbox]:checked + label:before {
   margin: 20px auto;
 }
 
-.page-pads-container .pad-filters #filter-status {
+.page-pads-container .pad-filters #sort {
   margin-left: 5px;
 }
 
@@ -996,6 +996,11 @@ input[type=checkbox]:checked + label:before {
 .table td {
   vertical-align: middle !important;
   text-align: center;
+}
+
+.table th.no-item,
+.table td.no-item {
+  text-align: left;
 }
 
 .product-list tr td:first-child {

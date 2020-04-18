@@ -9,22 +9,23 @@
   <div class="page-pads-container">
     <div class="heading">
       <h3 class="title">QUẢN LÝ SẢN PHẨM</h3>
-      <a href="#" class="primary-btn primary-btn--square">+ Thêm sản phẩm</a>
+      <a href="{{ route('supplier.add-product') }}" class="primary-btn primary-btn--square">+ Thêm sản phẩm</a>
     </div>
     <div class="pad-filters">
       <input type="text" id="search" class="search" placeholder="Tìm kiếm sản phẩm">
       <div class="filter">
         <select id="filter-category" class="dropdown">
           <option value="all">Ngành hàng</option>
-          <option value="1">Thời trang nam</option>
-          <option value="2">Thời trang nữ</option>
-          <option value="3">XXX</option>
+          @foreach ($cat_lv1 as $cat1)
+            <option value="{{ $cat1->id }}">{{ $cat1->name }}</option>
+          @endforeach
         </select>
-        <select id="filter-status" class="dropdown">
-          <option value="all">Sắp xếp theo</option>
-          <option value="1">Giá từ cao xuống thấp</option>
-          <option value="2">Giá từ thấp lên cao</option>
-          <option value="3">Ngày đăng sản phẩm</option>
+        <select id="sort" class="dropdown">
+          <option value="id desc">Sắp xếp theo</option>
+          <option value="sale_price desc">Giá giảm dần</option>
+          <option value="sale_price asc">Giá tăng dần</option>
+          <option value="created_at desc">Ngày đăng mới nhất</option>
+          <option value="updated_at desc">Cập nhật mới nhất</option>
         </select>
       </div>
     </div>
@@ -39,68 +40,45 @@
             <th>Giá gốc/giá bán</th>
             <th>Đã bán</th>
             <th>Tồn kho</th>
+            <th>Ngày đăng</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div class="table-product-img" style="background-image: url('../images/man-fashion.png')"></div>
-            </td>
-            <td>Áo mưa siêu thấm</td>
-            <td>Áo nam</td>
-            <td>
-              <div class="product-old-price">1000000</div>
-              <div class="product-price">2000000</div>
-            </td>
-            <td>500</td>
-            <td>30</td>
-            <td>
-              <a href="" class="secondary-btn btn--small" >Sửa</a>
-            </td>
-            <td>
-              <a href="#" class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="table-product-img" style="background-image: url('../images/man-fashion.png')"></div>
-            </td>
-            <td>Áo mưa siêu thấm</td>
-            <td>Áo nam</td>
-            <td>
-              <div class="product-old-price">1000000</div>
-              <div class="product-price">2000000</div>
-            </td>
-            <td>500</td>
-            <td>30</td>
-            <td>
-              <a href="" class="secondary-btn btn--small" >Sửa</a>
-            </td>
-            <td>
-              <a href="#" class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="table-product-img" style="background-image: url('../images/man-fashion.png')"></div>
-            </td>
-            <td>Áo mưa siêu thấm</td>
-            <td>Áo nam</td>
-            <td>
-              <div class="product-old-price">1000000</div>
-              <div class="product-price">2000000</div>
-            </td>
-            <td>500</td>
-            <td>30</td>
-            <td>
-              <a href="" class="secondary-btn btn--small" >Sửa</a>
-            </td>
-            <td>
-              <a href="#" class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</a>
-            </td>
-          </tr>
+          @if (count($products))
+            @foreach ($products as $product)
+              <tr>
+                <td>
+                  <div class="table-product-img" style="background-image: url('{{ asset($product->img) }}')"></div>
+                </td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->cat_lv2 }}</td>
+                <td>
+                  @if ($product->sale_price === $product->price)
+                    <div class="product-price">{{ $product->price }}</div>
+                  @else
+                    <div class="product-old-price">{{ $product->price }}</div>
+                    <div class="product-price">{{ $product->sale_price }}</div>
+                  @endif
+                </td>
+                <td>{{ $product->purchased_number }}</td>
+                <td>{{ $product->stock }}</td>
+                <td>{{ $product->date }}</td>
+                <td>
+                  <a href="{{ route('product.edit', $product->id) }}" class="secondary-btn btn--small" >Sửa</a>
+                </td>
+                <td>
+                  <a href="{{ route('product.delete', $product->id) }}" class="primary-btn btn--small btn-delete" data-toggle="modal" data-target="#delete-modal">Xoá</a>
+                </td>
+              </tr>
+            @endforeach
+          @else
+            <tr>
+              <td colspan="9" class="no-item">Không có sản phẩm nào.</td>
+            </tr>
+          @endif
+
         </tbody>
       </table>
     </div>
@@ -112,18 +90,47 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Bạn muốn xoá sản phẩm?</h2>
+        <h2 class="modal-title">Bạn có chắc muốn xoá sản phẩm?</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form class="" action="" method="POST">
+        <form id="del-product" action="" method="POST">
+          @csrf
+          @method('DELETE')
           <div class="d-flex">
-            <button class="btn btn-logout primary-btn btn-block" type="submit">Xoá</button>
+            <button class="btn primary-btn btn-block" type="submit">Xoá</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<template id="product-row">
+  <tr>
+    <td>
+      <div class="table-product-img" style=""></div>
+    </td>
+    <td></td> <!--name-->
+    <td></td><!--cat_lv2-->
+    <td>
+      @if ($product->sale_price === $product->price)
+        <div class="product-price"></div>
+      @else
+        <div class="product-old-price"></div>
+        <div class="product-price"></div>
+      @endif
+    </td>
+    <td></td>  <!--purchased-->
+    <td></td> <!--stock-->
+    <td></td> <!--date-->
+    <td>
+      <a href="" class="secondary-btn btn--small" >Sửa</a>
+    </td>
+    <td>
+      <a href="" class="primary-btn btn--small btn-delete" data-toggle="modal" data-target="#delete-modal">Xoá</a>
+    </td>
+  </tr>
+</template>

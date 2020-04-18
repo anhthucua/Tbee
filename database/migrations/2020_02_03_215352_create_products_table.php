@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->bigInteger('price')->unsigned();
-            $table->bigInteger('sale_price')->unsigned()->nullable();
+            $table->bigInteger('sale_price')->unsigned();
             $table->mediumInteger('stock');
             $table->mediumInteger('purchased_number')->default(0);
             $table->timestamps();

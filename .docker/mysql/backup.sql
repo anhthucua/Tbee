@@ -179,7 +179,7 @@ CREATE TABLE `image_product` (
   KEY `image_product_product_id_foreign` (`product_id`),
   CONSTRAINT `image_product_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
   CONSTRAINT `image_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +188,7 @@ CREATE TABLE `image_product` (
 
 LOCK TABLES `image_product` WRITE;
 /*!40000 ALTER TABLE `image_product` DISABLE KEYS */;
-INSERT INTO `image_product` VALUES (1,2,1,NULL,NULL),(2,3,1,NULL,NULL),(3,4,1,NULL,NULL),(4,5,1,NULL,NULL);
+INSERT INTO `image_product` VALUES (1,2,1,NULL,NULL),(2,3,1,NULL,NULL),(3,4,1,NULL,NULL),(4,5,1,NULL,NULL),(5,6,2,NULL,NULL),(6,7,2,NULL,NULL),(7,9,3,NULL,NULL),(8,10,4,NULL,NULL),(9,11,4,NULL,NULL);
 /*!40000 ALTER TABLE `image_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +205,7 @@ CREATE TABLE `images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +214,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (1,'/images/suppliers/20200411_225251_anhrua4.jpg','2020-04-11 22:52:51','2020-04-11 22:52:51'),(2,'/images/products/20200415_231658_phpNgiMhJ_1.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(3,'/images/products/20200415_231659_phpkPFPFA_2.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(4,'/images/products/20200415_231659_phpnmniKh_3.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(5,'/images/products/20200415_231659_phpgDdpDd_4.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59');
+INSERT INTO `images` VALUES (1,'/images/suppliers/20200411_225251_anhrua4.jpg','2020-04-11 22:52:51','2020-04-11 22:52:51'),(2,'/images/products/20200415_231658_phpNgiMhJ_1.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(3,'/images/products/20200415_231659_phpkPFPFA_2.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(4,'/images/products/20200415_231659_phpnmniKh_3.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(5,'/images/products/20200415_231659_phpgDdpDd_4.jpeg','2020-04-15 23:16:59','2020-04-15 23:16:59'),(6,'/images/products/20200418_095104_phpoFNCfN_1.jpeg','2020-04-18 09:51:04','2020-04-18 09:51:04'),(7,'/images/products/20200418_095104_phpMOJoCg_2.jpeg','2020-04-18 09:51:04','2020-04-18 09:51:04'),(8,'/images/products/20200418_095604_phpdOcKDh_quan1.jpeg','2020-04-18 09:56:04','2020-04-18 09:56:04'),(9,'/images/products/20200418_095632_phpManmko_quan1.jpeg','2020-04-18 09:56:32','2020-04-18 09:56:32'),(10,'/images/products/20200418_100044_phpKFBHBE_ao1.jpeg','2020-04-18 10:00:44','2020-04-18 10:00:44'),(11,'/images/products/20200418_100044_phpAbfain_ao2.jpeg','2020-04-18 10:00:44','2020-04-18 10:00:44');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +403,7 @@ CREATE TABLE `products` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `price` bigint(20) unsigned NOT NULL,
-  `sale_price` bigint(20) unsigned DEFAULT NULL,
+  `sale_price` bigint(20) unsigned NOT NULL,
   `stock` mediumint(9) NOT NULL,
   `purchased_number` mediumint(9) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -417,7 +417,7 @@ CREATE TABLE `products` (
   CONSTRAINT `products_category_level2_id_foreign` FOREIGN KEY (`category_level2_id`) REFERENCES `category_level2` (`id`),
   CONSTRAINT `products_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
   CONSTRAINT `products_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +426,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,1,1,4,'Áo Thun Cộc Tay Nam Ariza chất Cotton','- Chất liệu: Áo thun nam body Ariza cao cấp được làm từ Vải thun cotton 100% co giãn tốt, mềm mịn, thấm hút mồ hôi tốt, đường chỉ may chắc chắn, tỉ mỉ theo tiêu chuẩn hàng công ty.\r\n- Chất cotton làm tự sợi bông tự nhiên đặc điểm thấm hút tốt, thoáng mát vì vậy Áo thun nam cotton Ariza mỏng vừa phải, thoáng mát thấm hút mồ hôi tốt, tạo sự thoải mải, dễ chịu không giống như các loại áo PE không thấm mồ hôi, mặc khó chịu, bí đặc biệt vào mùa hè khi thời tiết nóng, nhiệt độ cao 39-40 độ, hoặc khi vận động nếu không thoáng mát thấm mồ hôi sẽ rất khó chịu, ảnh hưởng đến sức khỏe.\r\n- Quý khách có thể thử áo, khi đã giặt áo và phơi áo 1 lần với áo mới, thử nhỏ nước từng giọt vào áo nếu thấm hút thì có sợi cotton, thấm hút nhanh là áo càng nhiều cotton.\r\n- Kiểu dáng: Thời trang, trẻ trung, năng động thích hợp cho mọi lứa tuổi. Dáng áo thun nam cotton 100% Ariza  body trẻ trung, chất liệu co giãn tạo cảm giác thoải mái, áo mỏng vừa phải thoáng mát.\r\n- Xuất xứ: Việt Nam do xưởng Shop sản xuất',80000,NULL,215,0,'2020-04-15 23:16:59','2020-04-15 23:16:59',NULL,0);
+INSERT INTO `products` VALUES (1,1,1,4,'Áo Thun Cộc Tay Nam Ariza chất Cotton','- Chất liệu: Áo thun nam body Ariza cao cấp được làm từ Vải thun cotton 100% co giãn tốt, mềm mịn, thấm hút mồ hôi tốt, đường chỉ may chắc chắn, tỉ mỉ theo tiêu chuẩn hàng công ty.\r\n- Chất cotton làm tự sợi bông tự nhiên đặc điểm thấm hút tốt, thoáng mát vì vậy Áo thun nam cotton Ariza mỏng vừa phải, thoáng mát thấm hút mồ hôi tốt, tạo sự thoải mải, dễ chịu không giống như các loại áo PE không thấm mồ hôi, mặc khó chịu, bí đặc biệt vào mùa hè khi thời tiết nóng, nhiệt độ cao 39-40 độ, hoặc khi vận động nếu không thoáng mát thấm mồ hôi sẽ rất khó chịu, ảnh hưởng đến sức khỏe.\r\n- Quý khách có thể thử áo, khi đã giặt áo và phơi áo 1 lần với áo mới, thử nhỏ nước từng giọt vào áo nếu thấm hút thì có sợi cotton, thấm hút nhanh là áo càng nhiều cotton.\r\n- Kiểu dáng: Thời trang, trẻ trung, năng động thích hợp cho mọi lứa tuổi. Dáng áo thun nam cotton 100% Ariza  body trẻ trung, chất liệu co giãn tạo cảm giác thoải mái, áo mỏng vừa phải thoáng mát.\r\n- Xuất xứ: Việt Nam do xưởng Shop sản xuất',80000,80000,215,0,'2020-04-15 23:16:59','2020-04-15 23:16:59',NULL,0),(2,1,1,7,'Áo nam 2','Áo nam chất lượng tốt, có thể mặc đi làm, đi chơi',150000,120000,300,0,'2020-04-18 09:51:04','2020-04-18 09:51:04',NULL,0),(3,1,2,9,'Quần âu nam Kojiba dáng ôm co giãn nhẹ','BẠN NHỚ LIKE SẢN PHẨM VÀ THEO DÕI SHOP ĐỂ LUÔN CẬP NHẬT MÃ GIẢM GIÁ, CHƯƠNG TRÌNH DEAL SỐC , KHUYẾN MÃI KHỦNG TRONG THÔNG BÁO CỦA BẠN NHA, CÁM ƠN BẠN!!!\r\nThông tin nổi bật sản phẩm:\r\n- Xuất xứ: Việt Nam\r\n- Màu sắc: Đen, Xanh Đen, Ghi Sáng\r\n- Size: 28, 29, 30, 31, 32, 33, 34\r\n- Chất liệu: Cotton co giãn\r\nquần âu nam, quần tây nam đẹp cao cấp:',200000,199000,123,0,'2020-04-18 09:56:32','2020-04-18 09:56:32',NULL,0),(4,1,3,11,'ÁO HOODIE TRƠN BASIC','ÁO HOODIE TRƠN BASIC ĐỦ MÀU UNISEX , áo thun tay lỡ, áo hoddie, quần kaki\r\nHoodie Basic là chiếc áo không thể thiếu trong mọi tủ đồ mỗi dịp Đông về ☃️\r\n❄ Sắm đủ màu để mỗi ngày diện 1 bộ được không ạ ?\r\n?️ Chất liệu Nỉ bông mềm mịn, êm ái đem lại cảm giác thoải mái nhất khi mặc thường xuyên.\r\n?️ Size: M L XL ( Form Âu rộng rãi thoải mái ).',250000,225000,235,0,'2020-04-18 10:00:44','2020-04-18 10:00:44',NULL,0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,4 +566,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-16 17:13:24
+-- Dump completed on 2020-04-18  3:01:48

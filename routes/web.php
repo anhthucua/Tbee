@@ -36,9 +36,16 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
     Route::get('/add-product', 'ProductController@create')->name('add-product');
 });
 
-// Product routes
+// Product routes for supplier
 Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'supplier'], function () {
     Route::post('/create', 'ProductController@store')->name('create');
+    Route::get('/{id}/edit', 'ProductController@edit')->name('edit');
+    Route::delete('{id}/delete', 'ProductController@softDelete')->name('delete');
+});
+
+// Product routes for everyone
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::post('/supplier-search', 'ProductController@supplierProductSearch');
 });
 
 // Authentication routes

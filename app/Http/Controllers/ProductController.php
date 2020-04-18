@@ -9,6 +9,7 @@ use App\CategoryLvl2;
 use Image;
 use App\Image as ImageModel;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -44,7 +45,10 @@ class ProductController extends Controller
     {
         $supplier_id = Auth::user()->getSupId();
         $cat_lv1 = CategoryLvl1::all(['id', 'name']);
-        $products = Product::where('supplier_id', $supplier_id)->get();
+        $products = Product::query()
+            ->where('supplier_id', $supplier_id)
+            ->orderBy('id', 'desc')
+            ->get();
 
         foreach ($products as $product) {
             $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
@@ -53,6 +57,47 @@ class ProductController extends Controller
         }
 
         return view('supplier.products', compact('products', 'cat_lv1'));
+    }
+
+    /**
+     * Seach products of supplier
+     *
+     * @param Request $request
+     * @param $id
+     * @return void
+     */
+    public function supplierProductSearch(Request $request)
+    {
+        // Format order by
+        $order_by_arr = explode(' ', $request['sort']);
+        $column = $order_by_arr[0];
+        $direction = $order_by_arr[1];
+
+        $name = ($request['search'] === null) ? '' : $request['search'];
+
+        if ($request['category'] === "all") {
+            $products = Product::query()
+            ->where('name', 'LIKE', "%{$name}%")
+            ->orderBy($column, $direction)
+            ->get();
+        } else {
+            $products = Product::query()
+            ->where('name', 'LIKE', "%{$name}%")
+            ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
+                $query->where('category_level1_id', $request['category']);
+            })
+            ->orderBy($column, $direction)
+            ->get();
+        }
+
+        // Get information
+        foreach ($products as $product) {
+            $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
+            $product->img = ImageModel::find($product->image_id)->url;
+            $product->date = $product->created_at->format('d/m/Y');
+        }
+
+        return $products;
     }
 
     /**
@@ -66,6 +111,7 @@ class ProductController extends Controller
         $main_img = $request['main-image'];
         $input = $request->all();
         $input['supplier_id'] = Auth::user()->getSupId();
+        $input['sale_price'] = ($input['sale_price'] === null) ? $input['price'] : $input['sale_price'];
 
         $product = new Product($input);
 
@@ -112,12 +158,13 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        dd("Trang sua san pham co id = {$id}");
+        return view('supplier.edit-product');
     }
 
     /**
@@ -130,5 +177,16 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
+    }
+
+    /**
+     * Soft Delete product
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function softDelete($id)
+    {
+        Product::find($id)->delete();
     }
 }

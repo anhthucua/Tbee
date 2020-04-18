@@ -119,7 +119,7 @@
     align-items: center;
     margin: 20px auto;
 
-    #filter-status {
+    #sort {
       margin-left: 5px;
     }
   }
@@ -137,6 +137,9 @@
   th, td {
     vertical-align: middle !important;
     text-align: center;
+    &.no-item {
+      text-align: left;
+    }
   }
 
 }

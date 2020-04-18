@@ -28,4 +28,14 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Image');
     }
+
+    /**
+     * Many to one relationship
+     *
+     * @return void
+     */
+    public function categoryLvl2()
+    {
+        return $this->belongsTo('App\CategoryLvl2', 'category_level2_id');
+    }
 }
