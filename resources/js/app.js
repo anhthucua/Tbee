@@ -274,7 +274,7 @@ $(document).ready(function () {
     });
 
     // Click on image set main image
-    $('.form .upload-img-container').on('click', '.img-wrapper img', function (e) {
+    $('.form .upload-img-container').on('click', '.img-wrapper .image-wrapper', function (e) {
       if (!$(this).parent().hasClass('active')) {
         $(this).parent().siblings().removeClass('active');
         $(this).parent().addClass('active');

@@ -289,23 +289,29 @@ input[type=checkbox]:checked + label:before {
       flex-wrap: wrap;
       .img-wrapper {
         width: 30%;
+        position: relative;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
         &.active {
-          opacity: 0.6;
-          position: relative;
-          z-index: 20;
-          &::after {
-            position: absolute;
-            z-index: 30;
-            content: 'Chọn ảnh chính';
-            top: 37.5%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: $color-primary-1;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: aliceblue;
-            padding: 4px;
-            border-radius: 5px;
+          .image-wrapper {
+            opacity: 0.6;
+            position: relative;
+            z-index: 20;
+            &::after {
+              position: absolute;
+              z-index: 30;
+              content: 'Chọn ảnh chính';
+              top: 37.5%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: $color-primary-1;
+              font-size: 16px;
+              font-weight: bold;
+              background-color: aliceblue;
+              padding: 4px;
+              border-radius: 5px;
+            }
           }
         }
         img {
@@ -315,6 +321,14 @@ input[type=checkbox]:checked + label:before {
         }
         .product-img {
           width: 100%;
+        }
+        .remove-image {
+          position: absolute;
+          top: 15px;
+          z-index: 100;
+          right: 20px;
+          font-size: 30px;
+          color: $color-primary-1;
         }
       }
     }

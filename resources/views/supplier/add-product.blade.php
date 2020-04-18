@@ -83,8 +83,9 @@
   {{-- Template de hien thi anh upload --}}
   <template id="imageTemplate">
     <div class="img-wrapper" data-el="">
-      <img src="" alt="" class="product-img">
-      <i class="fa fa-check-circle-o check-main" aria-hidden="true"></i>
+      <div class="image-wrapper">
+        <img src="" alt="" class="product-img">
+      </div>
       <i class="fa fa-times-circle remove-image" aria-hidden="true"></i>
     </div>
   </template>
