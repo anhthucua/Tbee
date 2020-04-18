@@ -12,3 +12,5 @@ npm-debug.log
 yarn-error.log
 /public/mix-manifest.json
 .docker/data
+/public/css/styles.css
+/public/js/app.js

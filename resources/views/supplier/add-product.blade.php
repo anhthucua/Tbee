@@ -74,11 +74,10 @@
       </div>
 
       <br>
-      <br>
       {{-- Submit form --}}
       <input type="submit" class="btn primary-btn primary-btn--square" value="Tạo sản phẩm">
-      <br>
     </form>
+    <br>
   </div>
 
   {{-- Template de hien thi anh upload --}}
