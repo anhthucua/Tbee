@@ -6,5 +6,7 @@
 
 require('./bootstrap');
 require('./jquery.zoom.min');
-require('./nouislider.min');
 require('./slick.min');
+
+import nouislider from 'nouislider';
+window.nouislider = nouislider;

@@ -12,9 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix
+  // .js('resources/js/requires.js', 'public/js')
+  // .sass('resources/sass/requires.scss', 'public/css');
   .js('resources/js/app.js', 'public/js')
   .sass('resources/sass/styles.scss', 'public/css');
-
-// mix.browserSync({
-//   proxy: 'http://localhost:2020'
-// });

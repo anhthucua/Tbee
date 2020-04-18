@@ -1,11 +1,13 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// NoUiSlider
+@import '~nouislider/distribute/nouislider.css';
+
 // ==========================================================================
 // Externals
 // ==========================================================================
 @import "externals/normalize";
-@import "externals/nouislider";
 @import "externals/slick";
 @import "externals/slick-theme";
 
