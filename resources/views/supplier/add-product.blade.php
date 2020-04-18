@@ -14,16 +14,17 @@
       <br>
       <label class="label-category">Chọn ngành hàng</label>
       <br>
-
       {{-- Khu vuc chon nganh hang --}}
-      <div class="category-section d-flex justify-content-between">
+      <div class="category-section d-flex">
         <ul class="cat-lv1-section">
+          <span class="category-title">Danh mục cấp 1</span>
           @foreach ($cat_lv1 as $cat1)
             <li data-id="{{ $cat1->id }}" class="cat-lv1">{{ $cat1->name }}</li>
           @endforeach
         </ul>
 
         <ul class="cat-lv2-section">
+          <span class="category-title">Danh mục cấp 2</span>
           @foreach ($cat_lv2 as $cat2)
             <li data-id="{{ $cat2->id }}" class="cat-lv2 parent-id-{{ $cat2->category_level1_id }}">{{ $cat2->name }}</li>
           @endforeach
@@ -35,8 +36,8 @@
       <input type="file" id="images" class="d-none" accept="image/*" multiple required>
       <input type="hidden" name="main-image" class="main-img-input" value="0">
 
-      <label for="images">Ảnh sản phẩm</label>
-      <button class="btn btn-primary choose-img-btn" type="button">Chọn ảnh</button>
+      <label for="images">Ảnh sản phẩm (chọn tối đa 5 ảnh): </label>
+      <button class="btn primary-btn primary-btn--square choose-img-btn" type="button">Chọn ảnh</button>
 
       {{-- Khu vuc anh upload --}}
       <div class="upload-img-container d-none"></div>
@@ -75,8 +76,8 @@
       <br>
       <br>
       {{-- Submit form --}}
-      <input type="submit" class="btn btn-primary" value="Tạo">
-
+      <input type="submit" class="btn primary-btn primary-btn--square" value="Tạo sản phẩm">
+      <br>
     </form>
   </div>
 

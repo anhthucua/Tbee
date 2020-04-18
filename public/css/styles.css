@@ -712,26 +712,57 @@ input[type=checkbox]:checked + label:before {
 
 .form .cat-lv1-section,
 .form .cat-lv2-section {
-  padding: 10px;
   min-width: 200px;
-  border-radius: 10px;
-  border: solid 1px #333333;
+  border-radius: 5px;
+  border: solid 2px #D10024;
 }
 
 .form .cat-lv1-section .cat-lv1,
 .form .cat-lv2-section .cat-lv1 {
   cursor: pointer;
+  padding: 5px 10px;
+}
+
+.form .cat-lv1-section .cat-lv1:hover,
+.form .cat-lv2-section .cat-lv1:hover {
+  background-color: #f7d4d4;
+}
+
+.form .cat-lv1-section .cat-lv1.active,
+.form .cat-lv2-section .cat-lv1.active {
+  color: white;
+  background-color: #D10024;
 }
 
 .form .cat-lv1-section .cat-lv2,
 .form .cat-lv2-section .cat-lv2 {
   display: none;
+  padding: 5px 10px;
+}
+
+.form .cat-lv1-section .cat-lv2:hover,
+.form .cat-lv2-section .cat-lv2:hover {
+  background-color: #f7d4d4;
+}
+
+.form .cat-lv1-section .cat-lv2.active,
+.form .cat-lv2-section .cat-lv2.active {
+  color: white;
+  background-color: #D10024;
 }
 
 .form .cat-lv1-section .cat-lv2.show,
 .form .cat-lv2-section .cat-lv2.show {
   display: list-item;
   cursor: pointer;
+}
+
+.form .cat-lv1-section .category-title,
+.form .cat-lv2-section .category-title {
+  display: block;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #D10024;
 }
 
 .form.add-product-form .upload-img-container {
@@ -742,6 +773,32 @@ input[type=checkbox]:checked + label:before {
 
 .form.add-product-form .upload-img-container .img-wrapper {
   width: 30%;
+}
+
+.form.add-product-form .upload-img-container .img-wrapper.active {
+  opacity: 0.6;
+  position: relative;
+  z-index: 20;
+}
+
+.form.add-product-form .upload-img-container .img-wrapper.active::after {
+  position: absolute;
+  z-index: 30;
+  content: "Ch\1ECDn \1EA3nh ch\EDnh";
+  top: 37.5%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #D10024;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: aliceblue;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.form.add-product-form .upload-img-container .img-wrapper img:hover {
+  opacity: 0.8;
 }
 
 .form.add-product-form .upload-img-container .img-wrapper .product-img {
