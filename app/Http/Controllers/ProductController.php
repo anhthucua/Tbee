@@ -60,6 +60,66 @@ class ProductController extends Controller
     }
 
     /**
+     * Get products by category
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function productsByCategory($id)
+    {
+        $cat_lv1 = CategoryLvl1::find($id);
+        $cat_lv2 = CategoryLvl2::where('category_level1_id', $id)->get();
+
+        // use in query
+        $cat_lv2_id_arr = $cat_lv2->pluck('id');
+
+        $products = Product::join('images', 'products.image_id', 'images.id')
+            ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
+            ->orderBy('id', 'desc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->get();
+
+        foreach ($cat_lv2 as $cat) {
+            $cat->products_count = Product::where('category_level2_id', $cat->id)->count();
+        }
+
+        foreach ($products as $product) {
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
+        }
+
+        // best seller products
+        $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
+            ->orderBy('purchased_number', 'desc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->take(3)
+            ->get();
+
+        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products'));
+    }
+
+    /**
      * Seach products of supplier
      *
      * @param Request $request
@@ -77,17 +137,17 @@ class ProductController extends Controller
 
         if ($request['category'] === "all") {
             $products = Product::query()
-            ->where('name', 'LIKE', "%{$name}%")
-            ->orderBy($column, $direction)
-            ->get();
+                ->where('name', 'LIKE', "%{$name}%")
+                ->orderBy($column, $direction)
+                ->get();
         } else {
             $products = Product::query()
-            ->where('name', 'LIKE', "%{$name}%")
-            ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
-                $query->where('category_level1_id', $request['category']);
-            })
-            ->orderBy($column, $direction)
-            ->get();
+                ->where('name', 'LIKE', "%{$name}%")
+                ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
+                    $query->where('category_level1_id', $request['category']);
+                })
+                ->orderBy($column, $direction)
+                ->get();
         }
 
         // Get information
@@ -145,14 +205,14 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified product.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        dd('Day la trang hien thi product co id = ' . $id);
     }
 
     /**

@@ -1,6 +1,8 @@
 @extends('base')
 
-@section('title', 'home')
+@section('title')
+  {{ $cat_lv1->name }}
+@endsection
 
 @section('content')
 
@@ -11,16 +13,13 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li>
-            {{-- <a href="#">Trang chủ</a> --}}
             <div class="header-logo">
-              <a class="logo" href="home.html">
-                <img src="images/logo.svg" alt="logo">
+              <a class="logo" href="{{ route('home') }}">
+                <img src="{{ asset('/images/logo.svg') }}" alt="logo">
               </a>
             </div>
           </li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li class="active">Headphones (227,490 Results)</li>
+          <li class="active">{{ $cat_lv1->name }}</li>
         </ul>
       </div>
     </div>
@@ -38,23 +37,15 @@
         <div class="aside">
           <h3 class="aside-title">Categories</h3>
           <div class="checkbox-filter">
-
-            <div class="input-checkbox">
-              <input type="checkbox" id="category-1">
-              <label for="category-1">
-                Category 1
-                <small>(120)</small>
-              </label>
-            </div>
-
-            <div class="input-checkbox">
-              <input type="checkbox" id="category-2">
-              <label for="category-2">
-                Category 2
-                <small>(740)</small>
-              </label>
-            </div>
-
+            @foreach ($cat_lv2 as $cat)
+              <div class="input-checkbox">
+                <input type="checkbox" id="category-{{ $cat->id }}">
+                <label for="category-{{ $cat->id }}">
+                  {{ $cat->name }}
+                  <small>({{ $cat->products_count }})</small>
+                </label>
+              </div>
+            @endforeach
           </div>
         </div>
         <!-- /aside Widget -->
@@ -82,35 +73,24 @@
         <!-- aside Widget -->
         <div class="aside">
           <h3 class="aside-title">Sản phẩm bán chạy</h3>
-          <div class="product-widget">
-            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
-            </a>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">980000 <del class="product-old-price">990000</del></h4>
+          @foreach ($best_seller_products as $b_product)
+            <div class="product-widget">
+              <a href="{{ route('product.show', $b_product->id) }}" class="product-img" style="background-image: url('{{ asset($b_product->img_url) }}');">
+              </a>
+              <div class="product-body">
+                <p class="product-purchased">Đã bán {{ $b_product->purchased_number }}</p>
+                <h3 class="product-name">
+                  <a href="{{ route('product.show', $b_product->id) }}">{{ $b_product->name }}</a>
+                </h3>
+                <h4 class="product-price">
+                  {{ $b_product->price }}
+                  @if ($b_product->sale_price !== $b_product->price)
+                    <del class="product-old-price">{{ $b_product->price }}</del>
+                  @endif
+                </h4>
+              </div>
             </div>
-          </div>
-
-          <div class="product-widget">
-            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
-            </a>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">980000<del class="product-old-price">990000</del></h4>
-            </div>
-          </div>
-
-          <div class="product-widget">
-            <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');">
-            </a>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">990000 <del class="product-old-price">990000</del></h4>
-            </div>
-          </div>
+          @endforeach
         </div>
         <!-- /aside Widget -->
       </div>
@@ -136,92 +116,31 @@
 
         <!-- store products -->
         <div class="row">
-          <!-- product -->
-          <div class="col-lg-4 col-xs-6">
-            <div class="product">
-              <a class="product-link" href="#"></a>
-              <div class="product-img" style="background-image: url('../images/product01.png');">
-                <div class="product-label"><span class="sale">-30%</span></div>
-              </div>
-              <div class="product-body">
-                <p class="product-category">Name Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">980000
-                  <del class="product-old-price">990000</del>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <!-- /product -->
-          <!-- product -->
-          <div class="col-lg-4 col-xs-6">
-            <div class="product">
-              <a class="product-link" href="#"></a>
-              <div class="product-img" style="background-image: url('../images/product01.png');">
-                <div class="product-label"><span class="sale">-30%</span></div>
-              </div>
-              <div class="product-body">
-                <p class="product-category">Name Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">980000
-                  <del class="product-old-price">990000</del>
-                </h4>
+          @foreach ($products as $product)
+            <!-- product -->
+            <div class="col-lg-4 col-xs-6">
+              <div class="product">
+                <a class="product-link" href="{{ route('product.show', $product->id) }}"></a>
+                <div class="product-img" style="background-image: url('{{ asset($product->img_url) }}');">
+                  <div class="product-label">
+                    @isset($product->sale_percent)
+                      <span class="sale">{{ $product->sale_percent }}%</span>
+                    @endisset
+                  </div>
+                </div>
+                <div class="product-body">
+                  <p class="product-purchased">Đã bán {{ $product->purchased_number }}</p>
+                  <h3 class="product-name"><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></h3>
+                  <h4 class="product-price">{{ $product->price }}
+                    @if ($product->sale_price !== $product->price)
+                      <del class="product-old-price">990000</del>
+                    @endif
+                  </h4>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- /product -->
-          <!-- product -->
-          <div class="col-lg-4 col-xs-6">
-            <div class="product">
-              <a class="product-link" href="#"></a>
-              <div class="product-img" style="background-image: url('../images/product01.png');">
-                <div class="product-label"><span class="sale">-30%</span></div>
-              </div>
-              <div class="product-body">
-                <p class="product-category">Name Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">980000
-                  <del class="product-old-price">990000</del>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <!-- /product -->
-          <!-- product -->
-          <div class="col-lg-4 col-xs-6">
-            <div class="product">
-              <a class="product-link" href="#"></a>
-              <div class="product-img" style="background-image: url('../images/product01.png');">
-                <div class="product-label"><span class="sale">-30%</span></div>
-              </div>
-              <div class="product-body">
-                <p class="product-category">Name Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">980000
-                  <del class="product-old-price">990000</del>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <!-- /product -->
-          <!-- product -->
-          <div class="col-lg-4 col-xs-6">
-            <div class="product">
-              <a class="product-link" href="#"></a>
-              <div class="product-img" style="background-image: url('../images/product01.png');">
-                <div class="product-label"><span class="sale">-30%</span></div>
-              </div>
-              <div class="product-body">
-                <p class="product-category">Name Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">980000
-                  <del class="product-old-price">990000</del>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <!-- /product -->
-
+            <!-- /product -->
+          @endforeach
         </div>
         <!-- /store products -->
       </div>

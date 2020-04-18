@@ -5,7 +5,7 @@
       <!-- logo -->
       <div class="col-md-3">
         <div class="header-logo">
-          <a class="logo" href="home.html"><img src="images/logo.svg" alt="logo"></a>
+          <a class="logo" href="{{ route('home') }}"><img src="{{ asset('/images/logo.svg') }}" alt="logo"></a>
         </div>
       </div>
       <!-- /logo -->

@@ -46,7 +46,11 @@ Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'suppli
 // Product routes for everyone
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
     Route::post('/supplier-search', 'ProductController@supplierProductSearch');
+    Route::get('/{id}/show', 'ProductController@show')->name('show');
 });
+
+// Products by category
+Route::get('category/{id}', 'ProductController@productsByCategory')->name('products-category');
 
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');

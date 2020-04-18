@@ -55,12 +55,10 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->cat_lv2 }}</td>
                 <td>
-                  @if ($product->sale_price === $product->price)
-                    <div class="product-price">{{ $product->price }}</div>
-                  @else
+                  @if ($product->sale_price !== $product->price)
                     <div class="product-old-price">{{ $product->price }}</div>
-                    <div class="product-price">{{ $product->sale_price }}</div>
                   @endif
+                    <div class="product-price">{{ $product->sale_price }}</div>
                 </td>
                 <td>{{ $product->purchased_number }}</td>
                 <td>{{ $product->stock }}</td>
