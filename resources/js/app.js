@@ -421,23 +421,23 @@ $(document).ready(function () {
               td = clone.querySelectorAll('td'),
               img_div = clone.querySelector('.table-product-img'),
               a = clone.querySelectorAll('td a');
-              $(img_div).css('background-image', `url(${product['img']})`);
-              td[1].innerText = product.name;
-              td[2].innerText = product.cat_lv2;
-              if (product.sale_price === product.price) {
-                $(td[3]).html(`<div class="product-price">${product.price}</div>`);
-              } else {
-                $(td[3]).html(`
+            $(img_div).css('background-image', `url(${product['img']})`);
+            td[1].innerText = product.name;
+            td[2].innerText = product.cat_lv2;
+            if (product.sale_price === product.price) {
+              $(td[3]).html(`<div class="product-price">${product.price}</div>`);
+            } else {
+              $(td[3]).html(`
                   <div class="product-old-price">${product.price}</div>
                   <div class="product-price">${product.sale_price}</div>
                 `);
-              }
-              td[4].innerText = product.purchased_number;
-              td[5].innerText = product.stock;
-              td[6].innerText = product.date;
-              a[0].href = `/product/${product.id}/edit`;
-              a[1].href = `/product/${product.id}/delete`;
-              tbody.appendChild(clone);
+            }
+            td[4].innerText = product.purchased_number;
+            td[5].innerText = product.stock;
+            td[6].innerText = product.date;
+            a[0].href = `/product/${product.id}/edit`;
+            a[1].href = `/product/${product.id}/delete`;
+            tbody.appendChild(clone);
           });
         } else {
           $('table.product-list tbody').html(`
@@ -479,7 +479,7 @@ $(document).ready(function () {
       down = $this.find('.qty-down');
 
     down.on('click', function () {
-      var value = parseInt($input.val()) - 1;
+      var value = parseInt($input.val()) - 1000;
       value = value < 1 ? 1 : value;
       $input.val(value);
       $input.change();
@@ -487,7 +487,7 @@ $(document).ready(function () {
     })
 
     up.on('click', function () {
-      var value = parseInt($input.val()) + 1;
+      var value = parseInt($input.val()) + 1000;
       $input.val(value);
       $input.change();
       updatePriceSlider($this, value)
@@ -507,10 +507,8 @@ $(document).ready(function () {
 
   function updatePriceSlider(elem, value) {
     if (elem.hasClass('price-min')) {
-      console.log('min')
       priceSlider.noUiSlider.set([value, null]);
     } else if (elem.hasClass('price-max')) {
-      console.log('max')
       priceSlider.noUiSlider.set([null, value]);
     }
   }
@@ -518,21 +516,29 @@ $(document).ready(function () {
   // Price Slider
   var priceSlider = document.getElementById('price-slider');
   if (priceSlider) {
-    let minPrice = parseInt(document.querySelector('#productMinPrice').value)/1000,
-      maxPrice = parseInt(document.querySelector('#productMaxPrice').value)/1000;
+    let minPrice = parseInt(document.querySelector('#productMinPrice').value),
+      maxPrice = parseInt(document.querySelector('#productMaxPrice').value);
     nouislider.create(priceSlider, {
       start: [minPrice, maxPrice],
       connect: true,
-      step: 1,
+      step: 1000,
       range: {
         'min': minPrice,
         'max': maxPrice
+      },
+      format: {
+        to: function (value) {
+          return value;
+        },
+        from: function (value) {
+          return Number(value);
+        }
       }
     });
 
     priceSlider.noUiSlider.on('update', function (values, handle) {
       var value = values[handle];
-      handle ? priceInputMax.value = value : priceInputMin.value = value
+      handle ? priceInputMax.value = value : priceInputMin.value = value;
     });
   }
 });
