@@ -114,12 +114,7 @@
     <td></td> <!--name-->
     <td></td><!--cat_lv2-->
     <td>
-      @if ($product->sale_price === $product->price)
-        <div class="product-price"></div>
-      @else
-        <div class="product-old-price"></div>
-        <div class="product-price"></div>
-      @endif
+
     </td>
     <td></td>  <!--purchased-->
     <td></td> <!--stock-->
