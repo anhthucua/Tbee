@@ -518,13 +518,15 @@ $(document).ready(function () {
   // Price Slider
   var priceSlider = document.getElementById('price-slider');
   if (priceSlider) {
+    let minPrice = parseInt(document.querySelector('#productMinPrice').value)/1000,
+      maxPrice = parseInt(document.querySelector('#productMaxPrice').value)/1000;
     nouislider.create(priceSlider, {
-      start: [1, 999],
+      start: [minPrice, maxPrice],
       connect: true,
       step: 1,
       range: {
-        'min': 1,
-        'max': 999
+        'min': minPrice,
+        'max': maxPrice
       }
     });
 

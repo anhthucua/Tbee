@@ -66,6 +66,8 @@
               <span class="qty-up">+</span>
               <span class="qty-down">-</span>
             </div>
+            <input type="hidden" id="productMinPrice" value="{{ $price_values[0]->min }}" disabled>
+            <input type="hidden" id="productMaxPrice" value="{{ $price_values[0]->max }}" disabled>
           </div>
         </div>
         <!-- /aside Widget -->
@@ -83,7 +85,7 @@
                   <a href="{{ route('product.show', $b_product->id) }}">{{ $b_product->name }}</a>
                 </h3>
                 <h4 class="product-price">
-                  {{ $b_product->price }}
+                  {{ $b_product->sale_price }}
                   @if ($b_product->sale_price !== $b_product->price)
                     <del class="product-old-price">{{ $b_product->price }}</del>
                   @endif
@@ -131,9 +133,9 @@
                 <div class="product-body">
                   <p class="product-purchased">Đã bán {{ $product->purchased_number }}</p>
                   <h3 class="product-name"><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></h3>
-                  <h4 class="product-price">{{ $product->price }}
+                  <h4 class="product-price">{{ $product->sale_price }}
                     @if ($product->sale_price !== $product->price)
-                      <del class="product-old-price">990000</del>
+                      <del class="product-old-price">{{ $product->price }}</del>
                     @endif
                   </h4>
                 </div>

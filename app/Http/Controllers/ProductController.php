@@ -116,7 +116,11 @@ class ProductController extends Controller
             ->take(3)
             ->get();
 
-        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products'));
+        $price_values = Product::whereIn('products.category_level2_id', $cat_lv2_id_arr)
+            ->selectRaw('MIN(sale_price) AS min, MAX(sale_price) AS max')
+            ->get();
+
+        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products', 'price_values'));
     }
 
     /**
