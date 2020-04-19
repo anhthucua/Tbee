@@ -329,6 +329,7 @@ input[type=checkbox]:checked + label:before {
           right: 20px;
           font-size: 30px;
           color: $color-primary-1;
+          cursor: pointer;
         }
       }
     }
