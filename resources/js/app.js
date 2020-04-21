@@ -471,74 +471,146 @@ $(document).ready(function () {
 
   /////////////////////////////////////////
 
-  // Input number
-  $('.input-number').each(function () {
-    var $this = $(this),
-      $input = $this.find('input[type="number"]'),
-      up = $this.find('.qty-up'),
-      down = $this.find('.qty-down');
+  // Category page
 
-    down.on('click', function () {
-      var value = parseInt($input.val()) - 1000;
-      value = value < 1 ? 1 : value;
-      $input.val(value);
-      $input.change();
-      updatePriceSlider($this, value)
-    })
+  if ($(document.body).is('.page-category')) {
 
-    up.on('click', function () {
-      var value = parseInt($input.val()) + 1000;
-      $input.val(value);
-      $input.change();
-      updatePriceSlider($this, value)
-    })
-  });
+    // Filter and sort products
+    function filterProductCategory() {
+      let minPrice = parseInt($('#price-min').val()),
+        maxPrice = parseInt($('#price-max').val()),
+        cat_lv2_list = [],
+        sort = $('.store-sort .input-select option:selected').val(),
+        id = $('input#page-category-id').val();
 
-  var priceInputMax = document.getElementById('price-max'),
-    priceInputMin = document.getElementById('price-min');
-
-  priceInputMax.addEventListener('change', function () {
-    updatePriceSlider($(this).parent(), this.value)
-  });
-
-  priceInputMin.addEventListener('change', function () {
-    updatePriceSlider($(this).parent(), this.value)
-  });
-
-  function updatePriceSlider(elem, value) {
-    if (elem.hasClass('price-min')) {
-      priceSlider.noUiSlider.set([value, null]);
-    } else if (elem.hasClass('price-max')) {
-      priceSlider.noUiSlider.set([null, value]);
-    }
-  }
-
-  // Price Slider
-  var priceSlider = document.getElementById('price-slider');
-  if (priceSlider) {
-    let minPrice = parseInt(document.querySelector('#productMinPrice').value),
-      maxPrice = parseInt(document.querySelector('#productMaxPrice').value);
-    nouislider.create(priceSlider, {
-      start: [minPrice, maxPrice],
-      connect: true,
-      step: 1000,
-      range: {
-        'min': minPrice,
-        'max': maxPrice
-      },
-      format: {
-        to: function (value) {
-          return value;
-        },
-        from: function (value) {
-          return Number(value);
-        }
+      if (!minPrice) {
+        return false;
       }
+
+      $('.checkbox-filter .input-checkbox input:checked').each(function () {
+        cat_lv2_list.push($(this).data('id'));
+      });
+
+      axios({
+        method: 'POST',
+        url: `/category/${id}/search`,
+        data: {
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          cat_lv2: cat_lv2_list,
+          sort: sort
+        }
+      }).then(function (res) {
+        document.querySelector('#store > .row').innerHTML = '';
+        if (res.data.length > 0) {
+          res.data.forEach(product => {
+            let tpl = document.querySelector('#product-div'),
+              clone = tpl.content.cloneNode(true),
+              p_link = clone.querySelector('.product-link'),
+              p_img = clone.querySelector('.product-img'),
+              p_sale = clone.querySelector('.product-label .sale'),
+              p_purchased = clone.querySelector('.product-purchased'),
+              p_name = clone.querySelector('.product-name a'),
+              price_1 = clone.querySelector('.product-price span'),
+              price_2 = clone.querySelector('.product-old-price');
+              p_link.href = `/product/${product.id}/show`;
+              p_img.style.backgroundImage = `url(${product['img']})`;
+              if (product.sale_percent) {
+                p_sale.textContent = `${product.sale_percent}%`;
+              } else {
+                p_sale.style.display = 'none';
+              }
+              p_purchased.textContent = `Đã bán ${product.purchased_number}`;
+              p_name.textContent = product.name;
+              p_name.href = `/product/${product.id}/show`;
+              price_1.textContent = product.sale_price;
+              price_2.textContent = (product.sale_price === product.price) ? '' : product.price;
+              document.querySelector('#store > .row').appendChild(clone);
+          });
+        } else {
+          $('#store > .row').html('<p class="no-products">Không có sản phẩm nào.</p>');
+        }
+
+      })
+    }
+
+    // Handle event change category filter
+    $('.checkbox-filter .input-checkbox input').on('change', function () {
+      filterProductCategory();
     });
 
-    priceSlider.noUiSlider.on('update', function (values, handle) {
-      var value = values[handle];
-      handle ? priceInputMax.value = value : priceInputMin.value = value;
+    // Sort
+    $('.store-sort .input-select').change(function () {
+      filterProductCategory();
     });
+
+    $('.input-number').each(function () {
+      let $this = $(this),
+        $input = $this.find('input[type="number"]'),
+        up = $this.find('.qty-up'),
+        down = $this.find('.qty-down');
+
+      down.on('click', function () {
+        let value = parseInt($input.val()) - 1000;
+        value = value < 1 ? 1 : value;
+        $input.val(value);
+        $input.trigger('change');
+      })
+
+      up.on('click', function () {
+        let value = parseInt($input.val()) + 1000;
+        $input.val(value);
+        $input.trigger('change');
+      })
+    });
+
+    let priceInputMax = document.getElementById('price-max'),
+      priceInputMin = document.getElementById('price-min');
+
+    $(priceInputMax).on('change', function () {
+      updatePriceSlider($(this).parent(), this.value)
+    });
+
+    $(priceInputMin).on('change', function () {
+      updatePriceSlider($(this).parent(), this.value)
+    });
+
+    function updatePriceSlider(elem, value) {
+      if (elem.hasClass('price-min')) {
+        priceSlider.noUiSlider.set([value, null]);
+      } else if (elem.hasClass('price-max')) {
+        priceSlider.noUiSlider.set([null, value]);
+      }
+    }
+
+    // Price Slider
+    var priceSlider = document.getElementById('price-slider');
+    if (priceSlider) {
+      let minPrice = parseInt(document.querySelector('#productMinPrice').value),
+        maxPrice = parseInt(document.querySelector('#productMaxPrice').value);
+      nouislider.create(priceSlider, {
+        start: [minPrice, maxPrice],
+        connect: true,
+        step: 1000,
+        range: {
+          'min': minPrice,
+          'max': maxPrice
+        },
+        format: {
+          to: function (value) {
+            return value;
+          },
+          from: function (value) {
+            return Number(value);
+          }
+        }
+      });
+
+      priceSlider.noUiSlider.on('set', function (values, handle) {
+        var value = values[handle];
+        handle ? priceInputMax.value = value : priceInputMin.value = value;
+        filterProductCategory();
+      });
+    }
   }
 });

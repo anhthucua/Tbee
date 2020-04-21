@@ -51,6 +51,7 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
 
 // Products by category
 Route::get('category/{id}', 'ProductController@productsByCategory')->name('products-category');
+Route::post('category/{id}/search', 'ProductController@productsByCategorySearch');
 
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');

@@ -13,7 +13,7 @@
   <script src="{{ asset('js/requires.js') }}" defer></script>
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body>
+<body class="@yield('classname', '')">
   @yield('top-header', View::make('includes.top-header'))
   @yield('header', View::make('includes.header'))
   @yield('content', 'Hello')

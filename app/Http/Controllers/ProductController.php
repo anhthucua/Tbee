@@ -75,7 +75,7 @@ class ProductController extends Controller
 
         $products = Product::join('images', 'products.image_id', 'images.id')
             ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
-            ->orderBy('id', 'desc')
+            ->orderBy('sale_price', 'asc')
             ->select(
                 'products.id',
                 'products.name',
@@ -120,7 +120,7 @@ class ProductController extends Controller
             ->selectRaw('MIN(sale_price) AS min, MAX(sale_price) AS max')
             ->get();
 
-        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products', 'price_values'));
+        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products', 'price_values', 'id'));
     }
 
     /**
@@ -141,12 +141,18 @@ class ProductController extends Controller
 
         if ($request['category'] === "all") {
             $products = Product::query()
-                ->where('name', 'LIKE', "%{$name}%")
+                ->where([
+                    ['name', 'LIKE', "%{$name}%"],
+                    ['supplier_id', Auth::user()->id]
+                ])
                 ->orderBy($column, $direction)
                 ->get();
         } else {
             $products = Product::query()
-                ->where('name', 'LIKE', "%{$name}%")
+                ->where([
+                    ['name', 'LIKE', "%{$name}%"],
+                    ['supplier_id', Auth::user()->id]
+                ])
                 ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
                     $query->where('category_level1_id', $request['category']);
                 })
@@ -159,6 +165,57 @@ class ProductController extends Controller
             $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
             $product->img = ImageModel::find($product->image_id)->url;
             $product->date = $product->created_at->format('d/m/Y');
+        }
+
+        return $products;
+    }
+
+    /**
+     * Search products by category
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function productsByCategorySearch(Request $request, $id)
+    {
+        // Format order by
+        $order_by_arr = explode(' ', $request['sort']);
+        $column = $order_by_arr[0];
+        $direction = $order_by_arr[1];
+
+        if ($request->cat_lv2 === []) {
+            $products = Product::query()
+                ->where([
+                    ['sale_price', '>=', $request['minPrice']],
+                    ['sale_price', '<=', $request['maxPrice']]
+                ])
+                ->whereHas('categoryLvl2', function (Builder $query) use ($id) {
+                    $query->where('category_level1_id', $id);
+                })
+                ->orderBy($column, $direction)
+                ->get();
+        } else {
+            $products = Product::query()
+                ->where([
+                    ['sale_price', '>=', $request['minPrice']],
+                    ['sale_price', '<=', $request['maxPrice']]
+                ])
+                ->whereIn('category_level2_id', $request['cat_lv2'])
+                ->orderBy($column, $direction)
+                ->get();
+        }
+
+        foreach ($products as $product) {
+            $product->img = ImageModel::find($product->image_id)->url;
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
         }
 
         return $products;
