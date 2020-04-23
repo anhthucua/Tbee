@@ -165,7 +165,7 @@
     </div>
 
     {{-- Phan trang --}}
-    <div class="row">
+    {{-- <div class="row">
       <div class="col-12">
         <!-- store bottom filter -->
         <div class="store-filter float-right">
@@ -179,7 +179,7 @@
         </div>
         <!-- /store bottom filter -->
       </div>
-    </div>
+    </div> --}}
 
   </div>
 </div>

@@ -83,8 +83,8 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Name Category</p>
-                          <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
                           </h4>
@@ -95,8 +95,8 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Name Category</p>
-                          <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
                           </h4>
@@ -107,8 +107,8 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Name Category</p>
-                          <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
                           </h4>
@@ -119,15 +119,15 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Name Category</p>
-                          <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
                           </h4>
                         </div>
                       </div>
-                      <!-- /PRODUCT -->
-                    </div>
+                       <!-- /PRODUCT -->
+
                     <div class="products-slick-nav" id="slick-nav-1"></div>
                   </div>
                 </div>
