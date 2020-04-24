@@ -52,6 +52,10 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
 // Products by category
 Route::get('category/{id}', 'ProductController@productsByCategory')->name('products-category');
 Route::post('category/{id}/search', 'ProductController@productsByCategorySearch');
+Route::get('category_lv2/{id}', 'ProductController@categoryLevel2')->name('products-category2');
+
+// Products by shop
+Route::get('shop/{id}', 'ProductController@productsByShop')->name('products-shop');
 
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');

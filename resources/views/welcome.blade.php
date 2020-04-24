@@ -126,6 +126,7 @@
                           </h4>
                         </div>
                       </div>
+                    </div>
                        <!-- /PRODUCT -->
 
                     <div class="products-slick-nav" id="slick-nav-1"></div>

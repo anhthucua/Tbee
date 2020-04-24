@@ -1,14 +1,13 @@
 @extends('base')
 
 @section('title')
-  {{ $cat_lv1->name }}
+  {{ (!$cat_lv2_id) ? $cat_lv1->name : $cat_lv2->name }}
 @endsection
 
 @section('classname', 'page-category')
 
 @section('content')
-{{-- {{ dd($products) }} --}}
-<input type="hidden" id="page-category-id" value="{{ $id }}">
+<input type="hidden" id="page-category-id" value="{{ (!$cat_lv2_id) ? $cat_lv1->id : $cat_lv2->id }}">
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
@@ -23,7 +22,14 @@
               </a>
             </div>
           </li>
-          <li class="active">{{ $cat_lv1->name }}</li>
+          @empty($cat_lv2_id)
+            <li class="active">{{ $cat_lv1->name }}</li>
+          @else
+            <li>
+              <a href="{{ route('products-category', $cat_lv2->category_level1_id) }}">{{ $cat_lv1->name }}</a>
+            </li>
+            <li class="active">{{ $cat_lv2->name }}</li>
+          @endempty
         </ul>
       </div>
     </div>
@@ -37,21 +43,24 @@
     <div class="row">
       <!-- ASIDE -->
       <div id="aside" class="col-md-3">
+
         <!-- Filter theo category -->
-        <div class="aside">
-          <h3 class="aside-title">Categories</h3>
-          <div class="checkbox-filter">
-            @foreach ($cat_lv2 as $cat)
-              <div class="input-checkbox">
-                <input type="checkbox" id="category-{{ $cat->id }}" data-id="{{ $cat->id }}">
-                <label for="category-{{ $cat->id }}">
-                  {{ $cat->name }}
-                  <small>({{ $cat->products_count }})</small>
-                </label>
-              </div>
-            @endforeach
+        @empty($cat_lv2_id)
+          <div class="aside">
+            <h3 class="aside-title">Categories</h3>
+            <div class="checkbox-filter">
+              @foreach ($cat_lv2 as $cat)
+                <div class="input-checkbox">
+                  <input type="checkbox" id="category-{{ $cat->id }}" data-id="{{ $cat->id }}">
+                  <label for="category-{{ $cat->id }}">
+                    {{ $cat->name }}
+                    <small>({{ $cat->products_count }})</small>
+                  </label>
+                </div>
+              @endforeach
+            </div>
           </div>
-        </div>
+        @endempty
         <!-- /aside Widget -->
 
         <!-- Filter theo gia ban -->
@@ -79,7 +88,6 @@
 
         <!-- /aside Widget -->
 
-        <!-- aside Widget -->
         {{-- San pham ban chay --}}
         <div class="aside">
           <h3 class="aside-title">Sản phẩm bán chạy</h3>
@@ -103,6 +111,7 @@
           @endforeach
         </div>
         <!-- /aside Widget -->
+
       </div>
       <!-- /ASIDE -->
 

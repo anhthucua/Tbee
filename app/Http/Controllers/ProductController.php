@@ -8,6 +8,8 @@ use App\CategoryLvl1;
 use App\CategoryLvl2;
 use Image;
 use App\Image as ImageModel;
+use App\Supplier;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -60,18 +62,39 @@ class ProductController extends Controller
     }
 
     /**
+     * Products by category lv2
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function categoryLevel2($id)
+    {
+        return $this->productsByCategory($id, $id);
+    }
+
+    /**
      * Get products by category
      *
      * @param [type] $id
      * @return void
      */
-    public function productsByCategory($id)
+    public function productsByCategory($id, $cat_lv2_id = null)
     {
-        $cat_lv1 = CategoryLvl1::find($id);
-        $cat_lv2 = CategoryLvl2::where('category_level1_id', $id)->get();
+        if (!$cat_lv2_id) {
+            $cat_lv1 = CategoryLvl1::find($id);
+            $cat_lv2 = CategoryLvl2::where('category_level1_id', $id)->get();
 
-        // use in query
-        $cat_lv2_id_arr = $cat_lv2->pluck('id');
+            // use in query
+            $cat_lv2_id_arr = $cat_lv2->pluck('id');
+
+            foreach ($cat_lv2 as $cat) {
+                $cat->products_count = Product::where('category_level2_id', $cat->id)->count();
+            }
+        } else {
+            $cat_lv2 = CategoryLvl2::find($cat_lv2_id);
+            $cat_lv1 = CategoryLvl1::find($cat_lv2->category_level1_id);
+            $cat_lv2_id_arr = array(intval($cat_lv2_id));
+        }
 
         $products = Product::join('images', 'products.image_id', 'images.id')
             ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
@@ -85,10 +108,6 @@ class ProductController extends Controller
                 'images.url as img_url'
             )
             ->get();
-
-        foreach ($cat_lv2 as $cat) {
-            $cat->products_count = Product::where('category_level2_id', $cat->id)->count();
-        }
 
         foreach ($products as $product) {
             if ($product->price !== $product->sale_price) {
@@ -120,7 +139,18 @@ class ProductController extends Controller
             ->selectRaw('MIN(sale_price) AS min, MAX(sale_price) AS max')
             ->get();
 
-        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products', 'price_values', 'id'));
+        return view('category', compact('cat_lv1', 'cat_lv2', 'products', 'best_seller_products', 'price_values', 'cat_lv2_id'));
+    }
+
+    /**
+     * Get products by shop
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function productsByShop($id)
+    {
+        dd('Trang hien thi shop voi id = ' . $id);
     }
 
     /**
@@ -273,7 +303,57 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        dd('Day la trang hien thi product co id = ' . $id);
+        $product = Product::findOrFail($id);
+        $cat_lv2 = CategoryLvl2::find($product->category_level2_id);
+        $cat_lv1 = CategoryLvl1::find($cat_lv2->category_level1_id);
+
+        $product->main_img = ImageModel::find($product->image_id)->url;
+
+        $images = [];
+
+        foreach ($product->images as $image) {
+            if ($image->id == $product->image_id) {
+                continue;
+            }
+            $images[] = $image->url;
+        }
+
+        $supplier = Supplier::findOrFail($product->supplier_id);
+
+        $avatar = User::find($supplier->user_id)->avatar;
+
+        $shop = [
+            'id' => $product->supplier_id,
+            'name' => $supplier->shop_name,
+            'avatar' => $avatar ? ImageModel::find($avatar)->url : '/images/default-avt.png',
+        ];
+
+        // best seller products
+        $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->orderBy('purchased_number', 'desc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->take(4)
+            ->get();
+
+        foreach ($best_seller_products as $b_product) {
+            if ($b_product->price !== $b_product->sale_price) {
+                $b_product->sale_percent = intval(round($b_product->sale_price / $b_product->price * 100 - 100));
+                if ($b_product->sale_percent === -100) {
+                    $b_product->sale_percent = -99;
+                } elseif ($b_product->sale_percent === 0) {
+                    unset($b_product->sale_percent);
+                }
+            }
+        }
+
+        return view('product-detail', compact('product', 'cat_lv2', 'cat_lv1', 'images', 'shop', 'best_seller_products'));
     }
 
     /**

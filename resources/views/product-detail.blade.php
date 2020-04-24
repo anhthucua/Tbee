@@ -3,25 +3,6 @@
 @section('title', 'home')
 
 @section('content')
-
-<!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="breadcrumb-tree">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Headphones</a></li>
-          <li class="active">Product name goes here</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /BREADCRUMB -->
-
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
   <div class="container">
@@ -29,17 +10,19 @@
       <div class="col-md-12">
         <ul class="breadcrumb-tree">
           <li>
-            {{-- <a href="#">Trang chủ</a> --}}
             <div class="header-logo">
-              <a class="logo" href="home.html">
-                <img src="images/logo.svg" alt="logo">
+              <a class="logo" href="{{ route('home') }}">
+                <img src="{{ asset('/images/logo.svg') }}" alt="logo">
               </a>
             </div>
           </li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Headphones</a></li>
-          <li class="active">Product name goes here</li>
+          <li>
+            <a href="{{ route('products-category', $cat_lv1->id) }}">{{ $cat_lv1->name }}</a>
+          </li>
+          <li>
+            <a href="{{ route('products-category2', $cat_lv2->id) }}">{{ $cat_lv2->name }}</a>
+          </li>
+          <li class="active">{{ $product->name }}</li>
         </ul>
       </div>
     </div>
@@ -54,17 +37,12 @@
       <!-- Product main img -->
       <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
-          <div class="product-preview" style="background-image: url('images/man-fashion.png');">
+          <div class="product-preview" style="background-image: url('{{ $product->main_img }}');">
           </div>
-
-          <div class="product-preview" style="background-image: url('images/product03.png');">
-          </div>
-
-          <div class="product-preview" style="background-image: url('images/product06.png');">
-          </div>
-
-          <div class="product-preview" style="background-image: url('images/product08.png');">
-          </div>
+          @foreach ($images as $img)
+            <div class="product-preview" style="background-image: url('{{ $img }}');">
+            </div>
+          @endforeach
         </div>
       </div>
       <!-- /Product main img -->
@@ -72,17 +50,12 @@
       <!-- Product thumb imgs -->
       <div class="col-md-2  col-md-pull-5">
         <div id="product-imgs">
-          <div class="product-preview" style="background-image: url('images/man-fashion.png');">
+          <div class="product-preview" style="background-image: url('{{ $product->main_img }}');">
           </div>
-
-          <div class="product-preview" style="background-image: url('images/product03.png');">
-          </div>
-
-          <div class="product-preview" style="background-image: url('images/product06.png');">
-          </div>
-
-          <div class="product-preview" style="background-image: url('images/product08.png');">
-          </div>
+          @foreach ($images as $img)
+            <div class="product-preview" style="background-image: url('{{ $img }}');">
+            </div>
+          @endforeach
         </div>
       </div>
       <!-- /Product thumb imgs -->
@@ -90,12 +63,17 @@
       <!-- Product details -->
       <div class="col-md-5">
         <div class="product-details">
-          <h2 class="product-name">product name goes here</h2>
-          <div>10 sản phẩm đã bán
+          <h2 class="product-name">{{ $product->name }}</h2>
+          <div>{{ $product->purchased_number }} sản phẩm đã bán
           </div>
           <div>
-            <h3 class="product-price">980000 <del class="product-old-price">990000</del></h3>
-            <span class="product-available">Còn xxx sản phẩm</span>
+            <h3 class="product-price">
+              <span>{{ $product->sale_price }}</span>
+              @if ($product->sale_price !== $product->price)
+                <del class="product-old-price">{{ $product->price }}</del>
+              @endif
+            </h3>
+            <span class="product-available">Còn {{ $product->stock }} sản phẩm</span>
           </div>
 
           <div class="add-to-cart">
@@ -115,11 +93,12 @@
      <!-- shop infor -->
      <div class="product-shop">
       <div class="d-flex">
-        <a href="#" class="shop-image" style="background-image: url('images/man-fashion.png');"></a>
+        <a href="{{ route('products-shop', $shop['id']) }}" class="shop-image"
+          style="background-image: url('{{ $shop['avatar'] }}');"></a>
         <div class="shop-info">
-          <a href="#">Tên shop</a>
+          <a href="{{ route('products-shop', $shop['id']) }}">{{ $shop['name'] }}</a>
           <div class="shop-link">
-            <a href="#" class="primary-btn primary-btn--normal">Xem shop</a>
+            <a href="{{ route('products-shop', $shop['id']) }}" class="primary-btn primary-btn--normal">Xem shop</a>
             <a href="#" class="secondary-btn">Chat ngay</a>
           </div>
         </div>
@@ -130,9 +109,7 @@
     <div class="product-desc">
       <h5 class="product-desc-title">Mô tả</h5>
       <div class="product-desc-content">
-        <p>Xuất xứ: Việt Nam</p>
-        <p>Có màu đỏ</p>
-        <p>Sản phẩm nguyên seal</p>
+        {{ $product->description }}
       </div>
     </div>
     <!-- /description -->
@@ -152,77 +129,32 @@
       </div>
 
       <!-- product -->
-      <div class="col-md-3 col-xs-6">
-        <div class="product">
-          <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
-            <div class="product-label"><span class="sale">-30%</span></div>
-          </div>
-          <div class="product-body">
-            <p class="product-category">Name Category</p>
-            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-            <h4 class="product-price">980000
-              <del class="product-old-price">990000</del>
-            </h4>
-          </div>
-        </div>
-      </div>
-      <!-- /product -->
-
-      <!-- product -->
-      <div class="col-md-3 col-xs-6">
-        <div class="product">
-          <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
-            <div class="product-label"><span class="sale">-30%</span></div>
-          </div>
-          <div class="product-body">
-            <p class="product-category">Name Category</p>
-            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-            <h4 class="product-price">980000
-              <del class="product-old-price">990000</del>
-            </h4>
+      @foreach ($best_seller_products as $item)
+        <div class="col-md-3 col-xs-6">
+          <div class="product">
+            <a class="product-link" href="{{ route('product.show', $item->id) }}"></a>
+            <div class="product-img" style="background-image: url('{{ asset($item->img_url) }}');" alt="">
+              <div class="product-label">
+                @isset($item->sale_percent)
+                  <span class="sale">{{ $item->sale_percent }}%</span>
+                @endisset
+              </div>
+            </div>
+            <div class="product-body">
+              <p class="product-purchased">Đã bán {{ $item->purchased_number }}</p>
+              <h3 class="product-name">
+                <a href="{{ route('product.show', $item->id) }}">{{ $item->name }}</a>
+              </h3>
+              <h4 class="product-price">
+                <span>{{ $item->sale_price }}</span>
+                @if ($item->sale_price !== $item->price)
+                  <del class="product-old-price">{{ $item->price }}</del>
+                @endif
+              </h4>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- /product -->
-
-      <!-- product -->
-      <div class="col-md-3 col-xs-6">
-        <div class="product">
-          <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
-            <div class="product-label"><span class="sale">-30%</span></div>
-          </div>
-          <div class="product-body">
-            <p class="product-category">Name Category</p>
-            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-            <h4 class="product-price">980000
-              <del class="product-old-price">990000</del>
-            </h4>
-          </div>
-        </div>
-      </div>
-      <!-- /product -->
-
-      <!-- product -->
-      <div class="col-md-3 col-xs-6">
-        <div class="product">
-          <a class="product-link" href="#"></a>
-          <div class="product-img" style="background-image: url('../images/man-fashion.png');" alt="">
-            <div class="product-label"><span class="sale">-30%</span></div>
-          </div>
-          <div class="product-body">
-            <p class="product-category">Name Category</p>
-            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-            <h4 class="product-price">980000
-              <del class="product-old-price">990000</del>
-            </h4>
-          </div>
-        </div>
-      </div>
-      <!-- /product -->
-
+      @endforeach
     </div>
   </div>
 </div>
