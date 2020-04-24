@@ -68,7 +68,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="section-title">
-                <h3 class="title">New Products</h3>
+                <h3 class="title">Sản phẩm bán chạy</h3>
               </div>
             </div>
             <!-- Products tab & slick-->
@@ -83,7 +83,7 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <p class="product-category">Đã bán 5</p>
                           <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
@@ -95,7 +95,7 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <p class="product-category">Đã bán 5</p>
                           <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
@@ -107,7 +107,7 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <p class="product-category">Đã bán 5</p>
                           <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
@@ -119,7 +119,7 @@
                           <div class="product-label"><span class="sale">-30%</span></div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Sản phẩm bán chạy</p>
+                          <p class="product-category">Đã bán 5</p>
                           <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
                           <h4 class="product-price">980000
                             <del class="product-old-price">990000</del>
@@ -127,7 +127,7 @@
                         </div>
                       </div>
                        <!-- /PRODUCT -->
-
+                    </div>
                     <div class="products-slick-nav" id="slick-nav-1"></div>
                   </div>
                 </div>
