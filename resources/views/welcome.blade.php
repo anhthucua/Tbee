@@ -62,7 +62,7 @@
       </div>
       {{-- End category --}}
 
-      {{-- Section new products --}}
+      {{-- Section best sellers products --}}
       <div class="section">
         <div class="container">
           <div class="row">
@@ -75,68 +75,87 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="products-tabs">
-                  <div class="tab-pane active" id="tab1">
-                    <div class="products-slick" data-nav="#slick-nav-1">
-                      <!-- PRODUCT -->
-                      <div class="product"><a class="product-link" href="#"></a>
-                        <div class="product-img" style="background-image: url('../images/man-fashion.png');">
-                          <div class="product-label"><span class="sale">-30%</span></div>
+                  <div class="products-slick" data-nav="#slick-nav-1">
+                    @foreach ($best_seller_products as $product)
+                      <div class="product">
+                        <a class="product-link" href="{{ route('product.show', $product->id) }}"></a>
+                        <div class="product-img" style="background-image: url('{{ asset($product->img_url) }}');">
+                          <div class="product-label">
+                            @isset($product->sale_percent)
+                              <span class="sale">{{ $product->sale_percent }}%</span>
+                            @endisset
+                          </div>
                         </div>
                         <div class="product-body">
-                          <p class="product-category">Đã bán 5</p>
-                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                          <h4 class="product-price">980000
-                            <del class="product-old-price">990000</del>
+                          <p class="product-purchased">Đã bán {{ $product->purchased_number }}</p>
+                          <h3 class="product-name">
+                            <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                          </h3>
+                          <h4 class="product-price">
+                            <span>{{ $product->sale_price }}</span>
+                            @if ($product->sale_price !== $product->price)
+                              <del class="product-old-price">{{ $product->price }}</del>
+                            @endif
                           </h4>
                         </div>
                       </div>
-                      <div class="product"><a class="product-link" href="#"></a>
-                        <div class="product-img" style="background-image: url('../images/man-fashion.png');">
-                          <div class="product-label"><span class="sale">-30%</span></div>
-                        </div>
-                        <div class="product-body">
-                          <p class="product-category">Đã bán 5</p>
-                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                          <h4 class="product-price">980000
-                            <del class="product-old-price">990000</del>
-                          </h4>
-                        </div>
-                      </div>
-                      <div class="product"><a class="product-link" href="#"></a>
-                        <div class="product-img" style="background-image: url('../images/man-fashion.png');">
-                          <div class="product-label"><span class="sale">-30%</span></div>
-                        </div>
-                        <div class="product-body">
-                          <p class="product-category">Đã bán 5</p>
-                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                          <h4 class="product-price">980000
-                            <del class="product-old-price">990000</del>
-                          </h4>
-                        </div>
-                      </div>
-                      <div class="product"><a class="product-link" href="#"></a>
-                        <div class="product-img" style="background-image: url('../images/man-fashion.png');">
-                          <div class="product-label"><span class="sale">-30%</span></div>
-                        </div>
-                        <div class="product-body">
-                          <p class="product-category">Đã bán 5</p>
-                          <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                          <h4 class="product-price">980000
-                            <del class="product-old-price">990000</del>
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                       <!-- /PRODUCT -->
-                    </div>
-                    <div class="products-slick-nav" id="slick-nav-1"></div>
+                    @endforeach
                   </div>
+                  <div class="products-slick-nav" id="slick-nav-1"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {{-- Section new products --}}
+      <div class="section new-products">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3 class="title">Sản phẩm mới</h3>
+              </div>
+            </div>
+            <!-- Products tab & slick-->
+            <div class="col-md-12">
+              <div class="row">
+                <div class="products-tabs">
+                  <div class="products-slick" data-nav="#slick-nav-2">
+                    @foreach ($new_products as $product)
+                      <div class="product">
+                        <a class="product-link" href="{{ route('product.show', $product->id) }}"></a>
+                        <div class="product-img" style="background-image: url('{{ asset($product->img_url) }}');">
+                          <div class="product-label">
+                            @isset($product->sale_percent)
+                              <span class="sale">{{ $product->sale_percent }}%</span>
+                            @endisset
+                          </div>
+                        </div>
+                        <div class="product-body">
+                          <p class="product-purchased">Đã bán {{ $product->purchased_number }}</p>
+                          <h3 class="product-name">
+                            <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                          </h3>
+                          <h4 class="product-price">
+                            <span>{{ $product->sale_price }}</span>
+                            @if ($product->sale_price !== $product->price)
+                              <del class="product-old-price">{{ $product->price }}</del>
+                            @endif
+                          </h4>
+                        </div>
+                      </div>
+                    @endforeach
+                  </div>
+                  <div class="products-slick-nav" id="slick-nav-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
