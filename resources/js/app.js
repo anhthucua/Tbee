@@ -481,7 +481,8 @@ $(document).ready(function () {
         maxPrice = parseInt($('#price-max').val()),
         cat_lv2_list = [],
         sort = $('.store-sort .input-select option:selected').val(),
-        id = $('input#page-category-id').val();
+        id = $('input#page-category-id').val(),
+        level = $('#category-level').val();
 
       if (!minPrice) {
         return false;
@@ -498,7 +499,8 @@ $(document).ready(function () {
           minPrice: minPrice,
           maxPrice: maxPrice,
           cat_lv2: cat_lv2_list,
-          sort: sort
+          sort: sort,
+          level: level
         }
       }).then(function (res) {
         document.querySelector('#store > .row').innerHTML = '';

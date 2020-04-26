@@ -8,6 +8,7 @@
 
 @section('content')
 <input type="hidden" id="page-category-id" value="{{ (!$cat_lv2_id) ? $cat_lv1->id : $cat_lv2->id }}">
+<input type="hidden" id="category-level" value="{{ (!$cat_lv2_id) ? 1 : 2 }}">
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">

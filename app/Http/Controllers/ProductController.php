@@ -215,7 +215,17 @@ class ProductController extends Controller
         $direction = $order_by_arr[1];
 
         if ($request->cat_lv2 === []) {
-            $products = Product::query()
+            if ($request->level === '2') {
+                $products = Product::query()
+                ->where([
+                    ['sale_price', '>=', $request['minPrice']],
+                    ['sale_price', '<=', $request['maxPrice']],
+                    ['category_level2_id', $id]
+                ])
+                ->orderBy($column, $direction)
+                ->get();
+            } else {
+                $products = Product::query()
                 ->where([
                     ['sale_price', '>=', $request['minPrice']],
                     ['sale_price', '<=', $request['maxPrice']]
@@ -225,6 +235,9 @@ class ProductController extends Controller
                 })
                 ->orderBy($column, $direction)
                 ->get();
+            }
+
+
         } else {
             $products = Product::query()
                 ->where([
