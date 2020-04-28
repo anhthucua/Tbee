@@ -615,4 +615,23 @@ $(document).ready(function () {
       });
     }
   }
+
+  ////////////////////////////////////////
+  // Product detail page
+
+  if ($(document.body).is('.page-product-detail')) {
+    $('.add-to-cart-btn.logged-in').click(function (e) {
+      e.preventDefault();
+      let pid = window.location.pathname.split("/")[2];
+      axios({
+        method: 'POST',
+        url: '/add-to-cart',
+        data: {
+          pid: pid
+        }
+      }).then((res) => {
+        console.log(res);
+      })
+    });
+  }
 });

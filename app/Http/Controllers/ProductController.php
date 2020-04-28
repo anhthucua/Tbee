@@ -13,6 +13,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -151,6 +152,59 @@ class ProductController extends Controller
     public function productsByShop($id)
     {
         dd('Trang hien thi shop voi id = ' . $id);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function addToCart(Request $request)
+    {
+        $pid = $request['pid'];
+        $uid = Auth::user()->id;
+        $product = Product::find($pid);
+
+        $count = DB::table('cart')
+            ->select('quantity')
+            ->where([
+                ['user_id', $uid],
+                ['product_id', $pid]
+            ])
+            ->get();
+
+        if (count($count) === 0) {
+            if ($product->stock == 0) {
+                return 'Sản phẩm hiện đã hết hàng';
+            }
+            DB::table('cart')
+                ->insert([
+                    'user_id' => $uid,
+                    'product_id' => $pid,
+                    'quantity' => 1,
+                ]);
+        } else {
+            if ($count[0]['quantity'] === $product->stock) {
+                return 'Không thể thêm sản phẩm nữa';
+            } else {
+                DB::table('cart')
+                    ->where([
+                        ['user_id', $uid],
+                        ['product_id', $pid]
+                    ])
+                    ->update(['quantity'], intval($count[0]['quantity']) + 1);
+            }
+        }
+
+        return 'ok';
+    }
+
+    public function cart()
+    {
+        $cart = DB::table('cart')
+            ->where('user_id', Auth::user()->id);
+        dd($cart);
     }
 
     /**
@@ -333,10 +387,13 @@ class ProductController extends Controller
 
         $supplier = Supplier::findOrFail($product->supplier_id);
 
-        $avatar = User::find($supplier->user_id)->avatar;
+        $user = User::find($supplier->user_id);
+        $uid = $user->id;
+        $avatar = $user->avatar;
 
         $shop = [
             'id' => $product->supplier_id,
+            'uid' => $uid,
             'name' => $supplier->shop_name,
             'avatar' => $avatar ? ImageModel::find($avatar)->url : '/images/default-avt.png',
         ];

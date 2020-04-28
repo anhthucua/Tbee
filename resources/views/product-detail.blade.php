@@ -1,6 +1,10 @@
 @extends('base')
 
-@section('title', 'home')
+@section('title')
+{{ $product->name }}
+@endsection
+
+@section('classname', 'page-product-detail')
 
 @section('content')
 <!-- BREADCRUMB -->
@@ -76,9 +80,23 @@
             <span class="product-available">Còn {{ $product->stock }} sản phẩm</span>
           </div>
 
-          <div class="add-to-cart">
-            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-          </div>
+          @guest
+            <div class="add-to-cart">
+              <button class="add-to-cart-btn" data-toggle="modal" data-target="#rqlg-modal">
+                <i class="fa fa-shopping-cart"></i>
+                Thêm vào giỏ hàng
+              </button>
+            </div>
+          @else
+            @if (Auth::user()->id !== $shop['uid'])
+              <div class="add-to-cart">
+                <button class="add-to-cart-btn logged-in">
+                  <i class="fa fa-shopping-cart"></i>
+                  Thêm vào giỏ hàng
+                </button>
+              </div>
+            @endif
+          @endguest
         </div>
       </div>
       <!-- /Product details -->

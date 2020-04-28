@@ -24,53 +24,44 @@
       <!-- Cart -->
       <div class="col-md-3">
         <div class="header-ctn">
-          <div class="dropdown cart">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
-              <div class="qty">3</div>
-            </a>
-            <div class="cart-dropdown dropdown-menu">
-              <div class="cart-list">
-                <div class="product-widget">
-                  <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');" alt="">
-                  </a>
-                  <div class="product-body">
-                    <h3 class="product-name">
-                      <a href="#">product name goes here</a>
-                    </h3>
-                    <h4 class="product-price">
-                      <span class="qty">1x</span>100000
-                    </h4>
-                  </div>
-                  <button class="delete">
-                    <i class="fa fa-close"></i>
-                  </button>
-                </div>
-                <div class="product-widget">
-                  <a href="#" class="product-img" style="background-image: url('images/man-fashion.png');" alt="">
-                  </a>
-                  <div class="product-body">
-                    <h3 class="product-name">
-                      <a href="#">product name goes here</a>
-                    </h3>
-                    <h4 class="product-price">
-                      <span class="qty">1x</span>100000
-                    </h4>
-                  </div>
-                  <button class="delete">
-                    <i class="fa fa-close"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="cart-btn text-right">
-                <a href="#" class="primary-btn primary-btn--square">Xem giỏ hàng</a>
-              </div>
-            </div>
+          <div class="cart">
+            @auth
+              <a href="#" data-toggle="modal" data-target="#rqlg-modal">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Giỏ hàng</span>
+                <div class="qty">{{ $cart_count }}</div>
+              </a>
+            @else
+              <a href="{{ route('cart') }}">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Giỏ hàng</span>
+                <div class="qty">0</div>
+              </a>
+            @endauth
           </div>
         </div>
       </div>
       <!-- /cart -->
 
+    </div>
+  </div>
+</div>
+
+{{-- Modal require login --}}
+<div class="modal fade" id="rqlg-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Vui lòng đăng nhập trước khi sử dụng tính năng này</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <button class="btn btn-logout primary-btn btn-block" type="button" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
