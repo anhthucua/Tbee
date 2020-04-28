@@ -86,6 +86,10 @@
                 <i class="fa fa-shopping-cart"></i>
                 Thêm vào giỏ hàng
               </button>
+              <div style="height: 30px;"></div>
+              <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
+                Mua ngay
+              </button>
             </div>
           @else
             @if (Auth::user()->id !== $shop['uid'])
@@ -93,6 +97,10 @@
                 <button class="add-to-cart-btn logged-in">
                   <i class="fa fa-shopping-cart"></i>
                   Thêm vào giỏ hàng
+                </button>
+              <div style="height: 30px;"></div>
+                <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
+                  Mua ngay
                 </button>
               </div>
             @endif

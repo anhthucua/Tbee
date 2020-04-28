@@ -59,3 +59,7 @@
   font-weight: normal;
   border: 2px solid $color-primary-1;
 }
+
+button:focus {
+  outline: none;
+}
