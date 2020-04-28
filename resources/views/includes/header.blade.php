@@ -14,7 +14,7 @@
       <div class="col-md-6">
         <div class="header-search">
           <form action="POST" class="search-form">
-            <input class="input" placeholder="Tìm kiếm">
+            <input class="input" placeholder="Tìm kiếm sản phẩm">
             <button class="search-btn">Tìm kiếm</button>
           </form>
         </div>
