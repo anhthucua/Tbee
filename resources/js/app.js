@@ -630,7 +630,11 @@ $(document).ready(function () {
           pid: pid
         }
       }).then((res) => {
-        console.log(res);
+        if (res.data === 'Sản phẩm đã được thêm vào giỏ hàng') {
+
+        } else {
+
+        }
       })
     });
   }

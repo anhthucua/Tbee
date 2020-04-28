@@ -155,7 +155,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Undocumented function
+     * Add product to cart
      *
      * @param Request $request
      * @return void
@@ -185,7 +185,7 @@ class ProductController extends Controller
                     'quantity' => 1,
                 ]);
         } else {
-            if ($count[0]['quantity'] === $product->stock) {
+            if ($count[0]->quantity === $product->stock) {
                 return 'Không thể thêm sản phẩm nữa';
             } else {
                 DB::table('cart')
@@ -193,17 +193,18 @@ class ProductController extends Controller
                         ['user_id', $uid],
                         ['product_id', $pid]
                     ])
-                    ->update(['quantity'], intval($count[0]['quantity']) + 1);
+                    ->update(['quantity' => intval($count[0]->quantity) + 1]);
             }
         }
 
-        return 'ok';
+        return 'Sản phẩm đã được thêm vào giỏ hàng';
     }
 
     public function cart()
     {
         $cart = DB::table('cart')
-            ->where('user_id', Auth::user()->id);
+            ->where('user_id', Auth::user()->id)
+            ->get();
         dd($cart);
     }
 

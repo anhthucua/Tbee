@@ -26,13 +26,13 @@
         <div class="header-ctn">
           <div class="cart">
             @auth
-              <a href="#" data-toggle="modal" data-target="#rqlg-modal">
+              <a href="{{ route('cart') }}">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Giỏ hàng</span>
                 <div class="qty">{{ $cart_count }}</div>
               </a>
             @else
-              <a href="{{ route('cart') }}">
+              <a href="#" data-toggle="modal" data-target="#rqlg-modal">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Giỏ hàng</span>
                 <div class="qty">0</div>

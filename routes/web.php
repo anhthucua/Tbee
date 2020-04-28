@@ -21,7 +21,11 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
-Route::get('cart', 'ProductController@cart')->name('cart');
+Route::get('/cart', function () {
+    return view('cart');
+});
+
+// Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
 
 Route::get('checkout', function () {
