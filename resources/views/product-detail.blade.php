@@ -197,7 +197,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p></p>
+        <p class="info"></p>
         <div class="d-flex">
           <button class="btn btn-logout primary-btn btn-block" type="button" data-dismiss="modal">Đóng</button>
         </div>

@@ -205,7 +205,8 @@ class ProductController extends Controller
         $cart = DB::table('cart')
             ->where('user_id', Auth::user()->id)
             ->get();
-        dd($cart);
+
+        return view('cart', compact('cart'));
     }
 
     /**

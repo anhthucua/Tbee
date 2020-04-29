@@ -630,11 +630,12 @@ $(document).ready(function () {
           pid: pid
         }
       }).then((res) => {
+        $('#error-cart-modal p.info').text(res.data);
         if (res.data === 'Sản phẩm đã được thêm vào giỏ hàng') {
-
-        } else {
-
+          let qty = $('.cart .qty');
+          qty.text(parseInt(qty.text()) + 1);
         }
+        $('#error-cart-modal').modal('show');
       })
     });
   }
