@@ -87,37 +87,54 @@ class SupplierController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Supplier  $supplier
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Supplier $supplier)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit()
     {
-        //
+        $supplier = Supplier::find(Auth::user()->getSupId());
+        $image = ImageModel::find($supplier->banner);
+        return view('supplier.edit', compact('supplier', 'image'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request)
     {
-        //
+        $id = Auth::user()->getSupId();
+
+        $supplier = Supplier::find($id);
+
+        if ($request->shopBanner) {
+            // Upload image
+            $origin_img = $request->file('shopBanner');
+            $img = Image::make($origin_img);
+            $img->fit(1200, 300);
+            $time = Carbon::now()->format('Ymd_His');
+            $url = "/images/suppliers/{$time}_{$origin_img->getClientOriginalName()}";
+            $public_url = public_path($url);
+            $img->save($public_url);
+
+            // Insert image into database
+            $image = new ImageModel(['url' => $url]);
+            $image->save();
+
+            $supplier->banner = $image->id;
+        }
+
+        $supplier->shop_name = $request->shop_name;
+        $supplier->address = $request->address;
+        $supplier->notes = $request->note;
+
+        $supplier->save();
+
+        return redirect(route('supplier.edit'))->with('success', 'Cập nhật shop thành công');
     }
 
     /**

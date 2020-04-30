@@ -33,6 +33,16 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
     Route::post('/create', 'SupplierController@store')->name('create');
     Route::get('/products', 'ProductController@supplierProductList')->name('manage-products');
     Route::get('/add-product', 'ProductController@create')->name('add-product');
+    Route::get('/orders', 'OrderController@supplierOrderList')->name('manage-orders');
+    Route::get('/edit-shop', 'SupplierController@edit')->name('edit');
+    Route::put('/update', 'SupplierController@update')->name('update');
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+    Route::get('/add-coupon', 'CouponController@create')->name('add-coupon');
+    Route::post('/add-coupon', 'CouponController@store')->name('save-coupon');
+    Route::get('/coupons', 'CouponController@index')->name('manage-coupons');
+    Route::get('/orders', 'OrderController@adminOrderList')->name('manage-orders');
 });
 
 // Product routes for supplier

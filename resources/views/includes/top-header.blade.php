@@ -6,7 +6,7 @@
           @auth
             <li><a href="{{ route('supplier.new') }}">Kênh người bán</a></li>
             @if (Auth::user()->is('admin'))
-              <li><a href="#">Quản lý</a></li>
+              <li><a href="{{ route('admin.manage-orders') }}">Quản lý</a></li>
             @endif
           @endauth
         </ul>

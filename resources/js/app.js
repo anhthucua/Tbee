@@ -1,12 +1,4 @@
 $(document).ready(function () {
-
-  // Not closing cart dropdown on click inside
-  $('.cart-dropdown.dropdown-menu').on("click.bs.dropdown", function () {
-    return $('.dropdown.cart').one('hide.bs.dropdown', function () {
-      return false;
-    });
-  });
-
   // Not closing noti dropdown on click inside
   $('.noti.dropdown-menu').on("click.bs.dropdown", function () {
     return $('.dropdown.noti-block').one('hide.bs.dropdown', function () {
@@ -198,13 +190,13 @@ $(document).ready(function () {
   */
 
   // upload anh bia
-  $('.page-supplier.create .btn-image').click((e) => {
+  $('.page-supplier .form .btn-image').click((e) => {
     e.preventDefault();
-    $('.page-supplier.create #shopBanner').trigger('click');
+    $('.page-supplier .form #shopBanner').trigger('click');
   });
 
-  $('.page-supplier.create #shopBanner').on('change', () => {
-    let input = document.querySelector('.page-supplier.create #shopBanner'),
+  $('.page-supplier .form #shopBanner').on('change', () => {
+    let input = document.querySelector('.page-supplier .form #shopBanner'),
       url = $(input).val(),
       ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase(),
       accepted_ext = ['gif', 'png', 'jpg', 'jpeg', 'jfif', 'svg'];
@@ -212,13 +204,21 @@ $(document).ready(function () {
     if (input.files && input.files[0] && ($.inArray(ext, accepted_ext) !== -1)) {
       let reader = new FileReader();
       reader.onload = function (e) {
-        $('.page-supplier.create .image-name').text(input.files[0].name)
-        $('.page-supplier.create .shop-banner').attr('src', e.target.result);
-        $('.page-supplier.create .shop-banner').removeClass('d-none');
+        $('.page-supplier .form .image-name').text(input.files[0].name)
+        $('.page-supplier .form .shop-banner').attr('src', e.target.result);
+        $('.page-supplier .form .shop-banner').removeClass('d-none');
       }
       reader.readAsDataURL(input.files[0]);
     }
   })
+
+  // active sidebar
+  $('.page-supplier #sidebar-main a.nav-link').each(function () {
+    if (this.href === window.location.href) {
+        $(this).addClass('active');
+        return false;
+    }
+  });
 
   /*
   * Create product form

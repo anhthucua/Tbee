@@ -4,9 +4,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <ul class="header-links left">
           <li><a href="{{ route('home') }}">Trang chủ</a></li>
-          @if (Auth::user()->is('admin'))
-            <li><a href="{{ route('admin.manage-orders') }}">Quản lý</a></li>
-          @endif
+          <li><a href="{{ route('supplier.new') }}">Kênh người bán</a></li>
         </ul>
         <ul class="header-links right">
             {{-- Thong bao --}}
