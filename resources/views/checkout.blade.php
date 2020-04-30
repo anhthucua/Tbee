@@ -36,21 +36,63 @@
 
       <div class="col-md-7">
         <!-- Billing Details -->
+
         <div class="billing-details">
           <div class="section-title">
             <i class="fa fa-map-marker"></i>
             <h3 class="title">Địa chỉ nhận hàng</h3>
           </div>
-          <div class="detail-address">
-            <dl>
-              <dt>Họ tên:</dt>
-              <dd>Trần Anh Thư</dd>
-              <dt>Số điện thoại:</dt>
-              <dd>0966666666</dd>
-              <dt>Địa chỉ:</dt>
-              <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
-            </dl>
+          <!-- Detail address -->
+          <div class="detail-addredd-wrapper">
+            <label for="">
+              <input type="radio" name="address" checked>
+            </label>
+            <div class="detail-address">
+              <dl>
+                <dt>Họ tên:</dt>
+                <dd>Trần Anh Thư</dd>
+                <dt>Số điện thoại:</dt>
+                <dd>0966666666</dd>
+                <dt>Địa chỉ:</dt>
+                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
+              </dl>
+            </div>
           </div>
+          <!-- /Detail address -->
+          <!-- Detail address -->
+          <div class="detail-addredd-wrapper">
+            <label for="">
+              <input type="radio" name="address">
+            </label>
+            <div class="detail-address">
+              <dl>
+                <dt>Họ tên:</dt>
+                <dd>Trần Anh Thư</dd>
+                <dt>Số điện thoại:</dt>
+                <dd>0966666666</dd>
+                <dt>Địa chỉ:</dt>
+                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
+              </dl>
+            </div>
+          </div>
+          <!-- /Detail address -->
+          <!-- Detail address -->
+          <div class="detail-addredd-wrapper">
+            <label for="">
+              <input type="radio" name="address">
+            </label>
+            <div class="detail-address">
+              <dl>
+                <dt>Họ tên:</dt>
+                <dd>Trần Anh Thư</dd>
+                <dt>Số điện thoại:</dt>
+                <dd>0966666666</dd>
+                <dt>Địa chỉ:</dt>
+                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
+              </dl>
+            </div>
+          </div>
+          <!-- /Detail address -->
         </div>
         <!-- /Billing Details -->
 
@@ -80,11 +122,9 @@
             <div class="voucher-wrapper">
               <div class="voucher">
                 <label class="voucher-title"><strong>MÃ GIẢM GIÁ</strong></label>
-                <input type="text">
-                <button type="submit" class="primary-btn btn btn--small">Áp dụng</button>
+                <input type="text" disabled readonly value="emcuahieu">
+                <div class="voucher-money">-30000</div>
               </div>
-              <div class="error">Mã giảm giá không hợp lệ!</div>
-              <div class="text-success">Mã giảm giá hợp lệ</div>
             </div>
           </div>
           <div class="order-col">

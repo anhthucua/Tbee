@@ -81,6 +81,13 @@
   margin-top: 30px;
 }
 
+.detail-addredd-wrapper {
+  display: flex;
+  & > label {
+    margin-top: 10px;
+  }
+}
+
 .detail-address {
   border-radius: 25px;
   margin: 15px;
@@ -88,7 +95,7 @@
   position: relative;
   box-shadow: 0 14px 20px rgba(0, 0, 0, 0.3), 0 10px 12px rgba(0, 0, 0, 0.02);
   dl {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 
     dt {
       line-height: 20px;
@@ -108,5 +115,8 @@
   .error, .text-success {
     text-align: left;
     margin-left: 90px;
+  }
+  .voucher {
+    justify-content: space-between;
   }
 }
