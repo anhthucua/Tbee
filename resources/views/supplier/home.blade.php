@@ -5,7 +5,10 @@
 @section('classname', 'home')
 
 @section('content')
-  <div class="col-md-9">
-    Trang chinh kenh nguoi ban
+  <div class="container">
+    <div class="row">
+      Trang chinh kenh nguoi ban
+
+    </div>
   </div>
 @endsection

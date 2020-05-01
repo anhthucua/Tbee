@@ -21,6 +21,12 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
+
+// de tam de style
+Route::get('/supplier/home', function () {
+    return view('/supplier/home');
+});
+
 Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
 

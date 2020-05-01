@@ -34,6 +34,13 @@ textarea.input {
 	padding: 0px 25px 0px 10px;
 }
 
+input[type="radio"] {
+  // make it near black
+  filter:grayscale(1);
+  // or change the colour
+  filter:hue-rotate(180deg);
+}
+
 .input-number .qty-up,
 .input-number .qty-down {
 	position: absolute;
