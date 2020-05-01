@@ -37,8 +37,9 @@
 
             {{-- trang thai --}}
             <dt>Trạng thái đơn hàng:</dt>
-            <dd>Chờ xác nhận/Đã nhận đơn/ Đã huỷ đơn</dd>
-
+            <dd>Chờ xác nhận</dd>
+            <dd>Đã nhận đơn 13:45 12/2/2019</dd>
+            <dd>Đã huỷ đơn 13:45 12/2/2019</dd>
             {{-- ma giam gia ap dung --}}
             <dt>Mã giảm giá áp dụng:</dt>
             <dd>APPFree</dd>
