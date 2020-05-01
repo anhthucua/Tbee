@@ -206,3 +206,16 @@
     margin-top: 25%;
   }
 }
+
+.order-status {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-style: italic;
+  &--cancel {
+    color: $color-primary-1;
+  }
+  &--agree {
+    color: $color-primary-1;
+    text-decoration: underline;
+  }
+}

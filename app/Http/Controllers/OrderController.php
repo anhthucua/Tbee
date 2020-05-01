@@ -53,7 +53,7 @@ class OrderController extends Controller
      */
     public function supplierOrderList()
     {
-        dd('Trang quan ly don hang');
+        return view('supplier.orders');
     }
 
     public function adminOrderList()
