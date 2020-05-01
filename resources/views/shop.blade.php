@@ -4,29 +4,41 @@
 
 @section('content')
 
-<!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
+<!-- SECTION -->
+<div class="section">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="breadcrumb-tree">
-          <li>
-            {{-- <a href="#">Trang chủ</a> --}}
-            <div class="header-logo">
-              <a class="logo" href="home.html">
-                <img src="images/logo.svg" alt="logo">
-              </a>
-            </div>
-          </li>
-          <li><a href="#">All Categories</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li class="active">Headphones (227,490 Results)</li>
-        </ul>
+     <!-- shop infor -->
+     <div class="product-shop">
+      <div class="d-flex">
+        <a href="" class="shop-image"
+          style="background-image: url('');"></a>
+        <div class="shop-info">
+          <a href="">ten shop</a>
+          <div class="shop-link">
+            <a href="#" class="secondary-btn">Chat ngay</a>
+          </div>
+        </div>
       </div>
     </div>
+     <!-- /shop infor -->
+    <!-- description -->
+    <div class="product-desc">
+      <h5 class="product-desc-title">Giới thiệu shop</h5>
+      <div class="product-desc-content">
+        áccnscsdov
+      </div>
+    </div>
+    <!-- /description -->
+    <!-- banner shop -->
+    <div class="shop-banner">
+      <div class="image-wrapper">
+        <img src="https://cf.shopee.vn/file/ebb84b8ba24766b2ba875390788b3328_xxhdpi" alt="">
+      </div>
+    </div>
+    <!-- /banner shop -->
   </div>
 </div>
-<!-- /BREADCRUMB -->
+<!-- /SECTION -->
 
 <!-- SECTION -->
 <div class="section">
@@ -226,22 +238,6 @@
         <!-- /store products -->
       </div>
       <!-- /STORE -->
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <!-- store bottom filter -->
-        <div class="store-filter float-right">
-          <ul class="store-pagination">
-            <li class="active">1</li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-          </ul>
-        </div>
-        <!-- /store bottom filter -->
-      </div>
     </div>
 
   </div>
