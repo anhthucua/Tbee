@@ -127,6 +127,7 @@
 
 .table {
   .table-product-img {
+    margin: 0 auto;
     height: 120px;
     width: 120px;
     @extend %bgd;

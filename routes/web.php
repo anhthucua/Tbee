@@ -23,8 +23,8 @@ Route::get('/product-detail', function () {
 
 
 // de tam de style
-Route::get('/shop', function () {
-    return view('shop');
+Route::get('order-detail', function () {
+    return view('order-detail');
 });
 
 Route::get('cart', 'ProductController@cart')->name('cart');
