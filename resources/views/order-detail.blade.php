@@ -29,7 +29,7 @@
 
             {{-- nguoi mua --}}
             <dt>Người mua:</dt>
-            <dd><a href="#">Pham Minh Hieu</a></dd>
+            <dd>Pham Minh Hieu</dd>
 
             {{-- ngay dat --}}
             <dt>Ngày đặt:</dt>
@@ -64,7 +64,7 @@
               <tbody>
                   <tr>
                     <td>123</td>
-                    <td>Ten sp</td>
+                    <td><a href="#">Ten sp</a></td>
                     <td>
                       <div class="table-product-img" style="background-image: url('images/man-fashion.png')"></div>
                     </td>

@@ -15,7 +15,7 @@
 </head>
 <body class="page-admin @yield('classname', '')">
   @yield('top-header', View::make('admin.top-header'))
-  <div class="row">
+  <div class="d-flex">
     <div class="col-md-3">
       @yield('sidebar', View::make('admin.sidebar'))
     </div>

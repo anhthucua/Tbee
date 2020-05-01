@@ -20,7 +20,7 @@
                     <h3>TBEE50</h3>
                   </div>
                   <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ 2/3/2020 đến 3/3/2020</p><a
-                    class="primary-btn cta-btn" href="#">Mua ngay kẻo lỡ</a>
+                    class="primary-btn cta-btn" href="#">Copy mã</a>
                   <p class="note">* Số lượng có hạn</p>
                 </div>
                 <div class="hot-deal">
@@ -29,7 +29,7 @@
                     <h3>TBEE50</h3>
                   </div>
                   <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ 2/3/2020 đến 3/3/2020</p><a
-                    class="primary-btn cta-btn" href="#">Mua ngay kẻo lỡ</a>
+                    class="primary-btn cta-btn" href="#">Copy mã</a>
                   <p class="note">* Số lượng có hạn</p>
                 </div>
               </div>
