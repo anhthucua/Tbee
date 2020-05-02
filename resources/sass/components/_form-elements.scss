@@ -341,6 +341,18 @@ input[type=checkbox]:checked + label:before {
       }
     }
   }
+  ::-webkit-input-placeholder { /* Edge */
+    color: rgb(142, 140, 140);
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer */
+    color: rgb(142, 140, 140);
+
+  }
+
+  ::placeholder {
+    color: rgb(142, 140, 140);
+  }
 }
 
 .input-file {

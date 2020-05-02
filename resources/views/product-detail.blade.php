@@ -191,13 +191,13 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title"></h2>
+        <h2 class="modal-title">Thông báo</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p class="info"></p>
+        <p class="info text-center"></p>
         <div class="d-flex">
           <button class="btn btn-logout primary-btn btn-block" type="button" data-dismiss="modal">Đóng</button>
         </div>

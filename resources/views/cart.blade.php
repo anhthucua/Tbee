@@ -107,11 +107,11 @@
                 <!-- SO LUONG -->
                 <div class="cart-item__cell-quantity">
                   <div class="input-quantity">
-                    <button type="button" class="minus">-</button>
+                    <button type="button" class="minus"></button>
                     <input type="number" class="qty" value="{{ $product->quantity }}" min="1"
                       max="{{ $product->stock }}" data-pid="{{ $product->id }}"
                       data-price ="{{ $product->sale_price }}"/>
-                    <button type="button" class="plus">+</button>
+                    <button type="button" class="plus"></button>
                   </div>
                 </div>
 
