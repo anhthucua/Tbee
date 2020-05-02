@@ -1,10 +1,10 @@
 @extends('admin.base')
 
-@section('title', 'Thêm mã giảm giá')
+@section('title', 'Quản lý mã giảm giá')
 
-@section('classname', 'add-coupon')
+@section('classname', 'manage-coupons')
 
 @section('content')
-
+  abc
 
 @endsection
