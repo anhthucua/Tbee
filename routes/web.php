@@ -29,6 +29,8 @@ Route::get('order-detail', function () {
 
 Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
+Route::patch('cart/update', 'ProductController@updateCart');
+Route::delete('cart/product/{id}/delete', 'ProductController@deleteFromCart')->name('delete-cart');
 
 Route::get('checkout', function () {
     return view('checkout');

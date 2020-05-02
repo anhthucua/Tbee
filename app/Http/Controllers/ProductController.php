@@ -200,13 +200,88 @@ class ProductController extends Controller
         return 'Sản phẩm đã được thêm vào giỏ hàng';
     }
 
+    /**
+     * Update cart
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function updateCart(Request $request)
+    {
+        DB::table('cart')
+            ->where([
+                ['user_id', Auth::user()->id],
+                ['product_id', $request->pid]
+            ])
+            ->update(['quantity' => $request->quantity]);
+        return 'ok';
+    }
+
+    /**
+     * delete product from cart
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function deleteFromCart($id)
+    {
+        DB::table('cart')
+            ->where([
+                ['user_id', Auth::user()->id],
+                ['product_id', $id]
+            ])
+            ->delete();
+
+        return redirect(route('cart'));
+    }
+
+    /**
+     * Show cart
+     *
+     * @return void
+     */
     public function cart()
     {
-        $cart = DB::table('cart')
+        if (!Auth::check()) {
+            return redirect(route('home'));
+        }
+
+        $shop_id_list = DB::table('cart')
+            ->join('products', 'cart.product_id', '=', 'products.id')
             ->where('user_id', Auth::user()->id)
+            ->select('products.supplier_id')
+            ->distinct()
             ->get();
 
-        return view('cart', compact('cart'));
+        $shop_list = [];
+
+        foreach ($shop_id_list as $value) {
+            $supplier = Supplier::find($value->supplier_id);
+            $shop['name'] = $supplier->shop_name;
+            $shop['id'] = $supplier->id;
+            $shop['products'] = DB::table('cart')
+                ->join('products', 'cart.product_id', '=', 'products.id')
+                ->join('images', 'products.image_id', '=', 'images.id')
+                ->where([
+                    ['user_id', Auth::user()->id],
+                    ['products.supplier_id', $value->supplier_id]
+                ])
+                ->select(
+                    'images.url',
+                    'products.name',
+                    'products.price',
+                    'products.sale_price',
+                    'products.stock',
+                    'cart.quantity',
+                    'products.id as id',
+                    'products.supplier_id'
+                )
+                ->get();
+
+            array_push($shop_list, $shop);
+        }
+
+        return view('cart', compact('shop_list'));
     }
 
     /**
@@ -273,27 +348,25 @@ class ProductController extends Controller
         if ($request->cat_lv2 === []) {
             if ($request->level === '2') {
                 $products = Product::query()
-                ->where([
-                    ['sale_price', '>=', $request['minPrice']],
-                    ['sale_price', '<=', $request['maxPrice']],
-                    ['category_level2_id', $id]
-                ])
-                ->orderBy($column, $direction)
-                ->get();
+                    ->where([
+                        ['sale_price', '>=', $request['minPrice']],
+                        ['sale_price', '<=', $request['maxPrice']],
+                        ['category_level2_id', $id]
+                    ])
+                    ->orderBy($column, $direction)
+                    ->get();
             } else {
                 $products = Product::query()
-                ->where([
-                    ['sale_price', '>=', $request['minPrice']],
-                    ['sale_price', '<=', $request['maxPrice']]
-                ])
-                ->whereHas('categoryLvl2', function (Builder $query) use ($id) {
-                    $query->where('category_level1_id', $id);
-                })
-                ->orderBy($column, $direction)
-                ->get();
+                    ->where([
+                        ['sale_price', '>=', $request['minPrice']],
+                        ['sale_price', '<=', $request['maxPrice']]
+                    ])
+                    ->whereHas('categoryLvl2', function (Builder $query) use ($id) {
+                        $query->where('category_level1_id', $id);
+                    })
+                    ->orderBy($column, $direction)
+                    ->get();
             }
-
-
         } else {
             $products = Product::query()
                 ->where([

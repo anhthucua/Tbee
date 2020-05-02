@@ -215,8 +215,8 @@ $(document).ready(function () {
   // active sidebar
   $('.page-supplier #sidebar-main a.nav-link').each(function () {
     if (this.href === window.location.href) {
-        $(this).addClass('active');
-        return false;
+      $(this).addClass('active');
+      return false;
     }
   });
 
@@ -515,19 +515,19 @@ $(document).ready(function () {
               p_name = clone.querySelector('.product-name a'),
               price_1 = clone.querySelector('.product-price span'),
               price_2 = clone.querySelector('.product-old-price');
-              p_link.href = `/product/${product.id}/show`;
-              p_img.style.backgroundImage = `url(${product['img']})`;
-              if (product.sale_percent) {
-                p_sale.textContent = `${product.sale_percent}%`;
-              } else {
-                p_sale.style.display = 'none';
-              }
-              p_purchased.textContent = `Đã bán ${product.purchased_number}`;
-              p_name.textContent = product.name;
-              p_name.href = `/product/${product.id}/show`;
-              price_1.textContent = product.sale_price;
-              price_2.textContent = (product.sale_price === product.price) ? '' : product.price;
-              document.querySelector('#store > .row').appendChild(clone);
+            p_link.href = `/product/${product.id}/show`;
+            p_img.style.backgroundImage = `url(${product['img']})`;
+            if (product.sale_percent) {
+              p_sale.textContent = `${product.sale_percent}%`;
+            } else {
+              p_sale.style.display = 'none';
+            }
+            p_purchased.textContent = `Đã bán ${product.purchased_number}`;
+            p_name.textContent = product.name;
+            p_name.href = `/product/${product.id}/show`;
+            price_1.textContent = product.sale_price;
+            price_2.textContent = (product.sale_price === product.price) ? '' : product.price;
+            document.querySelector('#store > .row').appendChild(clone);
           });
         } else {
           $('#store > .row').html('<p class="no-products">Không có sản phẩm nào.</p>');
@@ -637,6 +637,79 @@ $(document).ready(function () {
         }
         $('#error-cart-modal').modal('show');
       })
+    });
+  }
+
+  ////////////////////////////////////////
+  // page cart
+
+  if ($(document.body).is('.page-cart')) {
+    // Handle input number
+    $('.input-quantity .minus').click(function () {
+      var $input = $(this).parent().find('input');
+      var count = parseInt($input.val()) - 1;
+      $input.val(count);
+      $input.trigger('change');
+      return false;
+    });
+    $('.input-quantity .plus').click(function () {
+      var $input = $(this).parent().find('input');
+      $input.val(parseInt($input.val()) + 1);
+      $input.trigger('change');
+      return false;
+    });
+    $('.input-quantity input').change(function () {
+      let value = parseInt($(this).val()),
+        max = parseInt($(this).attr('max')),
+        min = parseInt($(this).attr('min')),
+        minus = $(this).parent().find('.minus'),
+        plus = $(this).parent().find('.plus'),
+        input = $(this);
+      if (value >= max) {
+        $(this).val(max);
+        plus.prop('disabled', true);
+        minus.prop('disabled', false);
+      } else if (value <= min) {
+        $(this).val(min);
+        minus.prop('disabled', true);
+        plus.prop('disabled', false);
+      } else {
+        minus.prop('disabled', false);
+        plus.prop('disabled', false);
+      }
+      axios({
+        method: 'patch',
+        url: '/cart/update',
+        data: {
+          pid: input.data('pid'),
+          quantity: input.val()
+        }
+      }).then(function () {
+        input.closest('.cart-item__content')
+          .find('.cart-item__cell-total-price span')
+          .text(input.val() * input.data('price'));
+      })
+    });
+    $('.input-quantity input').each(function () {
+      let value = parseInt($(this).val()),
+        max = parseInt($(this).attr('max')),
+        min = parseInt($(this).attr('min')),
+        minus = $(this).parent().find('.minus'),
+        plus = $(this).parent().find('.plus');
+      if (value >= max) {
+        $(this).val(max);
+        plus.prop('disabled', true);
+      } else if (value <= min) {
+        $(this).val(min);
+        minus.prop('disabled', true);
+      }
+    });
+
+    // Delete product
+    $('.cart-item__action').click(function (e) {
+      e.preventDefault();
+      $('#delete-modal .form-delete').prop('action', $(this).data('route'));
+      $('#delete-modal').modal('show');
     });
   }
 });
