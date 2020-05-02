@@ -408,3 +408,12 @@ input[type=checkbox]:checked + label:before {
   }
 }
 
+.add-coupon-form {
+  label {
+    min-width: 250px;
+  }
+  input {
+    min-width: 300px;
+  }
+}
+
