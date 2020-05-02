@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Coupon;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
@@ -34,7 +35,13 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $coupon = new Coupon($input);
+
+        $coupon->save();
+
+        return redirect(route('admin.manage-coupons'));
     }
 
     /**
