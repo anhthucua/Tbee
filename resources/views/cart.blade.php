@@ -39,7 +39,7 @@
       </div>
       <div class="cart-header__product">Sản phẩm</div>
       <div class="cart-header__unit-price w-10">Đơn giá</div>
-      <div class="cart-header__quantity w-10">Số lượng</div>
+      <div class="cart-header__quantity">Số lượng</div>
       <div class="cart-header__total-price w-10">Số tiền</div>
       <div class="cart-header__action w-10">Thao tác</div>
     </div>
