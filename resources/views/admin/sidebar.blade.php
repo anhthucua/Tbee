@@ -1,5 +1,5 @@
 <!-- Main sidebar -->
-<div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed">
+<div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed col-md-3">
 	<div class="sidebar-content">
 		<div class="sidebar-category sidebar-default">
 			<div class="sidebar-user">

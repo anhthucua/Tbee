@@ -23,7 +23,7 @@
       </select>
     </div>
   </div>
-  <h5>Thông tin các sản phẩm:</h5>
+  <h5>Thông tin các đơn hàng:</h5>
   <div class="pads-container">
     <table class="table product-list">
       <thead>

@@ -27,7 +27,7 @@
     {{-- Input giảm tối đa bao nhiêu tiền --}}
     <br>
     <label for="coupon-money">
-      <strong>Phần trăm giảm:</strong>
+      <strong>Giảm tối đa số tiền:</strong>
     </label>
     <input type="text" name="coupon-money" id="coupon-money" value="50000">
 
