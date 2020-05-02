@@ -15,21 +15,21 @@
     <label for="coupon-code">
       <strong>Code giảm giá:</strong>
     </label>
-    <input type="text" name="coupon-code" id="coupon-code" required>
+    <input type="text" name="code" id="coupon-code" required>
 
     {{-- Input phần trăm --}}
     <br>
     <label for="percent">
       <strong>Phần trăm giảm:</strong>
     </label>
-    <input type="number" name="percent" id="percent" placeholder="VD: 50" required>
+    <input type="number" name="sale_in_percent" id="percent" placeholder="VD: 50" required>
 
     {{-- Input giảm tối đa bao nhiêu tiền --}}
     <br>
     <label for="coupon-money">
       <strong>Giảm tối đa:</strong>
     </label>
-    <input type="text" name="coupon-money" id="coupon-money" placeholder="Số tiền (VD: 50000)">
+    <input type="text" name="sale_in_money" id="coupon-money" placeholder="Số tiền (VD: 50000)">
     <p class="info">Nếu không giới hạn số lượng tối đa thì để mặc định</p>
 
     {{-- Ngày bắt đầu --}}
@@ -37,7 +37,7 @@
     <label for="start">
       <strong>Ngày bắt đầu có hiệu lực:</strong>
     </label>
-    <input type="date" name="start" id="start" value="{{ date("Y-m-d") }}" required>
+    <input type="date" name="start_at" id="start" value="{{ date("Y-m-d") }}" required>
 
 
     {{-- Ngày kết thúc --}}
@@ -45,14 +45,14 @@
     <label for="end">
       <strong>Ngày kết thúc:</strong>
     </label>
-    <input type="date" name="end" id="end" value="{{ date("Y-m-d") }}" required>
+    <input type="date" name="end_at" id="end" value="{{ date("Y-m-d") }}" required>
 
     {{-- Số lượng mã tối đa --}}
     <br>
     <label for="end">
       <strong>Số lượng mã tối đa:</strong>
     </label>
-    <input type="number" name="number" id="number">
+    <input type="number" name="numbers" id="number">
     <p class="info">Nếu không giới hạn số lượng tối đa thì để mặc định</p>
 
     <br>
