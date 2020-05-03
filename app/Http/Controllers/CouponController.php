@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Coupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DB;
 
 class CouponController extends Controller
 {
@@ -42,6 +44,37 @@ class CouponController extends Controller
         $coupon->save();
 
         return redirect(route('admin.manage-coupons'));
+    }
+
+    /**
+     * Check if coupon is valid
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function check(Request $request)
+    {
+        $coupon = Coupon::where('code', $request->code)->get();
+
+        if (!count($coupon)) {
+            return 'error';
+        }
+
+        $coupon = $coupon[0];
+
+        $start = Carbon::createFromFormat('Y-m-d', $coupon->start_at)->startOfDay();
+        $end = Carbon::createFromFormat('Y-m-d', $coupon->end_at)->endOfDay();
+        $now = Carbon::now();
+
+        if ($now->between($start, $end)) {
+            $data = [
+                'percent' => $coupon->sale_in_percent,
+                'max' => $coupon->sale_in_money
+            ];
+            return $data;
+        } else {
+            return 'error';
+        }
     }
 
     /**

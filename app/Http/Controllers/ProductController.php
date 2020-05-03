@@ -236,6 +236,17 @@ class ProductController extends Controller
     }
 
     /**
+     * get total cart price
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getCartPrice(Request $request)
+    {
+        # code...
+    }
+
+    /**
      * Show cart
      *
      * @return void

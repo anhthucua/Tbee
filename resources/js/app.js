@@ -711,5 +711,121 @@ $(document).ready(function () {
       $('#delete-modal .form-delete').prop('action', $(this).data('route'));
       $('#delete-modal').modal('show');
     });
+
+    // Checkbox
+    $('.lbl-shop').click(function (e) {
+      let lbl = $(this),
+        chb = $(this).siblings('input'),
+        sid = lbl.data('sid'),
+        check = false;
+      $('.lbl-shop').each(function (index, element) {
+        if ($(element).data('sid') !== sid && $(element).siblings('input').is(':checked')) {
+          e.preventDefault();
+          check = true;
+          $('#noti-cart-modal').modal('show');
+        }
+      });
+      if (!check) {
+        if (chb.is(':checked')) {
+          $(`.chb-shop-${sid}`).prop('checked', false);
+        } else {
+          $(`.chb-shop-${sid}`).prop('checked', true);
+        }
+        getTotalPrice();
+      }
+    });
+
+    $('.lbl-product').click(function (e) {
+      let lbl = $(this),
+        sid = lbl.data('sid'),
+        pid = lbl.data('pid'),
+        check = false;
+      if (lbl.siblings('input').is(':checked')) {
+        $($(`.chb-shop-${sid}`)).each(function (index, element) {
+          if ($(element).data('pid') !== pid && $(element).is(':checked')) {
+            check = true;
+          }
+        });
+        if (!check) {
+          $(`#check-shop-${sid}`).prop('checked', false);
+        }
+      } else {
+        $('.lbl-shop').each(function (index, element) {
+          if ($(element).data('sid') !== sid && $(element).siblings('input').is(':checked')) {
+            e.preventDefault();
+            check = true;
+            $('#noti-cart-modal').modal('show');
+          }
+        });
+        if (!check) {
+          $(`#check-shop-${sid}`).prop('checked', true);
+        }
+      }
+    });
+
+    $('.chb-product').change(function (e) {
+      getTotalPrice();
+    });
+
+    // voucher
+    $('.voucher > input').on('input', function () {
+      $(this).prop('data-percent', null)
+      $(this).prop('data-max', null);
+      $('.voucher').siblings('.error').addClass('d-none');
+      $('.voucher').siblings('.text-success').addClass('d-none');
+    });
+
+    $('.voucher > button').click(function (e) {
+      e.preventDefault();
+      axios({
+        method: 'post',
+        url: '/coupon/check',
+        data: {
+          code: $('.voucher > input').val(),
+        }
+      }).then((res) => {
+        if (res.data === 'error') {
+          $('.voucher').siblings('.text-success').addClass('d-none');
+          $('.voucher').siblings(`.error`).removeClass('d-none');
+        } else {
+          $('.voucher > input').prop('data-percent', res.data.percent);
+          $('.voucher > input').prop('data-max', res.data.max);
+          $('.voucher').siblings('.error').addClass('d-none');
+          $('.voucher').siblings(`.text-success`).removeClass('d-none');
+        }
+      })
+    });
+
+    function getTotalPrice() {
+      let sum = 0,
+        voucher = $('.voucher > input'),
+        total = 0;
+
+      $('.chb-product').each(function (index, element) {
+        if ($(element).is(':checked')) {
+          let money = $(element).closest('.cart-item__content').find('.cart-item__cell-total-price span').text();
+          sum += parseInt(money);
+        }
+      });
+
+      if (voucher.prop('data-percent') == null) {
+        total = sum;
+      } else {
+        if (voucher.prop('data-max') == null) {
+          total = sum - sum * parseInt(voucher.prop('data-percent')) / 100;
+        } else {
+          if ((sum * parseInt(voucher.prop('data-percent')) / 100) >= parseInt(voucher.prop('data-max'))) {
+            total = sum - parseInt(voucher.prop('data-max'));
+          } else {
+            total = sum - sum * parseInt(voucher.prop('data-percent')) / 100;
+          }
+        }
+      }
+
+      if (total < 0) {
+        total = 0;
+      }
+      $('.total .total-money').text(total);
+    }
   }
 });

@@ -51,8 +51,9 @@
         <div class="cart-page-shop-header">
           <div class="cart-page-shop-header__center-wrapper">
             <div class="cart-item__cell-checkbox cart-page-shop-header__checkbox-wrapper">
-              <input class="checkbox-primary" type="checkbox" id="check-shop-{{ $shop['id'] }}">
-              <label for="check-shop-{{ $shop['id'] }}" class="stardust-checkbox"></label>
+              <input class="checkbox-shop" type="checkbox"
+                id="check-shop-{{ $shop['id'] }}" data-sid="{{ $shop['id'] }}">
+              <label for="check-shop-{{ $shop['id'] }}" class="lbl-shop" data-sid="{{ $shop['id'] }}"></label>
             </div>
             <a class="cart-page-shop-header__shop-name" href="{{ route('products-shop', $shop['id']) }}">
               <!-- icon shop -->
@@ -76,8 +77,10 @@
               {{-- Checkbox --}}
               <div class="cart-item__content">
                 <div class="cart-item__cell-checkbox cart-page-shop-header__checkbox-wrapper">
-                  <input class="checkbox-primary" type="checkbox" id="check-item-{{ $product->id }}">
-                  <label for="check-item-{{ $product->id }}" class="stardust-checkbox"></label>
+                  <input class="chb-product chb-shop-{{ $shop['id'] }}" id="chb-item-{{ $product->id }}"
+                    type="checkbox" data-sid="{{ $shop['id'] }}" data-pid="{{ $product->id }}">
+                  <label for="chb-item-{{ $product->id }}" class="lbl-product"
+                    data-sid="{{ $shop['id'] }}" data-pid="{{ $product->id }}"></label>
                 </div>
 
                 <div class="cart-item__cell-overview">
@@ -141,8 +144,8 @@
       <div class="col-md-5 offset-md-7">
         <div class="voucher">
           <label class="voucher-title">Mã giảm giá</label>
-          <input type="text">
-          <button type="submit" class="primary-btn btn btn--small">Áp dụng</button>
+          <input type="text" data-percent="" data-max="">
+          <button type="button" class="primary-btn btn btn--small">Áp dụng</button>
         </div>
         <div class="error d-none">Mã giảm giá không hợp lệ!</div>
         <div class="text-success d-none">Mã giảm giá hợp lệ</div>
@@ -183,6 +186,26 @@
             <button class="btn btn-logout primary-btn btn-block" type="submit">Xóa</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- Modal thong bao --}}
+<div class="modal fade" id="noti-cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Thông báo</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Vui lòng chỉ chọn sản phẩm từ 1 shop</p>
+        <div class="d-flex">
+          <button class="btn primary-btn" type="button" data-dismiss="modal" aria-label="Close">Đóng</button>
+        </div>
       </div>
     </div>
   </div>

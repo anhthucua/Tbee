@@ -32,6 +32,9 @@ Route::post('add-to-cart', 'ProductController@addToCart');
 Route::patch('cart/update', 'ProductController@updateCart');
 Route::delete('cart/product/{id}/delete', 'ProductController@deleteFromCart')->name('delete-cart');
 
+// Coupon
+Route::post('coupon/check', 'CouponController@check');
+
 Route::get('checkout', function () {
     return view('checkout');
 });
