@@ -102,7 +102,7 @@
 
             {{-- Trang nguoi dung --}}
             <li>
-              <a href="myaccount.html">
+              <a href="{{ route('user.orders') }}">
                 <i class="fa fa-user-o"></i>{{ Auth::user()->username }}
               </a>
             </li>

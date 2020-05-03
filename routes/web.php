@@ -39,6 +39,14 @@ Route::get('checkout', function () {
     return view('checkout');
 });
 
+// User
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
+    Route::get('/orders', 'OrderController@userOrderList')->name('orders');
+    Route::get('/information', 'UserController@edit')->name('edit');
+    Route::post('/edit', 'UserController@update')->name('update');
+    Route::get('/change-pass', 'UserController@changePass')->name('change-pass');
+});
+
 Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth'], function () {
     Route::get('/', 'SupplierController@create')->name('new');
     Route::post('/create', 'SupplierController@store')->name('create');

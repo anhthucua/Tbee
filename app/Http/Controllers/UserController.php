@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,32 +49,19 @@ class OrderController extends Controller
     }
 
     /**
-     * Show supplier orders list
-     */
-    public function supplierOrderList()
-    {
-        return view('supplier.orders');
-    }
-
-    public function adminOrderList()
-    {
-        return view('admin.orders');
-    }
-
-    public function userOrderList()
-    {
-        return view('user.orders');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('user.edit');
+    }
+
+    public function changePass()
+    {
+        return view('change-pass');
     }
 
     /**
@@ -84,7 +71,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }
