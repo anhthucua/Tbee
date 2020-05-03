@@ -13,7 +13,7 @@
 			<div class="category-content">
 				<ul class="nav flex-column">
 					<li class="nav-item">
-						<a href="{{ route('user.manage-orders') }}" class="nav-link">
+						<a href="{{ route('user.orders') }}" class="nav-link">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 							Quản lý đơn hàng
 						</a>

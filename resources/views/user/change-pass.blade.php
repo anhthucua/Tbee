@@ -1,9 +1,9 @@
-@extends('supplier.base')
+@extends('user.base')
 
-@section('title', 'Thay đổi thông tin')
+@section('title', 'Đổi mật khẩu')
 
-@section('classname', 'edit')
+@section('classname', 'change-pass')
 
 @section('content')
-  trang thay đổi thông tin cá nhân
+  trang thay đổi mật khẩu
 @endsection

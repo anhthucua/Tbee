@@ -1,4 +1,4 @@
-@extends('supplier.base')
+@extends('user.base')
 
 @section('title', 'Thay đổi thông tin')
 

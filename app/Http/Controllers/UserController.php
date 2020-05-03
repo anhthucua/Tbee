@@ -61,7 +61,7 @@ class UserController extends Controller
 
     public function changePass()
     {
-        return view('change-pass');
+        return view('user.change-pass');
     }
 
     /**
