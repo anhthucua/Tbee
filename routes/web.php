@@ -84,6 +84,7 @@ Route::get('category_lv2/{id}', 'ProductController@categoryLevel2')->name('produ
 
 // Products by shop
 Route::get('shop/{id}', 'ProductController@productsByShop')->name('products-shop');
+Route::post('shop/{id}/search', 'ProductController@productsByShopSearch');
 
 // Authentication routes
 Route::post('login', 'Auth\LoginController@login')->name('login');

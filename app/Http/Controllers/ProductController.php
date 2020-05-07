@@ -151,7 +151,67 @@ class ProductController extends Controller
      */
     public function productsByShop($id)
     {
-        dd('Trang hien thi shop voi id = ' . $id);
+        $shop = Supplier::find($id);
+
+        $banner = ImageModel::find($shop->banner)->url;
+
+        $user = User::find($shop->user_id);
+        $avatar = ImageModel::find($user->avatar)->url ?? '/images/default-avt.png';
+
+        $products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('supplier_id', $id)
+            ->orderBy('price', 'asc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->get();
+
+        foreach ($products as $product) {
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
+        }
+
+        $cat_lv1 = DB::table('products')
+            ->join('category_level2', 'products.category_level2_id', '=', 'category_level2.id')
+            ->join('category_level1', 'category_level1_id', '=', 'category_level1.id')
+            ->where([
+                ['products.supplier_id', $id],
+                ['products.deleted_at', null]
+            ])
+            ->select('category_level1.id', 'category_level1.name')
+            ->distinct()
+            ->get();
+
+        $price_values = Product::where('supplier_id', $id)
+            ->selectRaw('MIN(sale_price) AS min, MAX(sale_price) AS max')
+            ->get();
+
+        $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('supplier_id', $id)
+            ->orderBy('purchased_number', 'desc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->take(3)
+            ->get();
+
+        return view('shop', compact('shop', 'banner', 'user', 'avatar', 'products', 'cat_lv1', 'price_values', 'best_seller_products'));
     }
 
     /**
@@ -385,6 +445,58 @@ class ProductController extends Controller
                     ['sale_price', '<=', $request['maxPrice']]
                 ])
                 ->whereIn('category_level2_id', $request['cat_lv2'])
+                ->orderBy($column, $direction)
+                ->get();
+        }
+
+        foreach ($products as $product) {
+            $product->img = ImageModel::find($product->image_id)->url;
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
+        }
+
+        return $products;
+    }
+
+    /**
+     * Search products by shop
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function productsByShopSearch(Request $request, $id)
+    {
+        // Format order by
+        $order_by_arr = explode(' ', $request['sort']);
+        $column = $order_by_arr[0];
+        $direction = $order_by_arr[1];
+
+        if ($request->cat_lv1 === []) {
+            $products = Product::query()
+                ->where([
+                    ['sale_price', '>=', $request['minPrice']],
+                    ['sale_price', '<=', $request['maxPrice']],
+                    ['supplier_id', $id]
+                ])
+                ->orderBy($column, $direction)
+                ->get();
+        } else {
+            $products = Product::query()
+                ->where([
+                    ['sale_price', '>=', $request['minPrice']],
+                    ['sale_price', '<=', $request['maxPrice']],
+                    ['supplier_id', $id]
+                ])
+                ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
+                    $query->whereIn('category_level1_id', $request->cat_lv1);
+                })
                 ->orderBy($column, $direction)
                 ->get();
         }

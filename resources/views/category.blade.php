@@ -48,7 +48,7 @@
         <!-- Filter theo category -->
         @empty($cat_lv2_id)
           <div class="aside">
-            <h3 class="aside-title">Categories</h3>
+            <h3 class="aside-title">Ngành hàng</h3>
             <div class="checkbox-filter">
               @foreach ($cat_lv2 as $cat)
                 <div class="input-checkbox">
