@@ -16,7 +16,24 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('admin.coupons');
+        $coupons = Coupon::all();
+        foreach ($coupons as $coupon) {
+            $start = Carbon::createFromFormat('Y-m-d', $coupon->start_at)->startOfDay();
+            $end = Carbon::createFromFormat('Y-m-d', $coupon->end_at)->endOfDay();
+            $now = Carbon::now();
+
+            if ($now->between($start, $end)) {
+                $coupon->status = 'Còn hiệu lực';
+            } elseif ($now->greaterThan($end)) {
+                $coupon->status = 'Chưa có hiệu lực';
+            } else {
+                $coupon->status = 'Hết hiệu lực';
+            }
+
+            $coupon->created_date = $coupon->created_at->format('d-m-Y');
+        }
+
+        return view('admin.coupons', compact('coupons'));
     }
 
     /**
