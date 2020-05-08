@@ -13,6 +13,12 @@
   <div class="pad-filters">
     <input type="text" id="search" class="search" placeholder="Tìm kiếm theo id đơn hàng">
     <div class="filter">
+      <select id="filter-category" class="dropdown">
+        <option value="all">Trạng thái đơn hàng</option>
+        <option value="1">Đơn chờ xác nhận</option>
+        <option value="2">Đơn đã huỷ</option>
+        <option value="3">Đơn đã nhận</option>
+      </select>
       <select id="sort" class="dropdown">
         <option value="id desc">Sắp xếp theo</option>
         <option value="wait-confirm_at desc">Đơn chờ xác nhận</option>
@@ -94,7 +100,7 @@
           <td><a href="#">Nguoi ban</a></td>
           <td>15:45 28/12/2020</td>
           <td>
-            <div class="order-status order-status--agree">Đã huỷ đơn!</div>
+            <div class="order-status order-status--cancel">Đã huỷ đơn!</div>
           </td>
           <td>
             <a href="#" class="primary-btn btn--small">Chi tiết</a>

@@ -12,11 +12,14 @@
   <div class="pad-filters">
     <input type="text" id="search" class="search" placeholder="Tìm kiếm theo mã code giảm giá">
     <div class="filter">
+      <select id="filter-category" class="dropdown">
+        <option value="all">Trạng thái mã giảm giá</option>
+        <option value="chuahieuluc">Chưa có hiệu lực</option>
+        <option value="concohieuluc">Còn có hiệu lực</option>
+        <option value="hethieuluc">Hết hiệu lực</option>
+      </select>
       <select id="sort" class="dropdown">
         <option value="id desc">Sắp xếp theo</option>
-        <option value="wait_at desc">Mã chưa có hiệu lực</option>
-        <option value="date_at desc">Mã còn hiệu lực</option>
-        <option value="end_at desc">Mã hết hiệu lực</option>
         <option value="created_at desc">Ngày tạo mới nhất</option>
         <option value="updated_at desc">Ngày tạo xa nhất</option>
       </select>
