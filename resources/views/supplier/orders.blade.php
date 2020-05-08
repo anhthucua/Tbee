@@ -15,9 +15,6 @@
       <div class="filter">
         <select id="sort" class="dropdown">
           <option value="id desc">Sắp xếp theo</option>
-          <option value="wait-confirm_at desc">Đơn chờ xác nhận</option>
-          <option value="cancel_at desc">Đơn đã huỷ</option>
-          <option value="agree_at desc">Đơn đã nhận</option>
           <option value="created_at desc">Ngày tạo mới nhất</option>
           <option value="updated_at desc">Ngày tạo xa nhất</option>
         </select>
@@ -33,6 +30,7 @@
             <th>Người mua</th>
             <th>Thời gian đặt</th>
             <th style="width: 20%;">Trạng thái</th>
+            <th>Tổng tiền</th>
             <th style="width: 10%;"></th>
           </tr>
         </thead>
@@ -54,6 +52,7 @@
               <a href="#" class="primary-btn btn--small">Nhận đơn</a>
               <a href="#" class="secondary-btn btn--small">Huỷ đơn</a>
             </td>
+            <td>20000</td>
             <td>
               <a href="#" class="primary-btn btn--small" >Chi tiết</a>
             </td>
@@ -74,6 +73,7 @@
               <div class="order-status order-status--cancel">Đã huỷ đơn!</div>
               <div class="order-status order-status--agree">Đã nhận đơn!</div>
             </td>
+            <td>3000</td>
             <td>
               <a href="#" class="primary-btn btn--small" >Chi tiết</a>
             </td>
