@@ -25,9 +25,9 @@ class CouponController extends Controller
             if ($now->between($start, $end)) {
                 $coupon->status = 'Còn hiệu lực';
             } elseif ($now->greaterThan($end)) {
-                $coupon->status = 'Chưa có hiệu lực';
-            } else {
                 $coupon->status = 'Hết hiệu lực';
+            } else {
+                $coupon->status = 'Chưa có hiệu lực';
             }
 
             $coupon->created_date = $coupon->created_at->format('d-m-Y');
