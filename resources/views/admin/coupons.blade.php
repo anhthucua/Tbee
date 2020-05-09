@@ -47,21 +47,21 @@
       <tbody>
         @foreach ($coupons as $coupon)
           <tr>
-            <td>{{ $coupon->id }}</td>
-            <td>{{ $coupon->code }}</td>
-            <td>{{ $coupon->sale_in_percent }}%</td>
-            <td>{{ $coupon->sale_in_money ?? '' }}</td>
+            <td class="id">{{ $coupon->id }}</td>
+            <td class="code">{{ $coupon->code }}</td>
+            <td class="percent">{{ $coupon->sale_in_percent }}%</td>
+            <td class="money">{{ $coupon->sale_in_money ?? '' }}</td>
             <td>{{ $coupon->created_date }}</td>
-            <td>{{ $coupon->start_at }}</td>
-            <td>{{ $coupon->end_at }}</td>
+            <td class="start">{{ $coupon->start_at }}</td>
+            <td class="end">{{ $coupon->end_at }}</td>
             <td>{{ $coupon->status }}</td>
-            <td>{{ $coupon->numbers ?? '' }}</td>
+            <td class="numbers">{{ $coupon->numbers ?? '' }}</td>
             <td>{{ $coupon->used }}</td>
             <td>
-              <a class="secondary-btn btn--small" data-toggle="modal" data-target="#edit-coupon-modal">Sửa</a>
+              <a class="secondary-btn btn--small btn-edit">Sửa</a>
             </td>
             <td>
-              <a href="#" class="primary-btn btn--small">Xoá</a>
+              <a href="#" class="primary-btn btn--small btn-delete">Xoá</a>
             </td>
           </tr>
         @endforeach
@@ -72,7 +72,7 @@
 
 @endsection
 
-{{-- Modal login --}}
+{{-- Modal edit coupon --}}
 <div class="modal fade" id="edit-coupon-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -83,28 +83,29 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" id="" class="form add-coupon-form">
+        <form action="" method="POST" class="form edit-coupon-form">
           @csrf
+          @method('PUT')
           {{-- Input phần trăm --}}
           <br>
           <label for="percent">
             <strong>Phần trăm giảm:</strong>
           </label>
-          <input type="number" name="percent" id="percent">
+          <input type="number" name="sale_in_percent" id="percent">
 
           {{-- Input giảm tối đa bao nhiêu tiền --}}
           <br>
           <label for="coupon-money">
             <strong>Giảm tối đa số tiền:</strong>
           </label>
-          <input type="text" name="coupon-money" id="coupon-money" value="50000">
+          <input type="text" name="sale_in_money" id="coupon-money" value="50000">
 
           {{-- Ngày bắt đầu --}}
           <br>
           <label for="start">
             <strong>Ngày bắt đầu có hiệu lực:</strong>
           </label>
-          <input type="date" name="start" id="start">
+          <input type="date" name="start_at" id="start">
 
 
           {{-- Ngày kết thúc --}}
@@ -112,14 +113,14 @@
           <label for="end">
             <strong>Ngày kết thúc:</strong>
           </label>
-          <input type="date" name="end" id="end">
+          <input type="date" name="end_at" id="end">
 
           {{-- Số lượng mã tối đa --}}
           <br>
           <label for="end">
             <strong>Số lượng mã tối đa:</strong>
           </label>
-          <input type="number" name="number" id="number">
+          <input type="number" name="numbers" id="number">
 
           <br>
 
