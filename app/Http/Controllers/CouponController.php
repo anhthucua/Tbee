@@ -30,7 +30,7 @@ class CouponController extends Controller
                 $coupon->status = 'Chưa có hiệu lực';
             }
 
-            $coupon->created_date = $coupon->created_at->format('d-m-Y');
+            $coupon->created_date = $coupon->created_at->format('Y-m-d');
         }
 
         return view('admin.coupons', compact('coupons'));
@@ -119,6 +119,10 @@ class CouponController extends Controller
                     ->whereDate('start_at', '>', date('Y-m-d'))
                     ->orderBy($column, $direction)
                     ->get();
+                foreach ($coupons as $coupon) {
+                    $coupon->status = 'Chưa có hiệu lực';
+                    $coupon->created_date = $coupon->created_at->format('Y-m-d');
+                }
                 break;
             case 'con_hieuluc':
                 $coupons = Coupon::query()
@@ -126,22 +130,27 @@ class CouponController extends Controller
                         ['code', 'LIKE', "%{$code}%"],
 
                     ])
-                    ->whereDate([
-                        ['start_at', '<=', date('Y-m-d')],
-                        ['end_at', '>=', date('Y-m-d')]
-                    ])
+                    ->whereDate('start_at', '<=', date('Y-m-d'))
+                    ->whereDate('end_at', '>=', date('Y-m-d'))
                     ->orderBy($column, $direction)
                     ->get();
+                foreach ($coupons as $coupon) {
+                    $coupon->status = 'Còn hiệu lực';
+                    $coupon->created_date = $coupon->created_at->format('Y-m-d');
+                }
                 break;
             case 'het_hieuluc':
                 $coupons = Coupon::query()
                     ->where([
                         ['code', 'LIKE', "%{$code}%"],
-
                     ])
                     ->whereDate('end_at', '<', date('Y-m-d'))
                     ->orderBy($column, $direction)
                     ->get();
+                foreach ($coupons as $coupon) {
+                    $coupon->status = 'Hết hiệu lực';
+                    $coupon->created_date = $coupon->created_at->format('Y-m-d');
+                }
                 break;
             default:
                 $coupons = Coupon::query()
@@ -150,10 +159,25 @@ class CouponController extends Controller
                     ])
                     ->orderBy($column, $direction)
                     ->get();
+                foreach ($coupons as $coupon) {
+                    $start = Carbon::createFromFormat('Y-m-d', $coupon->start_at)->startOfDay();
+                    $end = Carbon::createFromFormat('Y-m-d', $coupon->end_at)->endOfDay();
+                    $now = Carbon::now();
+
+                    if ($now->between($start, $end)) {
+                        $coupon->status = 'Còn hiệu lực';
+                    } elseif ($now->greaterThan($end)) {
+                        $coupon->status = 'Hết hiệu lực';
+                    } else {
+                        $coupon->status = 'Chưa có hiệu lực';
+                    }
+
+                    $coupon->created_date = $coupon->created_at->format('Y-m-d');
+                }
                 break;
         }
 
-        dd($coupons);
+        return $coupons;
     }
 
     /**

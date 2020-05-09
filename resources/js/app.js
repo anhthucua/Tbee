@@ -1020,17 +1020,47 @@ $(document).ready(function () {
       let search = $('.pad-filters #search').val(),
         filter = $('#filter-category option:selected').val(),
         sort = $('#sort option:selected').val();
-        axios({
-          method:'post',
-          url: '/admin/coupon/search',
-          data: {
-            search: search,
-            filter: filter,
-            sort: sort
-          }
-        }).then((res) => {
-          console.log(res);
-        })
+      axios({
+        method: 'post',
+        url: '/admin/coupon/search',
+        data: {
+          search: search,
+          filter: filter,
+          sort: sort
+        }
+      }).then((res) => {
+        let tbody = document.querySelector('.pads-container table tbody');
+
+        // empty tbody
+        while (tbody.lastChild) {
+          tbody.removeChild(tbody.lastChild);
+        }
+
+        if (res.data.length > 0) {
+          res.data.forEach(coupon => {
+            let tpl = document.querySelector('#coupon-row'),
+              clone = tpl.content.cloneNode(true),
+              td = clone.querySelectorAll('td');
+              td[0].innerText = coupon.id;
+              td[1].innerText = coupon.code;
+              td[2].innerText = coupon.sale_in_percent + '%';
+              td[3].innerText = coupon.sale_in_money;
+              td[4].innerText = coupon.created_date;
+              td[5].innerText = coupon.start_at;
+              td[6].innerText = coupon.end_at;
+              td[7].innerText = coupon.status;
+              td[8].innerText = coupon.numbers;
+              td[9].innerText = coupon.used;
+            tbody.appendChild(clone);
+          });
+        } else {
+          $(tbody).html(`
+          <tr>
+            <td colspan="12">Không có mã giảm giá nào</td>
+          </tr>
+          `);
+        }
+      })
     }
   }
 });
