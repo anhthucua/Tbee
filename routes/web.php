@@ -23,8 +23,8 @@ Route::get('/product-detail', function () {
 
 
 // de tam de style
-Route::get('order-detail', function () {
-    return view('order-detail');
+Route::get('/admin/users', function () {
+    return view('/admin/users');
 });
 
 Route::get('cart', 'ProductController@cart')->name('cart');
@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::post('/add-coupon', 'CouponController@store')->name('save-coupon');
     Route::get('/coupons', 'CouponController@index')->name('manage-coupons');
     Route::get('/orders', 'OrderController@adminOrderList')->name('manage-orders');
+    // Route::get('/users', 'OrderController@adminOrderList')->name('manage-users');
 });
 
 // Product routes for supplier
