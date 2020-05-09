@@ -8,7 +8,7 @@
 <section class="section">
   <div class="row">
     <div class="col-md-6">
-      <h3>Thông tin cá nhân</h3>
+      <h3 class="title">THÔNG TIN CÁ NHÂN</h3>
       <br>
       <form class="form-edit" method="POST">
         @csrf
