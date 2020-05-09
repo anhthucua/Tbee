@@ -34,7 +34,7 @@
     </div>
     <!-- /description -->
     <!-- banner shop -->
-    <div class="shop-banner">
+    <div class="shop-banner mg-top-30">
       <div class="image-wrapper">
         <img src="{{ $banner }}">
       </div>
