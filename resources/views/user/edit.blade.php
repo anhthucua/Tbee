@@ -6,11 +6,11 @@
 
 @section('content')
 <section class="section">
-  <div class="row justify-content-left">
+  <div class="row">
     <div class="col-md-6">
       <h3>Thông tin cá nhân</h3>
       <br>
-      <form class="form-signup" method="POST" action="{{ route('register') }}">
+      <form class="form-edit" method="POST">
         @csrf
         {{-- username ko dc sua --}}
         <label>Tên đăng nhập:</label>
@@ -54,7 +54,7 @@
   </div>
 </section>
 @endsection
-
+{{-- modal delete  --}}
 <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

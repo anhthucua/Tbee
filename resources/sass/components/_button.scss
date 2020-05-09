@@ -47,10 +47,11 @@
   text-align: center;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
+  cursor: pointer;
 
   &:hover,
   &:focus {
-    color: #fff;
+    color: #fff !important;
     background-color: $color-primary-1;
   }
 }

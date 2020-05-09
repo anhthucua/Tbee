@@ -77,7 +77,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Chỉnh sửa mã giảm giá code: TBEE01</h2>
+        <h2 class="modal-title">Chỉnh sửa mã giảm giá code: <span class="counpon-code">TBEE01<span></h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
