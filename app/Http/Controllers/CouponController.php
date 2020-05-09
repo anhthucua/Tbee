@@ -95,6 +95,68 @@ class CouponController extends Controller
     }
 
     /**
+     * Search coupons
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function search(Request $request)
+    {
+        // Format order by
+        $order_by_arr = explode(' ', $request['sort']);
+        $column = $order_by_arr[0];
+        $direction = $order_by_arr[1];
+
+        $code = ($request['search'] === null) ? '' : $request['search'];
+
+        switch ($request['filter']) {
+            case 'chua_hieuluc':
+                $coupons = Coupon::query()
+                    ->where([
+                        ['code', 'LIKE', "%{$code}%"],
+
+                    ])
+                    ->whereDate('start_at', '>', date('Y-m-d'))
+                    ->orderBy($column, $direction)
+                    ->get();
+                break;
+            case 'con_hieuluc':
+                $coupons = Coupon::query()
+                    ->where([
+                        ['code', 'LIKE', "%{$code}%"],
+
+                    ])
+                    ->whereDate([
+                        ['start_at', '<=', date('Y-m-d')],
+                        ['end_at', '>=', date('Y-m-d')]
+                    ])
+                    ->orderBy($column, $direction)
+                    ->get();
+                break;
+            case 'het_hieuluc':
+                $coupons = Coupon::query()
+                    ->where([
+                        ['code', 'LIKE', "%{$code}%"],
+
+                    ])
+                    ->whereDate('end_at', '<', date('Y-m-d'))
+                    ->orderBy($column, $direction)
+                    ->get();
+                break;
+            default:
+                $coupons = Coupon::query()
+                    ->where([
+                        ['code', 'LIKE', "%{$code}%"]
+                    ])
+                    ->orderBy($column, $direction)
+                    ->get();
+                break;
+        }
+
+        dd($coupons);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -129,6 +191,8 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+        return redirect(route('admin.manage-coupons'));
     }
 }

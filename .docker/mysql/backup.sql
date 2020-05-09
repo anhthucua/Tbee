@@ -147,10 +147,12 @@ CREATE TABLE `coupons` (
   `start_at` date NOT NULL,
   `end_at` date NOT NULL,
   `numbers` int(11) DEFAULT NULL,
+  `used` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `coupons_code_unique` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +161,7 @@ CREATE TABLE `coupons` (
 
 LOCK TABLES `coupons` WRITE;
 /*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
-INSERT INTO `coupons` VALUES (1,'tb30','30','100000','2020-05-03','2020-06-03',NULL,'2020-05-03 19:19:20','2020-05-03 19:19:20'),(2,'tb301','30','20000','2020-04-03','2020-04-03',NULL,'2020-05-03 19:19:37','2020-05-03 19:19:37'),(3,'TBEE1005','20','30000','2020-05-10','2020-05-12',20,'2020-05-09 16:39:15','2020-05-09 16:39:15');
+INSERT INTO `coupons` VALUES (1,'tb30','30','100000','2020-05-09','2020-05-31',NULL,0,'2020-05-09 00:21:16','2020-05-09 00:21:16'),(2,'tb25','25','80000','2020-05-09','2020-05-10',5,0,'2020-05-09 00:21:51','2020-05-09 00:21:51'),(3,'tb301','30',NULL,'2020-05-01','2020-05-05',NULL,0,'2020-05-09 00:22:11','2020-05-09 00:22:11'),(4,'tb50','50','200000','2020-05-11','2020-05-15',10,0,'2020-05-09 00:23:03','2020-05-09 00:23:03');
 /*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
 UNLOCK TABLES;
 

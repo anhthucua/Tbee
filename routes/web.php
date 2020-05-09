@@ -21,12 +21,6 @@ Route::get('/product-detail', function () {
     return view('product-detail');
 });
 
-
-// de tam de style
-Route::get('/admin/users', function () {
-    return view('/admin/users');
-});
-
 Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
 Route::patch('cart/update', 'ProductController@updateCart');
@@ -60,10 +54,12 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('/add-coupon', 'CouponController@create')->name('add-coupon');
     Route::post('/add-coupon', 'CouponController@store')->name('save-coupon');
-    Route::put('/edit-coupon/{id}', 'CouponController@update')->name('edit-coupon');
+    Route::post('/coupon/search', 'CouponController@search');
+    Route::put('/edit-coupon/{id}', 'CouponController@update');
+    Route::delete('/coupon/{id}/delete', 'CouponController@destroy');
     Route::get('/coupons', 'CouponController@index')->name('manage-coupons');
     Route::get('/orders', 'OrderController@adminOrderList')->name('manage-orders');
-    // Route::get('/users', 'OrderController@adminOrderList')->name('manage-users');
+    Route::get('/users', 'UserController@index')->name('manage-users');
 });
 
 // Product routes for supplier

@@ -31,7 +31,7 @@
 						</a>
           </li>
           <li class="nav-item">
-						<a href="{{-- route('admin.manage-users') --}}" class="nav-link">
+						<a href="{{ route('admin.manage-users') }}" class="nav-link">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 							Quản lý người dùng
 						</a>

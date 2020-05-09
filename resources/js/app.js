@@ -971,7 +971,8 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////
   // For admin
   // page manage coupons
-  if ($(document.body).is('.manage-coupons')) {
+  if ($(document.body).is('.page-admin.manage-coupons')) {
+    // edit
     $('.pads-container tbody').on('click', 'tr a.btn-edit', function (e) {
       e.preventDefault();
       let tr = $(this).closest('tr'),
@@ -992,5 +993,44 @@ $(document).ready(function () {
       modal.find('#number').val(numbers);
       modal.modal('show');
     });
+
+    // delete
+    $('.pads-container tbody').on('click', 'tr a.btn-delete', function (e) {
+      e.preventDefault();
+      let tr = $(this).closest('tr'),
+        id = tr.find('.id').text(),
+        modal = $('#delete-coupon-modal');
+      modal.find('.form-delete').prop('action', `/admin/coupon/${id}/delete`);
+      modal.modal('show');
+    });
+
+    $('.pad-filters #search').on('input', function () {
+      searchCoupons();
+    });
+
+    $('#filter-category').change(function () {
+      searchCoupons();
+    })
+
+    $('#sort').change(function (e) {
+      searchCoupons();
+    });
+
+    function searchCoupons() {
+      let search = $('.pad-filters #search').val(),
+        filter = $('#filter-category option:selected').val(),
+        sort = $('#sort option:selected').val();
+        axios({
+          method:'post',
+          url: '/admin/coupon/search',
+          data: {
+            search: search,
+            filter: filter,
+            sort: sort
+          }
+        }).then((res) => {
+          console.log(res);
+        })
+    }
   }
 });

@@ -14,14 +14,14 @@
     <div class="filter">
       <select id="filter-category" class="dropdown">
         <option value="all">Trạng thái mã giảm giá</option>
-        <option value="chuahieuluc">Chưa có hiệu lực</option>
-        <option value="concohieuluc">Còn có hiệu lực</option>
-        <option value="hethieuluc">Hết hiệu lực</option>
+        <option value="chua_hieuluc">Chưa có hiệu lực</option>
+        <option value="con_hieuluc">Còn hiệu lực</option>
+        <option value="het_hieuluc">Hết hiệu lực</option>
       </select>
       <select id="sort" class="dropdown">
         <option value="id desc">Sắp xếp theo</option>
         <option value="created_at desc">Ngày tạo mới nhất</option>
-        <option value="updated_at desc">Ngày tạo xa nhất</option>
+        <option value="created_at asc">Ngày tạo xa nhất</option>
       </select>
     </div>
   </div>
@@ -45,26 +45,32 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($coupons as $coupon)
+        @if (count($coupons) != 0)
+          @foreach ($coupons as $coupon)
+            <tr>
+              <td class="id">{{ $coupon->id }}</td>
+              <td class="code">{{ $coupon->code }}</td>
+              <td class="percent">{{ $coupon->sale_in_percent }}%</td>
+              <td class="money">{{ $coupon->sale_in_money ?? '' }}</td>
+              <td>{{ $coupon->created_date }}</td>
+              <td class="start">{{ $coupon->start_at }}</td>
+              <td class="end">{{ $coupon->end_at }}</td>
+              <td>{{ $coupon->status }}</td>
+              <td class="numbers">{{ $coupon->numbers ?? '' }}</td>
+              <td>{{ $coupon->used }}</td>
+              <td>
+                <a href="#" class="secondary-btn btn--small btn-edit">Sửa</a>
+              </td>
+              <td>
+                <a href="#" class="primary-btn btn--small btn-delete">Xoá</a>
+              </td>
+            </tr>
+          @endforeach
+        @else
           <tr>
-            <td class="id">{{ $coupon->id }}</td>
-            <td class="code">{{ $coupon->code }}</td>
-            <td class="percent">{{ $coupon->sale_in_percent }}%</td>
-            <td class="money">{{ $coupon->sale_in_money ?? '' }}</td>
-            <td>{{ $coupon->created_date }}</td>
-            <td class="start">{{ $coupon->start_at }}</td>
-            <td class="end">{{ $coupon->end_at }}</td>
-            <td>{{ $coupon->status }}</td>
-            <td class="numbers">{{ $coupon->numbers ?? '' }}</td>
-            <td>{{ $coupon->used }}</td>
-            <td>
-              <a class="secondary-btn btn--small btn-edit">Sửa</a>
-            </td>
-            <td>
-              <a href="#" class="primary-btn btn--small btn-delete">Xoá</a>
-            </td>
+            <td colspan="12">Không có mã giảm giá nào</td>
           </tr>
-        @endforeach
+        @endif
       </tbody>
     </table>
   </div>
@@ -132,3 +138,48 @@
     </div>
   </div>
 </div>
+
+{{-- Modal Delete --}}
+<div class="modal fade" id="delete-coupon-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Xóa mã giảm giá</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa?</p>
+        <form class="form-delete" action="" method="POST">
+          @csrf
+          @method('DELETE')
+          <div class="d-flex">
+            <button class="btn btn-logout primary-btn btn-block" type="submit">Xóa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="coupon-row">
+  <tr>
+    <td class="id"></td>  <!-- id -->
+    <td class="code"></td>  <!-- code -->
+    <td class="percent"></td> <!-- percent -->
+    <td class="money"></td>  <!-- money -->
+    <td></td>  <!-- create -->
+    <td class="start"></td>  <!-- start -->
+    <td class="end"></td> <!-- end -->
+    <td></td> <!-- status -->
+    <td class="numbers"></td> <!-- numbers -->
+    <td></td>  <!-- used -->
+    <td>
+      <a href="#" class="secondary-btn btn--small btn-edit">Sửa</a>
+    </td>
+    <td>
+      <a href="#" class="primary-btn btn--small btn-delete">Xoá</a>
+    </td>
+  </tr>
+</template>
