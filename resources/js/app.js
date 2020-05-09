@@ -967,4 +967,30 @@ $(document).ready(function () {
       });
     }
   }
+
+  /////////////////////////////////////////////////////
+  // For admin
+  // page manage coupons
+  if ($(document.body).is('.manage-coupons')) {
+    $('.pads-container tbody').on('click', 'tr a.btn-edit', function (e) {
+      e.preventDefault();
+      let tr = $(this).closest('tr'),
+        percent = (tr.find('.percent').text()).slice(0, -1),
+        money = tr.find('.money').text(),
+        start = tr.find('.start').text(),
+        id = tr.find('.id').text(),
+        code = tr.find('.code').text(),
+        end = tr.find('.end').text(),
+        numbers = tr.find('.numbers').text(),
+        modal = $('#edit-coupon-modal');
+      modal.find('.counpon-code').text(code);
+      modal.find('.form').prop('action', `/admin/edit-coupon/${id}`);
+      modal.find('#percent').val(percent);
+      modal.find('#coupon-money').val(money);
+      modal.find('#start').val(start);
+      modal.find('#end').val(end);
+      modal.find('#number').val(numbers);
+      modal.modal('show');
+    });
+  }
 });

@@ -60,6 +60,7 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('/add-coupon', 'CouponController@create')->name('add-coupon');
     Route::post('/add-coupon', 'CouponController@store')->name('save-coupon');
+    Route::put('/edit-coupon/{id}', 'CouponController@update')->name('edit-coupon');
     Route::get('/coupons', 'CouponController@index')->name('manage-coupons');
     Route::get('/orders', 'OrderController@adminOrderList')->name('manage-orders');
     // Route::get('/users', 'OrderController@adminOrderList')->name('manage-users');
