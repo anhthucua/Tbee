@@ -114,3 +114,16 @@
     </div>
   </div>
 </div>
+
+<template id="admin-users-row">
+  <tr>
+    <td class="text-left"></td><!--username-->
+    <td></td><!--email-->
+    <td></td><!-- ngay tham gia -->
+    <td class="text-success"></td><!-- trang thai -->
+    <td></td><!-- mo shop? -->
+    <td>
+      <a href="#" class=""></a><!-- block/unblock -->
+    </td>
+  </tr>
+</template>

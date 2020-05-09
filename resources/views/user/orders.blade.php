@@ -90,3 +90,23 @@
 </div>
 
 @endsection
+
+<template id="user-orders-row">
+  <tr>
+    <td></td><!-- madon -->
+    <td>
+      <ol><!-- danh sach san pham-->
+        <li><a href="#"></a></li><!-- ten san pham -->
+      </ol>
+    </td>
+    <td><a href="#"></a></td><!-- nguoi ban -->
+    <td></td><!-- thoi gian dat-->
+    <td>
+      <div class="order-status"></div><!-- trang thai -->
+    </td>
+    <td></td><!--tong tien -->
+    <td>
+      <a href="#" class="primary-btn btn--small"></a><!-- chi tiet-->
+    </td>
+  </tr>
+</template>

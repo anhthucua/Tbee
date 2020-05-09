@@ -59,7 +59,6 @@
           <td>15:45 28/12/2020</td>
           <td>
             <div class="order-status">Chờ xác nhận</div>
-            <a href="#" class="secondary-btn btn--small">Huỷ đơn</a>
           </td>
           <td>
             <a href="#" class="primary-btn btn--small">Chi tiết</a>
@@ -79,8 +78,7 @@
           <td><a href="#">Nguoi ban</a></td>
           <td>15:45 28/12/2020</td>
           <td>
-            <div class="order-status order-status--agree">Đã nhận đơn!</div>
-            <a href="#" class="secondary-btn btn--small">Huỷ đơn</a>
+            <div class="order-status order-status--agree">Đã nhận đơn</div>
           </td>
           <td>
             <a href="#" class="primary-btn btn--small">Chi tiết</a>
@@ -112,3 +110,22 @@
 </div>
 
 @endsection
+<template id="admin-orders-row">
+  <tr>
+    <td>trananhthu</td><!--ma don-->
+    <td>
+      <ol><!--danh sach san pham-->
+        <li><a href="#"></a></li><!--ten sp-->
+      </ol>
+    </td>
+    <td></td><!--nguoi mua-->
+    <td><a href="#"></a></td><!--nguoi ban-->
+    <td></td><!--thoi gian dat-->
+    <td>
+      <div class="order-status"></div><!--trang thai-->
+    </td>
+    <td>
+      <a href="#" class="primary-btn btn--small"></a><!--chi tiet-->
+    </td>
+  </tr>
+</template>
