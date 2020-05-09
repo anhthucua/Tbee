@@ -6,6 +6,8 @@
 
 @section('content')
 <div class="col-md-9">
+  <section class="section">
+    <h3 class="title">Thêm sản phẩm</h3>
     <br>
     @if (session('success'))
     <br>
@@ -47,5 +49,6 @@
       <input type="submit" value="Lưu" class="btn primary-btn primary-btn--square">
     </form>
   </div>
+  </section>
 </div>
 @endsection
