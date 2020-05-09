@@ -40,31 +40,31 @@
           <th>Trạng thái</th>
           <th>Số lượng mã</th>
           <th>Đã sử dụng (mã)</th>
-          <th>Tổng số tiền đã dùng</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>01</td>
-          <td>TBEE01</td>
-          <td>40%</td>
-          <td>10000</td>
-          <td>28/12/2019</td>
-          <td>29/12/2019</td>
-          <td>28/3/2020</td>
-          <td>Còn hiệu lực/ Hết hiệu lực/ Chưa có hiệu lực</td>
-          <td>5</td>
-          <td>3</td>
-          <td>30</td>
-          <td>
-            <a href="#" class="secondary-btn btn--small" data-toggle="modal" data-target="#edit-coupon-modal">Sửa</a>
-          </td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Xoá</a>
-          </td>
-        </tr>
+        @foreach ($coupons as $coupon)
+          <tr>
+            <td>{{ $coupon->id }}</td>
+            <td>{{ $coupon->code }}</td>
+            <td>{{ $coupon->sale_in_percent }}%</td>
+            <td>{{ $coupon->sale_in_money ?? '' }}</td>
+            <td>{{ $coupon->created_date }}</td>
+            <td>{{ $coupon->start_at }}</td>
+            <td>{{ $coupon->end_at }}</td>
+            <td>{{ $coupon->status }}</td>
+            <td>{{ $coupon->numbers ?? '' }}</td>
+            <td>{{ $coupon->used }}</td>
+            <td>
+              <a class="secondary-btn btn--small" data-toggle="modal" data-target="#edit-coupon-modal">Sửa</a>
+            </td>
+            <td>
+              <a href="#" class="primary-btn btn--small">Xoá</a>
+            </td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

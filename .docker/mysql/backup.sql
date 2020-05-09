@@ -147,10 +147,12 @@ CREATE TABLE `coupons` (
   `start_at` date NOT NULL,
   `end_at` date NOT NULL,
   `numbers` int(11) DEFAULT NULL,
+  `used` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `coupons_code_unique` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +161,7 @@ CREATE TABLE `coupons` (
 
 LOCK TABLES `coupons` WRITE;
 /*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
-INSERT INTO `coupons` VALUES (1,'tb30','30','100000','2020-05-03','2020-06-03',NULL,'2020-05-03 19:19:20','2020-05-03 19:19:20'),(2,'tb301','30','20000','2020-04-03','2020-04-03',NULL,'2020-05-03 19:19:37','2020-05-03 19:19:37');
+INSERT INTO `coupons` VALUES (1,'tb30','30','100000','2020-05-09','2020-05-31',NULL,0,'2020-05-09 00:21:16','2020-05-09 00:21:16'),(2,'tb25','25','80000','2020-05-09','2020-05-10',5,0,'2020-05-09 00:21:51','2020-05-09 00:21:51'),(3,'tb301','30',NULL,'2020-05-01','2020-05-05',NULL,0,'2020-05-09 00:22:11','2020-05-09 00:22:11'),(4,'tb50','50','200000','2020-05-11','2020-05-15',10,0,'2020-05-09 00:23:03','2020-05-09 00:23:03');
 /*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +261,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +270,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (18,'2020_02_02_223707_create_images_table',1),(19,'2020_02_03_000000_create_users_table',1),(20,'2020_02_03_100000_create_password_resets_table',1),(21,'2020_02_03_144836_create_messages_table',1),(22,'2020_02_03_144903_create_notifications_table',1),(23,'2020_02_03_144921_create_roles_table',1),(24,'2020_02_03_155729_create_role_user_table',1),(25,'2020_02_03_215105_create_address_info_table',1),(26,'2020_02_03_215120_create_suppliers_table',1),(27,'2020_02_03_215220_create_category_level1_table',1),(28,'2020_02_03_215244_create_category_level2_table',1),(29,'2020_02_03_215352_create_products_table',1),(30,'2020_02_03_215725_create_coupons_table',1),(31,'2020_02_03_215938_create_orders_table',1),(32,'2020_02_03_220020_create_order_detail_table',1),(33,'2020_02_03_223543_create_cart_table',1),(34,'2020_04_07_100513_create_image_product_table',1);
+INSERT INTO `migrations` VALUES (18,'2020_02_02_223707_create_images_table',1),(19,'2020_02_03_000000_create_users_table',1),(20,'2020_02_03_100000_create_password_resets_table',1),(21,'2020_02_03_144836_create_messages_table',1),(22,'2020_02_03_144903_create_notifications_table',1),(23,'2020_02_03_144921_create_roles_table',1),(24,'2020_02_03_155729_create_role_user_table',1),(25,'2020_02_03_215105_create_address_info_table',1),(26,'2020_02_03_215120_create_suppliers_table',1),(27,'2020_02_03_215220_create_category_level1_table',1),(28,'2020_02_03_215244_create_category_level2_table',1),(29,'2020_02_03_215352_create_products_table',1),(33,'2020_02_03_223543_create_cart_table',1),(34,'2020_04_07_100513_create_image_product_table',1),(35,'2020_02_03_215725_create_coupons_table',2),(36,'2020_02_03_215938_create_orders_table',3),(37,'2020_02_03_220020_create_order_detail_table',4);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,4 +570,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-03 14:20:31
+-- Dump completed on 2020-05-08 17:25:13
