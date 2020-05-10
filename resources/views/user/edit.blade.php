@@ -12,6 +12,10 @@
       <br>
       <form class="form-edit" method="POST">
         @csrf
+        <label>Đổi avatar:</label>
+        {{-- không biet lam  --}}
+
+        {{-- /không biet lam  --}}
         {{-- username ko dc sua --}}
         <label>Tên đăng nhập:</label>
         <input class="form-control" type="text" disabled placeholder="tbee">
