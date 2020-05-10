@@ -970,6 +970,15 @@ $(document).ready(function () {
 
   /////////////////////////////////////////////////////
   // For admin
+
+  // active sidebar
+  $('.page-admin #sidebar-main a.nav-link').each(function () {
+    if (this.href === window.location.href) {
+      $(this).addClass('active');
+      return false;
+    }
+  });
+
   // page manage coupons
   if ($(document.body).is('.page-admin.manage-coupons')) {
     // edit
