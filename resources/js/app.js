@@ -6,6 +6,15 @@ $(document).ready(function () {
     });
   });
 
+  // handle chat
+  $('.chat-box').click(function (e) {
+    $('.chat-wrapper').show();
+  })
+
+  $('.chat-wrapper .chat .fa-close').click(function (e) {
+    $('.chat-wrapper').hide();
+  })
+
   // Login form submit
   $('#login-modal .form-signin .btn-lg').click(function (e) {
     e.preventDefault();
