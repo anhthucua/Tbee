@@ -60,6 +60,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/coupons', 'CouponController@index')->name('manage-coupons');
     Route::get('/orders', 'OrderController@adminOrderList')->name('manage-orders');
     Route::get('/users', 'UserController@index')->name('manage-users');
+    Route::post('/user/{id}/block', 'UserController@block')->name('user.block');
+    Route::post('/user/{id}/unblock', 'UserController@unblock')->name('user.unblock');
+    Route::post('/user/search', 'UserController@search');
 });
 
 // Product routes for supplier

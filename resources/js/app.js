@@ -1050,22 +1050,109 @@ $(document).ready(function () {
             let tpl = document.querySelector('#coupon-row'),
               clone = tpl.content.cloneNode(true),
               td = clone.querySelectorAll('td');
-              td[0].innerText = coupon.id;
-              td[1].innerText = coupon.code;
-              td[2].innerText = coupon.sale_in_percent + '%';
-              td[3].innerText = coupon.sale_in_money;
-              td[4].innerText = coupon.created_date;
-              td[5].innerText = coupon.start_at;
-              td[6].innerText = coupon.end_at;
-              td[7].innerText = coupon.status;
-              td[8].innerText = coupon.numbers;
-              td[9].innerText = coupon.used;
+            td[0].innerText = coupon.id;
+            td[1].innerText = coupon.code;
+            td[2].innerText = coupon.sale_in_percent + '%';
+            td[3].innerText = coupon.sale_in_money;
+            td[4].innerText = coupon.created_date;
+            td[5].innerText = coupon.start_at;
+            td[6].innerText = coupon.end_at;
+            td[7].innerText = coupon.status;
+            td[8].innerText = coupon.numbers;
+            td[9].innerText = coupon.used;
             tbody.appendChild(clone);
           });
         } else {
           $(tbody).html(`
           <tr>
             <td colspan="12">Không có mã giảm giá nào</td>
+          </tr>
+          `);
+        }
+      })
+    }
+  }
+
+  // page manage users
+  if ($(document.body).is('.page-admin.manage-users')) {
+    // unblock
+    $('.pads-container tbody').on('click', 'tr a.secondary-btn', function (e) {
+      e.preventDefault();
+      $('#unblock-modal form').prop('action', $(this).prop('href'));
+      $('#unblock-modal').modal('show');
+    });
+
+    // block
+    $('.pads-container tbody').on('click', 'tr a.primary-btn', function (e) {
+      e.preventDefault();
+      $('#block-modal form').prop('action', $(this).prop('href'));
+      $('#block-modal').modal('show');
+    });
+
+    $('.pad-filters #search').on('input', function () {
+      searchUsers();
+    });
+
+    $('#filter-category').change(function () {
+      searchUsers();
+    })
+
+    $('#sort').change(function (e) {
+      searchUsers();
+    });
+
+    function searchUsers() {
+      let search = $('.pad-filters #search').val(),
+        filter = $('#filter-category option:selected').val(),
+        sort = $('#sort option:selected').val();
+      axios({
+        method: 'post',
+        url: '/admin/user/search',
+        data: {
+          search: search,
+          filter: filter,
+          sort: sort
+        }
+      }).then((res) => {
+        let tbody = document.querySelector('.pads-container table tbody');
+
+        // empty tbody
+        while (tbody.lastChild) {
+          tbody.removeChild(tbody.lastChild);
+        }
+
+        if (res.data.length > 0) {
+          res.data.forEach(user => {
+            let tpl = document.querySelector('#admin-users-row'),
+              clone = tpl.content.cloneNode(true),
+              td = clone.querySelectorAll('td'),
+              a = clone.querySelector('td a');
+            td[0].innerText = user.username;
+            td[1].innerText = user.email;
+            td[2].innerText = user.created_date;
+            if (user.is_banned) {
+              td[3].classList.add('text-danger')
+              td[3].innerText = 'Blocked';
+              a.href = `/admin/user/${user.id}/unblock`;
+              a.classList.add('secondary-btn');
+              a.innerText = 'Unblock';
+            } else {
+              td[3].classList.add('text-success')
+              td[3].innerText = 'Active';
+              a.href = `/admin/user/${user.id}/block`;
+              a.classList.add('primary-btn');
+              a.innerText = 'Block';
+            }
+            if (user.id == 1) {
+              td[5].innerHTML = '';
+            }
+            td[4].innerText = user.isShop ? 'Có' : 'Không';
+            tbody.appendChild(clone);
+          });
+        } else {
+          $(tbody).html(`
+          <tr>
+            <td colspan="12">Không có người dùng nào</td>
           </tr>
           `);
         }

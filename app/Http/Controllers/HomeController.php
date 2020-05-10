@@ -17,6 +17,7 @@ class HomeController extends Controller
         $cat_lv1 = CategoryLvl1::all();
 
         $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('products.is_banned', false)
             ->orderBy('purchased_number', 'desc')
             ->select(
                 'products.id',
@@ -30,6 +31,7 @@ class HomeController extends Controller
             ->get();
 
         $new_products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('products.is_banned', false)
             ->orderBy('products.created_at', 'desc')
             ->select(
                 'products.id',

@@ -99,6 +99,7 @@ class ProductController extends Controller
 
         $products = Product::join('images', 'products.image_id', 'images.id')
             ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
+            ->where('products.is_banned', false)
             ->orderBy('sale_price', 'asc')
             ->select(
                 'products.id',
@@ -123,6 +124,7 @@ class ProductController extends Controller
 
         // best seller products
         $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('products.is_banned', false)
             ->whereIn('products.category_level2_id', $cat_lv2_id_arr)
             ->orderBy('purchased_number', 'desc')
             ->select(
@@ -156,6 +158,11 @@ class ProductController extends Controller
         $banner = ImageModel::find($shop->banner)->url;
 
         $user = User::find($shop->user_id);
+
+        if ($user->is_banned) {
+            return abort(403, 'Shop hiện tại đã bị ban');
+        }
+
         $avatar = ImageModel::find($user->avatar)->url ?? '/images/default-avt.png';
 
         $products = Product::join('images', 'products.image_id', 'images.id')
@@ -375,7 +382,7 @@ class ProductController extends Controller
             $products = Product::query()
                 ->where([
                     ['name', 'LIKE', "%{$name}%"],
-                    ['supplier_id', Auth::user()->id]
+                    ['supplier_id', Auth::user()->getSupid()]
                 ])
                 ->orderBy($column, $direction)
                 ->get();
@@ -383,7 +390,7 @@ class ProductController extends Controller
             $products = Product::query()
                 ->where([
                     ['name', 'LIKE', "%{$name}%"],
-                    ['supplier_id', Auth::user()->id]
+                    ['supplier_id', Auth::user()->getSupId()]
                 ])
                 ->whereHas('categoryLvl2', function (Builder $query) use ($request) {
                     $query->where('category_level1_id', $request['category']);
@@ -422,7 +429,8 @@ class ProductController extends Controller
                     ->where([
                         ['sale_price', '>=', $request['minPrice']],
                         ['sale_price', '<=', $request['maxPrice']],
-                        ['category_level2_id', $id]
+                        ['category_level2_id', $id],
+                        ['is_banned', false]
                     ])
                     ->orderBy($column, $direction)
                     ->get();
@@ -430,7 +438,8 @@ class ProductController extends Controller
                 $products = Product::query()
                     ->where([
                         ['sale_price', '>=', $request['minPrice']],
-                        ['sale_price', '<=', $request['maxPrice']]
+                        ['sale_price', '<=', $request['maxPrice']],
+                        ['is_banned', false]
                     ])
                     ->whereHas('categoryLvl2', function (Builder $query) use ($id) {
                         $query->where('category_level1_id', $id);
@@ -442,7 +451,8 @@ class ProductController extends Controller
             $products = Product::query()
                 ->where([
                     ['sale_price', '>=', $request['minPrice']],
-                    ['sale_price', '<=', $request['maxPrice']]
+                    ['sale_price', '<=', $request['maxPrice']],
+                    ['is_banned', false]
                 ])
                 ->whereIn('category_level2_id', $request['cat_lv2'])
                 ->orderBy($column, $direction)
@@ -598,6 +608,7 @@ class ProductController extends Controller
 
         // best seller products
         $best_seller_products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('products.is_banned', false)
             ->orderBy('purchased_number', 'desc')
             ->select(
                 'products.id',

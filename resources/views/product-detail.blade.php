@@ -80,31 +80,33 @@
             <span class="product-available">Còn {{ $product->stock }} sản phẩm</span>
           </div>
 
-          @guest
-            <div class="add-to-cart">
-              <button class="add-to-cart-btn" data-toggle="modal" data-target="#rqlg-modal">
-                <i class="fa fa-shopping-cart"></i>
-                Thêm vào giỏ hàng
-              </button>
-              <div style="height: 30px;"></div>
-              <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
-                Mua ngay
-              </button>
-            </div>
-          @else
-            @if (Auth::user()->id !== $shop['uid'])
+          @if (!$product->is_banned)
+            @guest
               <div class="add-to-cart">
-                <button class="add-to-cart-btn logged-in">
+                <button class="add-to-cart-btn" data-toggle="modal" data-target="#rqlg-modal">
                   <i class="fa fa-shopping-cart"></i>
                   Thêm vào giỏ hàng
                 </button>
-              <div style="height: 30px;"></div>
+                <div style="height: 30px;"></div>
                 <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
                   Mua ngay
                 </button>
               </div>
-            @endif
-          @endguest
+            @else
+              @if (Auth::user()->id !== $shop['uid'])
+                <div class="add-to-cart">
+                  <button class="add-to-cart-btn logged-in">
+                    <i class="fa fa-shopping-cart"></i>
+                    Thêm vào giỏ hàng
+                  </button>
+                <div style="height: 30px;"></div>
+                  <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
+                    Mua ngay
+                  </button>
+                </div>
+              @endif
+            @endguest
+          @endif
         </div>
       </div>
       <!-- /Product details -->
@@ -116,21 +118,23 @@
 <!-- SECTION -->
 <div class="section">
   <div class="container">
-     <!-- shop infor -->
-     <div class="product-shop">
-      <div class="d-flex">
-        <a href="{{ route('products-shop', $shop['id']) }}" class="shop-image"
-          style="background-image: url('{{ $shop['avatar'] }}');"></a>
-        <div class="shop-info">
-          <a href="{{ route('products-shop', $shop['id']) }}">{{ $shop['name'] }}</a>
-          <div class="shop-link">
-            <a href="{{ route('products-shop', $shop['id']) }}" class="primary-btn primary-btn--normal">Xem shop</a>
-            <a href="#" class="secondary-btn">Chat ngay</a>
+    @if (!$product->is_banned)
+      <!-- shop infor -->
+      <div class="product-shop">
+        <div class="d-flex">
+          <a href="{{ route('products-shop', $shop['id']) }}" class="shop-image"
+            style="background-image: url('{{ $shop['avatar'] }}');"></a>
+          <div class="shop-info">
+            <a href="{{ route('products-shop', $shop['id']) }}">{{ $shop['name'] }}</a>
+            <div class="shop-link">
+              <a href="{{ route('products-shop', $shop['id']) }}" class="primary-btn primary-btn--normal">Xem shop</a>
+              <a href="#" class="secondary-btn">Chat ngay</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-     <!-- /shop infor -->
+      <!-- /shop infor -->
+    @endif
     <!-- description -->
     <div class="product-desc">
       <h5 class="product-desc-title">Mô tả</h5>

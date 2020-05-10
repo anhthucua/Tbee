@@ -5,6 +5,7 @@
 @section('classname', 'manage-users')
 
 @section('content')
+{{-- {{ dump($users) }} --}}
 <div class="page-pads-container">
   <div class="heading">
     <h3 class="title">QUẢN LÝ NGƯỜI DÙNG</h3>
@@ -13,15 +14,14 @@
     <input type="text" id="search" class="search" placeholder="Tìm kiếm theo username">
     <div class="filter">
       <select id="sort" class="dropdown">
-        <option value="id desc">Sắp xếp theo</option>
+        <option value="id asc">Sắp xếp theo</option>
         <option value="created_at desc">Ngày tạo mới nhất</option>
-        <option value="updated_at desc">Ngày tạo xa nhất</option>
+        <option value="created_at asc">Ngày tạo xa nhất</option>
       </select>
       <select id="filter-category" class="dropdown">
         <option value="all">Trạng thái</option>
-        <option value="1">Hoạt động</option>
-        <option value="2">Bị block</option>
-        <option value="2">Mở shop</option>
+        <option value="0">Active</option>
+        <option value="1">Blocked</option>
       </select>
     </div>
   </div>
@@ -39,32 +39,28 @@
         </tr>
       </thead>
       <tbody>
-        {{-- TH1: active --}}
-        <tr>
-          <td class="text-left">trananhthu</td>
-          <td>anhthu.3@gmail.com</td>
-          <td>28/12/2020</td>
-          <td class="text-success">
-            Active
-          </td>
-          <td>Có</td>
-          <td>
-            <a href="#" class="primary-btn btn--small" data-toggle="modal" data-target="#block-modal">Block</a>
-          </td>
-        </tr>
-        {{-- TH2: tk bi block --}}
-        <tr>
-          <td class="text-left">trananhthu1</td>
-          <td>anhthu.3@gmail.com</td>
-          <td>28/12/2020</td>
-          <td class="text-danger">
-            Blocked
-          </td>
-          <td>Không</td>
-          <td>
-            <a href="#" class="secondary-btn btn--small" data-toggle="modal" data-target="#unblock-modal">Unblock</a>
-          </td>
-        </tr>
+        @foreach ($users as $user)
+          <tr>
+            <td class="text-left">{{ $user->username }}</td>
+            <td>{{ $user->email }}</td>
+            <td>{{ $user->created_date }}</td>
+            @if ($user->is_banned)
+              <td class="text-danger">Blocked</td>
+            @else
+              <td class="text-success">Active</td>
+            @endif
+            <td>{{ $user->isShop ? 'Có' : 'Không' }}</td>
+            <td>
+              @if (Auth::user()->id !== $user->id)
+                @if ($user->is_banned)
+                  <a href="{{ route('admin.user.unblock', $user->id) }}" class="secondary-btn btn--small">Unblock</a>
+                @else
+                  <a href="{{ route('admin.user.block', $user->id) }}" class="primary-btn btn--small">Block</a>
+                @endif
+              @endif
+            </td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
@@ -75,15 +71,14 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Bạn có chắc muốn Block user này?</h2>
+        <h2 class="modal-title">Bạn có chắc muốn block user này?</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form id="block-user" action="" method="POST">
-          {{-- @csrf
-          @method('DELETE') --}}
+          @csrf
           <div class="d-flex">
             <button class="btn primary-btn btn-block" type="submit">Block</button>
           </div>
@@ -97,17 +92,16 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Bạn có chắc muốn UnBlock user này?</h2>
+        <h2 class="modal-title">Bạn có chắc muốn unblock user này?</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="block-user" action="" method="POST">
-          {{-- @csrf
-          @method('DELETE') --}}
+        <form id="unblock-user" action="" method="POST">
+          @csrf
           <div class="d-flex">
-            <button class="btn primary-btn btn-block" type="submit">UnBlock</button>
+            <button class="btn primary-btn btn-block" type="submit">Unblock</button>
           </div>
         </form>
       </div>
@@ -120,10 +114,10 @@
     <td class="text-left"></td><!--username-->
     <td></td><!--email-->
     <td></td><!-- ngay tham gia -->
-    <td class="text-success"></td><!-- trang thai -->
+    <td class=""></td><!-- trang thai -->
     <td></td><!-- mo shop? -->
     <td>
-      <a href="#" class=""></a><!-- block/unblock -->
+      <a href="" class="btn--small"></a><!-- block/unblock -->
     </td>
   </tr>
 </template>
