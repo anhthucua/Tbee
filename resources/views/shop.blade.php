@@ -19,7 +19,7 @@
         <div class="shop-info">
           <a>{{ $shop->shop_name }}</a>
           <div class="shop-link">
-            <a class="secondary-btn">Chat ngay</a>
+            <a class="secondary-btn btn-chat">Chat ngay</a>
           </div>
         </div>
       </div>

@@ -128,7 +128,7 @@
             <a href="{{ route('products-shop', $shop['id']) }}">{{ $shop['name'] }}</a>
             <div class="shop-link">
               <a href="{{ route('products-shop', $shop['id']) }}" class="primary-btn primary-btn--normal">Xem shop</a>
-              <a href="#" class="secondary-btn">Chat ngay</a>
+              <a href="#" class="secondary-btn btn-chat">Chat ngay</a>
             </div>
           </div>
         </div>
