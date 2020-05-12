@@ -7,53 +7,137 @@
 @section('content')
 <section class="section">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
       <h3 class="title">THÔNG TIN CÁ NHÂN</h3>
       <br>
-      <form class="form-edit" method="POST">
-        @csrf
-        <label>Đổi avatar:</label>
-        {{-- không biet lam  --}}
 
-        {{-- /không biet lam  --}}
-        {{-- username ko dc sua --}}
-        <label>Tên đăng nhập:</label>
-        <input class="form-control" type="text" disabled placeholder="tbee">
-        <br>
-        {{-- phone show du lieu trong db --}}
-        <label>Số điện thoại:</label>
-        <input class="form-control su-phone" type="tel" name="phone">
-        <div class="error error-phone"></div>
-        <br>
-        {{-- email show du lieu trong db --}}
-        <label>Email:</label>
-        <input class="form-control su-email" type="text" name="email">
-        <div class="error error-email"></div>
-        <br>
-        {{-- address, show du lieu trong db, không dien thi de trong  --}}
-        <label>Địa chỉ (điền tối đa 3 địa chỉ nhận hàng)</label>
-        <!-- <div class="primary-btn primary-btn--square btn--small">+ Thêm</div> -->
-        <br>
-        {{-- address-1  --}}
-        <input class="form-control su-address" type="text" name="address">
-        <br>
-        {{-- address-2  --}}
-        <div class="d-flex">
-          <input class="form-control su-address" type="text" name="address">
-          <div class="primary-btn primary-btn--square btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+      <label>Đổi avatar:</label>
+      {{-- không biet lam  --}}
+
+      {{-- /không biet lam  --}}
+      <br>
+      {{-- username ko dc sua --}}
+      <label>Tên đăng nhập:</label>
+      <input class="form-control" type="text" disabled placeholder="tbee">
+      <br>
+      {{-- email show du lieu trong db --}}
+      <label>Email:</label>
+      <input class="form-control su-email" type="text" name="email" value="aoeovndfk@gmail.com">
+      <div class="error error-email"></div>
+      <br>
+      <br>
+      <div class="row justify-content-between">
+        <div class="col-6">
+          <h3>Địa chỉ của tôi (tối đa 3 địa chỉ)</h3>
         </div>
-        <br>
-        {{-- address-3  --}}
-        <div class="d-flex">
-          <input class="form-control su-address" type="text" name="address">
-          <div class="primary-btn primary-btn--square btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+        <div class="col-6 text-right">
+          <div class="primary-btn primary-btn--square" data-toggle="modal" data-target="#add-address-modal">+ Thêm địa chỉ mới</div>
+
         </div>
-        <div class="error"></div>
-        <br>
-        <div class="d-flex">
-          <button class="primary-btn" type="submit">Lưu thông tin</button>
+      </div>
+      {{-- address  --}}
+      <hr>
+      <div class="address-card mg-bottom-50">
+        <div class="row justify-content-between">
+          {{-- infor  --}}
+          <div class="col-md-8">
+            {{-- name  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Họ và tên</div>
+              <div class="col-8 text-dark">
+                <span class="name">Trần Anh Thư</span>
+                <span class="default">Mặc định</span>
+              </div>
+            </div>
+            {{-- phone  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Số điện thoại</div>
+              <div class="col-8 text-dark">0963318303</div>
+            </div>
+            {{-- address  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Địa chỉ</div>
+              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
+            </div>
+          </div>
+          {{-- thao tac  --}}
+          <div class="col-md-4 text-right">
+            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
+            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+            <br>
+            <br>
+            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
+          </div>
         </div>
-      </form>
+      </div>
+      {{-- address  --}}
+      <hr>
+      <div class="address-card mg-bottom-50">
+        <div class="row justify-content-between">
+          {{-- infor  --}}
+          <div class="col-md-8">
+            {{-- name  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Họ và tên</div>
+              <div class="col-8 text-dark">
+                <span class="name">Trần Anh Thư</span>
+              </div>
+            </div>
+            {{-- phone  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Số điện thoại</div>
+              <div class="col-8 text-dark">0963318303</div>
+            </div>
+            {{-- address  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Địa chỉ</div>
+              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
+            </div>
+          </div>
+          {{-- thao tac  --}}
+          <div class="col-md-4 text-right">
+            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
+            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+            <br>
+            <br>
+            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
+          </div>
+        </div>
+      </div>
+      {{-- address  --}}
+      <hr>
+      <div class="address-card mg-bottom-50">
+        <div class="row justify-content-between">
+          {{-- infor  --}}
+          <div class="col-md-8">
+            {{-- name  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Họ và tên</div>
+              <div class="col-8 text-dark">
+                <span class="name">Trần Anh Thư</span>
+              </div>
+            </div>
+            {{-- phone  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Số điện thoại</div>
+              <div class="col-8 text-dark">0963318303</div>
+            </div>
+            {{-- address  --}}
+            <div class="row">
+              <div class="col-4 text-secondary">Địa chỉ</div>
+              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
+            </div>
+          </div>
+          {{-- thao tac  --}}
+          <div class="col-md-4 text-right">
+            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
+            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+            <br>
+            <br>
+            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -75,6 +159,70 @@
           <div class="d-flex">
             <button class="btn primary-btn btn-block" type="submit">Xoá</button>
           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- Modal add address --}}
+<div class="modal fade" id="add-address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Thêm 1 địa chỉ mới</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-adress" method="POST">
+          {{-- name  --}}
+          <input class="form-control su-name" type="tel" name="name" placeholder="Họ và tên">
+          <div class="error error-name"></div>
+            {{-- phone show du lieu trong db --}}
+          <input class="form-control su-phone" type="tel" name="phone" placeholder="Số điện thoại">
+          <div class="error error-phone"></div>
+          {{-- address --}}
+          <input class="form-control su-address" type="text" name="address" placeholder="Địa chỉ">
+          <div class="error"></div>
+          <br>
+          <br>
+          <div class="d-flex text-center justify-content-center">
+            <button class="primary-btn" type="submit">Lưu thông tin</button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- Modal edit address --}}
+<div class="modal fade" id="address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Chỉnh sửa địa chỉ</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-adress" method="POST">
+        {{-- name  --}}
+        <input class="form-control su-name" type="tel" name="name" value="Trần Anh Thư">
+        <div class="error error-name"></div>
+          {{-- phone show du lieu trong db --}}
+        <input class="form-control su-phone" type="tel" name="phone" value="0923843847">
+        <div class="error error-phone"></div>
+        {{-- address --}}
+        <input class="form-control su-address" type="text" name="address" value="Số 10 ngõ 168 Thuỵ Khuê, Tây Hồ, Hà Nội">
+        <div class="error"></div>
+        <br>
+        <br>
+        <div class="d-flex text-center justify-content-center">
+          <button class="primary-btn" type="submit">Lưu thông tin</button>
+        </div>
         </form>
       </div>
     </div>
