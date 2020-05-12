@@ -39,6 +39,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('/information', 'UserController@edit')->name('edit');
     Route::post('/edit', 'UserController@update')->name('update');
     Route::get('/change-pass', 'UserController@changePass')->name('change-pass');
+    Route::post('/change-pass', 'UserController@changePassSubmit')->name('change-pass-submit');
 });
 
 Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth'], function () {
