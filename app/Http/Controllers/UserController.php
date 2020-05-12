@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -85,6 +87,30 @@ class UserController extends Controller
     public function changePass()
     {
         return view('user.change-pass');
+    }
+
+    public function changePassSubmit(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!Hash::check($request['password'], $user['password'])) {
+            return redirect(route('user.change-pass'))->with('err-pass', 'Mật khẩu không chính xác');
+        }
+
+        if (strlen($request['new_password']) < 8) {
+            return redirect(route('user.change-pass'))->with('err-new-pass', 'Mật khẩu phải có ít nhất 8 kí tự');
+        }
+
+        if ($request['new_password'] !== $request['new_pass_cf']) {
+            return redirect(route('user.change-pass'))->with('err-pass-cf', 'Xác nhận mật khẩu không trùng khớp');
+        }
+
+        $new_pass = Hash::make($request['new_password']);
+
+        $user->password = $new_pass;
+        $user->save();
+
+        return redirect(route('user.change-pass'))->with('success', 'Đổi mật khẩu thành công');
     }
 
     /**
