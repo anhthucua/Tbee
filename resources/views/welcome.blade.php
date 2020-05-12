@@ -14,22 +14,26 @@
           <div class="row">
             <div class="col-md-12">
               <div class="hot-deal-wrapper">
+                {{-- hot deal content --}}
                 <div class="hot-deal">
                   <h2 class="text-uppercase">Deal tốt dành cho bạn </h2>
                   <div class="code">
                     <h3>TBEE50</h3>
                   </div>
-                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ 2/3/2020 đến 3/3/2020</p><a
-                    class="primary-btn cta-btn" href="#">Copy mã</a>
+                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ <span class="">2/3/2020</span> đến <span class="">3/3/2020</span></p>
+                  <div>Giảm tối đa 50000 đồng</div>
+                  <a class="primary-btn cta-btn" href="#">Copy mã</a>
                   <p class="note">* Số lượng có hạn</p>
                 </div>
+                {{-- hot deal content --}}
                 <div class="hot-deal">
                   <h2 class="text-uppercase">Deal tốt dành cho bạn </h2>
                   <div class="code">
                     <h3>TBEE50</h3>
                   </div>
-                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ 2/3/2020 đến 3/3/2020</p><a
-                    class="primary-btn cta-btn" href="#">Copy mã</a>
+                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ <span class="">2/3/2020</span> đến <span class="">3/3/2020</span></p>
+                  <div>Giảm tối đa 50000 đồng</div>
+                  <a class="primary-btn cta-btn" href="#">Copy mã</a>
                   <p class="note">* Số lượng có hạn</p>
                 </div>
               </div>
