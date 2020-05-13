@@ -31,11 +31,19 @@
             <dt>Người mua:</dt>
             <dd>Pham Minh Hieu</dd>
 
+            {{-- phone  --}}
+            <dt>Số điện thoại người mua:</dt>
+            <dd>0123456789</dd>
+
+            {{-- address  --}}
+            <dt>Địa chỉ người mua:</dt>
+            <dd>Số 10 ngõ 168 Thuỵ Khuê, Tây Hồ, Hà Nội</dd>
+
             {{-- ngay dat --}}
             <dt>Ngày đặt:</dt>
             <dd>15:45 25/12/2020</dd>
 
-            {{-- trang thai --}}
+            {{-- trang thai: 3 --}}
             <dt>Trạng thái đơn hàng:</dt>
             <dd>Chờ xác nhận</dd>
             <dd>Đã nhận đơn 13:45 12/2/2019</dd>

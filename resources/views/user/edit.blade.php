@@ -88,6 +88,8 @@
           </div>
         </div>
       @endforeach
+      <br>
+      <div class="primary-btn">Lưu thông tin</div>
     </div>
   </div>
 </section>
