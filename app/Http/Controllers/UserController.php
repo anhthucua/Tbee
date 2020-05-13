@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Image as ImageModel;
 
 class UserController extends Controller
 {
@@ -81,7 +82,19 @@ class UserController extends Controller
      */
     public function edit()
     {
-        return view('user.edit');
+        $user = Auth::user();
+
+        if ($user->avatar) {
+            $user->avatar_img = ImageModel::find($user->avatar)->url;
+        } else {
+            $user->avatar_img = '/images/default-avt.png';
+        }
+
+        dump($user->address_infos);
+
+        dump($user);
+
+        return view('user.edit', compact('user'));
     }
 
     public function changePass()

@@ -40,6 +40,16 @@ class User extends Authenticatable
     }
 
     /**
+     * One to many relationship
+     *
+     * @return void
+     */
+    public function address_infos()
+    {
+        return $this->hasMany('App\AddressInfo');
+    }
+
+    /**
      * Check if user has role
      *
      * @param string $rolename

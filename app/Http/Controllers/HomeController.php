@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CategoryLvl1;
 use App\Product;
+use App\Coupon;
 
 class HomeController extends Controller
 {
@@ -42,6 +43,11 @@ class HomeController extends Controller
                 'images.url as img_url'
             )
             ->take(6)
+            ->get();
+
+        $coupons = Coupon::query()
+            ->whereDate('start_at', '<=', date('Y-m-d'))
+            ->whereDate('end_at', '>=', date('Y-m-d'))
             ->get();
 
         foreach ($best_seller_products as $product) {

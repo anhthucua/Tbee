@@ -11,133 +11,83 @@
       <h3 class="title">THÔNG TIN CÁ NHÂN</h3>
       <br>
 
-      <label>Đổi avatar:</label>
-      {{-- không biet lam  --}}
+      <label>Avatar:</label>
 
-      {{-- /không biet lam  --}}
+      <input type="file" name="avatar" id="avatar" class="d-none" accept="image/*">
+
+      <div class="input-file">
+        <button class="btn primary-btn primary-btn--square btn-image" type="button">Chọn ảnh</button>
+        <p class="image-name">{{ $user->avatar ? basename($user->avatar_img) : '' }}</p>
+      </div>
+
+      <br>
+
+      <div class="upload-avt-wrapper">
+        <div class="upload-avt">
+          <img class="avt-img img-responsive" src="{{ $user->avatar_img }}" alt="avatar">
+        </div>
+      </div>
+
       <br>
       {{-- username ko dc sua --}}
       <label>Tên đăng nhập:</label>
-      <input class="form-control" type="text" disabled placeholder="tbee">
+      <input class="form-control" type="text" disabled placeholder="{{ $user->username }}">
       <br>
       {{-- email show du lieu trong db --}}
       <label>Email:</label>
-      <input class="form-control su-email" type="text" name="email" value="aoeovndfk@gmail.com">
+      <input class="form-control su-email" type="text" name="email" value="{{ $user->email }}">
       <div class="error error-email"></div>
       <br>
       <br>
-      <div class="row justify-content-between">
+      <div class="row">
         <div class="col-6">
           <h3>Địa chỉ của tôi (tối đa 3 địa chỉ)</h3>
         </div>
         <div class="col-6 text-right">
           <div class="primary-btn primary-btn--square" data-toggle="modal" data-target="#add-address-modal">+ Thêm địa chỉ mới</div>
-
         </div>
       </div>
       {{-- address  --}}
-      <hr>
-      <div class="address-card mg-bottom-50">
-        <div class="row justify-content-between">
-          {{-- infor  --}}
-          <div class="col-md-8">
-            {{-- name  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Họ và tên</div>
-              <div class="col-8 text-dark">
-                <span class="name">Trần Anh Thư</span>
-                <span class="default">Mặc định</span>
+      @foreach ($user->address_infos as $item)
+        <hr>
+        <div class="address-card mg-bottom-50">
+          <div class="row justify-content-between">
+            {{-- infor  --}}
+            <div class="col-md-8">
+              {{-- name  --}}
+              <div class="row">
+                <div class="col-4 text-secondary">Họ và tên</div>
+                <div class="col-8 text-dark">
+                  <span class="name">{{ $item->name }}</span>
+                  @if ($item->is_main_address)
+                    <span class="default">Mặc định</span>
+                  @endif
+                </div>
+              </div>
+              {{-- phone  --}}
+              <div class="row">
+                <div class="col-4 text-secondary">Số điện thoại</div>
+                <div class="col-8 text-dark">{{ $item->phone }}</div>
+              </div>
+              {{-- address  --}}
+              <div class="row">
+                <div class="col-4 text-secondary">Địa chỉ</div>
+                <div class="col-8 text-dark">{{ $item->address }}</div>
               </div>
             </div>
-            {{-- phone  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Số điện thoại</div>
-              <div class="col-8 text-dark">0963318303</div>
+            {{-- thao tac  --}}
+            <div class="col-md-4 text-right">
+              <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
+              <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
+              <br>
+              <br>
+              @unless ($item->is_main_address)
+                <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
+              @endunless
             </div>
-            {{-- address  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Địa chỉ</div>
-              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
-            </div>
-          </div>
-          {{-- thao tac  --}}
-          <div class="col-md-4 text-right">
-            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
-            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
-            <br>
-            <br>
-            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
           </div>
         </div>
-      </div>
-      {{-- address  --}}
-      <hr>
-      <div class="address-card mg-bottom-50">
-        <div class="row justify-content-between">
-          {{-- infor  --}}
-          <div class="col-md-8">
-            {{-- name  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Họ và tên</div>
-              <div class="col-8 text-dark">
-                <span class="name">Trần Anh Thư</span>
-              </div>
-            </div>
-            {{-- phone  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Số điện thoại</div>
-              <div class="col-8 text-dark">0963318303</div>
-            </div>
-            {{-- address  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Địa chỉ</div>
-              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
-            </div>
-          </div>
-          {{-- thao tac  --}}
-          <div class="col-md-4 text-right">
-            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
-            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
-            <br>
-            <br>
-            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
-          </div>
-        </div>
-      </div>
-      {{-- address  --}}
-      <hr>
-      <div class="address-card mg-bottom-50">
-        <div class="row justify-content-between">
-          {{-- infor  --}}
-          <div class="col-md-8">
-            {{-- name  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Họ và tên</div>
-              <div class="col-8 text-dark">
-                <span class="name">Trần Anh Thư</span>
-              </div>
-            </div>
-            {{-- phone  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Số điện thoại</div>
-              <div class="col-8 text-dark">0963318303</div>
-            </div>
-            {{-- address  --}}
-            <div class="row">
-              <div class="col-4 text-secondary">Địa chỉ</div>
-              <div class="col-8 text-dark">Số 10 ngõ 168 Thụy Khuê, Tây Hồ, Hà Nội</div>
-            </div>
-          </div>
-          {{-- thao tac  --}}
-          <div class="col-md-4 text-right">
-            <div class="secondary-btn btn--small" data-toggle="modal" data-target="#address-modal">Sửa</div>
-            <div class="primary-btn btn--small" data-toggle="modal" data-target="#delete-modal">Xoá</div>
-            <br>
-            <br>
-            <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
-          </div>
-        </div>
-      </div>
+      @endforeach
     </div>
   </div>
 </section>
