@@ -17,8 +17,9 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('supplier_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('address_info_id')->unsigned();
             $table->bigInteger('total_price')->unsigned();
-            $table->bigInteger('coupon_id')->unsigned();
+            $table->bigInteger('coupon_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('user_id')->references('id')->on('users');
@@ -36,6 +37,7 @@ class CreateOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign('orders_supplier_id_foreign');
             $table->dropForeign('orders_user_id_foreign');
+            $table->dropForeign('orders_address_info_id_foreign');
             $table->dropForeign('orders_coupon_id_foreign');
         });
         Schema::dropIfExists('orders');

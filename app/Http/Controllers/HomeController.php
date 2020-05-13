@@ -72,6 +72,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('welcome', compact('cat_lv1', 'new_products', 'best_seller_products'));
+        return view('welcome', compact('cat_lv1', 'new_products', 'best_seller_products', 'coupons'));
     }
 }

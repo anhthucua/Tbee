@@ -14,12 +14,12 @@
           <li>
             {{-- <a href="#">Trang chủ</a> --}}
             <div class="header-logo">
-              <a class="logo" href="home.html">
+              <a class="logo" href="{{ route('home') }}">
                 <img src="images/logo.svg" alt="logo">
               </a>
             </div>
           </li>
-          <li><a href="#">Đặt hàng</a></li>
+          <li>Đặt hàng</li>
         </ul>
       </div>
     </div>
@@ -42,57 +42,24 @@
             <i class="fa fa-map-marker"></i>
             <h3 class="title">Địa chỉ nhận hàng</h3>
           </div>
-          <!-- Detail address -->
-          <div class="detail-addredd-wrapper">
-            <label for="">
-              <input type="radio" name="address" checked>
-            </label>
-            <div class="detail-address">
-              <dl>
-                <dt>Họ tên:</dt>
-                <dd>Trần Anh Thư</dd>
-                <dt>Số điện thoại:</dt>
-                <dd>0966666666</dd>
-                <dt>Địa chỉ:</dt>
-                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
-              </dl>
+
+          @foreach ($address_infos as $item)
+            <div class="detail-addredd-wrapper">
+              <label for="">
+                <input type="radio" name="address" {{ ($item->is_main_address) ? 'checked' : '' }} >
+              </label>
+              <div class="detail-address">
+                <dl>
+                  <dt>Họ tên:</dt>
+                  <dd>{{ $item->name }}</dd>
+                  <dt>Số điện thoại:</dt>
+                  <dd>{{ $item->phone }}</dd>
+                  <dt>Địa chỉ:</dt>
+                  <dd>{{ $item->address }}</dd>
+                </dl>
+              </div>
             </div>
-          </div>
-          <!-- /Detail address -->
-          <!-- Detail address -->
-          <div class="detail-addredd-wrapper">
-            <label for="">
-              <input type="radio" name="address">
-            </label>
-            <div class="detail-address">
-              <dl>
-                <dt>Họ tên:</dt>
-                <dd>Trần Anh Thư</dd>
-                <dt>Số điện thoại:</dt>
-                <dd>0966666666</dd>
-                <dt>Địa chỉ:</dt>
-                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
-              </dl>
-            </div>
-          </div>
-          <!-- /Detail address -->
-          <!-- Detail address -->
-          <div class="detail-addredd-wrapper">
-            <label for="">
-              <input type="radio" name="address">
-            </label>
-            <div class="detail-address">
-              <dl>
-                <dt>Họ tên:</dt>
-                <dd>Trần Anh Thư</dd>
-                <dt>Số điện thoại:</dt>
-                <dd>0966666666</dd>
-                <dt>Địa chỉ:</dt>
-                <dd>Số 00 đường ABC thị trấn Con Cò, huyện Con Lai, tỉnh Lai Dai</dd>
-              </dl>
-            </div>
-          </div>
-          <!-- /Detail address -->
+          @endforeach
         </div>
         <!-- /Billing Details -->
 
@@ -109,27 +76,27 @@
             <div><strong>THÀNH TIỀN</strong></div>
           </div>
           <div class="order-products">
-            <div class="order-col">
-              <div>1x Product Name Goes Here</div>
-              <div>980000</div>
-            </div>
-            <div class="order-col">
-              <div>2x Product Name Goes Here</div>
-              <div>980000</div>
-            </div>
+            @foreach ($products as $product)
+              <div class="order-col">
+                <div>{{ $product->qty }}x {{ $product->name }}</div>
+                <div>{{ $product->sum }}</div>
+              </div>
+            @endforeach
           </div>
-          <div class="order-col">
-            <div class="voucher-wrapper">
-              <div class="voucher">
-                <label class="voucher-title"><strong>MÃ GIẢM GIÁ</strong></label>
-                <input type="text" disabled readonly value="emcuahieu">
-                <div class="voucher-money">-30000</div>
+          @if ($coupon)
+            <div class="order-col">
+              <div class="voucher-wrapper">
+                <div class="voucher">
+                  <label class="voucher-title"><strong>MÃ GIẢM GIÁ</strong></label>
+                  <input type="text" disabled readonly value="{{ $coupon->code }}">
+                  <div class="voucher-money">-{{ $sale }}</div>
+                </div>
               </div>
             </div>
-          </div>
+          @endif
           <div class="order-col">
             <div><strong>TỔNG TIỀN</strong></div>
-            <div><strong class="order-total">2940000</strong></div>
+            <div><strong class="order-total">{{ $sum }}</strong></div>
           </div>
         </div>
 

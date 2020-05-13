@@ -697,6 +697,7 @@ $(document).ready(function () {
         input.closest('.cart-item__content')
           .find('.cart-item__cell-total-price span')
           .text(input.val() * input.data('price'));
+        getTotalPrice();
       })
     });
     $('.input-quantity input').each(function () {
@@ -782,6 +783,7 @@ $(document).ready(function () {
       $(this).prop('data-max', null);
       $('.voucher').siblings('.error').addClass('d-none');
       $('.voucher').siblings('.text-success').addClass('d-none');
+      getTotalPrice();
     });
 
     $('.voucher > button').click(function (e) {
@@ -801,6 +803,7 @@ $(document).ready(function () {
           $('.voucher > input').prop('data-max', res.data.max);
           $('.voucher').siblings('.error').addClass('d-none');
           $('.voucher').siblings(`.text-success`).removeClass('d-none');
+          getTotalPrice();
         }
       })
     });
@@ -836,6 +839,40 @@ $(document).ready(function () {
       }
       $('.total .total-money').text(total);
     }
+
+    $('.total .primary-btn').click(function (e) {
+      e.preventDefault();
+      let product_list = [],
+        voucher = $('.voucher > input');
+      $('.chb-product').each(function (index, element) {
+        if ($(element).is(':checked')) {
+          let pid = $(element).siblings('.lbl-product').data('pid'),
+            qty = $(element).closest('.cart-item__content').find('.cart-item__cell-quantity input').val(),
+            product = {
+              pid: pid,
+              qty: qty
+            };
+          product_list.push(product);
+        }
+      });
+
+      if (voucher.prop('data-percent') != undefined) {
+        var coupon = voucher.val();
+      }
+
+      let data = {
+        coupon: coupon,
+        product_list: product_list
+      };
+
+      axios({
+        method:'post',
+        url: '/cart/submit',
+        data: data
+      }).then(function () {
+        window.location.href = '/checkout';
+      });
+    });
   }
 
   if ($(document.body).is('.page-shop')) {

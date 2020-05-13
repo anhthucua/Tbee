@@ -90,10 +90,6 @@ class UserController extends Controller
             $user->avatar_img = '/images/default-avt.png';
         }
 
-        dump($user->address_infos);
-
-        dump($user);
-
         return view('user.edit', compact('user'));
     }
 

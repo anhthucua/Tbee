@@ -14,28 +14,22 @@
           <div class="row">
             <div class="col-md-12">
               <div class="hot-deal-wrapper">
-                {{-- hot deal content --}}
-                <div class="hot-deal">
-                  <h2 class="text-uppercase">Deal tốt dành cho bạn </h2>
-                  <div class="code">
-                    <h3>TBEE50</h3>
+                @foreach ($coupons as $coupon)
+                  <div class="hot-deal">
+                    <h2 class="text-uppercase">Deal tốt dành cho bạn </h2>
+                    <div class="code">
+                      <h3>{{ $coupon->code }}</h3>
+                    </div>
+                    <p>Giảm <span class="sale-percent">{{ $coupon->sale_in_percent }}%</span> tất cả mặt hàng từ <span class="">{{ $coupon->start_at }}</span> đến <span class="">{{ $coupon->end_at }}</span></p>
+                    @if ($coupon->sale_in_money != null)
+                      <div>Giảm tối đa {{ $coupon->sale_in_money }} đồng</div>
+                    @endif
+                    {{-- <a class="primary-btn cta-btn" href="#">Copy mã</a> --}}
+                    @if ($coupon->numbers != null)
+                      <p class="note">* Số lượng có hạn</p>
+                    @endif
                   </div>
-                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ <span class="">2/3/2020</span> đến <span class="">3/3/2020</span></p>
-                  <div>Giảm tối đa 50000 đồng</div>
-                  <a class="primary-btn cta-btn" href="#">Copy mã</a>
-                  <p class="note">* Số lượng có hạn</p>
-                </div>
-                {{-- hot deal content --}}
-                <div class="hot-deal">
-                  <h2 class="text-uppercase">Deal tốt dành cho bạn </h2>
-                  <div class="code">
-                    <h3>TBEE50</h3>
-                  </div>
-                  <p>Giảm <span class="sale-percent">50%</span> tất cả mặt hàng từ <span class="">2/3/2020</span> đến <span class="">3/3/2020</span></p>
-                  <div>Giảm tối đa 50000 đồng</div>
-                  <a class="primary-btn cta-btn" href="#">Copy mã</a>
-                  <p class="note">* Số lượng có hạn</p>
-                </div>
+                @endforeach
               </div>
             </div>
           </div>

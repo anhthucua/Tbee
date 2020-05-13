@@ -29,13 +29,11 @@ Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
 Route::patch('cart/update', 'ProductController@updateCart');
 Route::delete('cart/product/{id}/delete', 'ProductController@deleteFromCart')->name('delete-cart');
+Route::post('cart/submit', 'OrderController@cartSubmit');
+Route::get('checkout', 'OrderController@checkout');
 
 // Coupon
 Route::post('coupon/check', 'CouponController@check');
-
-Route::get('checkout', function () {
-    return view('checkout');
-});
 
 // User
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {

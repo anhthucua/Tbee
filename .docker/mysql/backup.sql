@@ -34,7 +34,7 @@ CREATE TABLE `address_info` (
   PRIMARY KEY (`id`),
   KEY `address_info_user_id_foreign` (`user_id`),
   CONSTRAINT `address_info_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `address_info` (
 
 LOCK TABLES `address_info` WRITE;
 /*!40000 ALTER TABLE `address_info` DISABLE KEYS */;
+INSERT INTO `address_info` VALUES (1,1,1,'Trần Anh Thư','288 Sóc Sơn, Hà Nội','0963318303',NULL,NULL),(2,1,NULL,'Trần Anh Tú','301 Đống Đa, Hà Nội','0888888888',NULL,NULL);
 /*!40000 ALTER TABLE `address_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +262,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,7 +271,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (18,'2020_02_02_223707_create_images_table',1),(19,'2020_02_03_000000_create_users_table',1),(20,'2020_02_03_100000_create_password_resets_table',1),(21,'2020_02_03_144836_create_messages_table',1),(22,'2020_02_03_144903_create_notifications_table',1),(23,'2020_02_03_144921_create_roles_table',1),(24,'2020_02_03_155729_create_role_user_table',1),(25,'2020_02_03_215105_create_address_info_table',1),(26,'2020_02_03_215120_create_suppliers_table',1),(27,'2020_02_03_215220_create_category_level1_table',1),(28,'2020_02_03_215244_create_category_level2_table',1),(29,'2020_02_03_215352_create_products_table',1),(30,'2020_02_03_215725_create_coupons_table',1),(31,'2020_02_03_215938_create_orders_table',1),(32,'2020_02_03_220020_create_order_detail_table',1),(33,'2020_02_03_223543_create_cart_table',1),(34,'2020_04_07_100513_create_image_product_table',1);
+INSERT INTO `migrations` VALUES (18,'2020_02_02_223707_create_images_table',1),(19,'2020_02_03_000000_create_users_table',1),(20,'2020_02_03_100000_create_password_resets_table',1),(21,'2020_02_03_144836_create_messages_table',1),(22,'2020_02_03_144903_create_notifications_table',1),(23,'2020_02_03_144921_create_roles_table',1),(24,'2020_02_03_155729_create_role_user_table',1),(25,'2020_02_03_215105_create_address_info_table',1),(26,'2020_02_03_215120_create_suppliers_table',1),(27,'2020_02_03_215220_create_category_level1_table',1),(28,'2020_02_03_215244_create_category_level2_table',1),(29,'2020_02_03_215352_create_products_table',1),(30,'2020_02_03_215725_create_coupons_table',1),(33,'2020_02_03_223543_create_cart_table',1),(34,'2020_04_07_100513_create_image_product_table',1),(35,'2020_02_03_215938_create_orders_table',2),(36,'2020_02_03_220020_create_order_detail_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,8 +346,9 @@ CREATE TABLE `orders` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `supplier_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
+  `address_info_id` bigint(20) unsigned NOT NULL,
   `total_price` bigint(20) unsigned NOT NULL,
-  `coupon_id` bigint(20) unsigned NOT NULL,
+  `coupon_id` bigint(20) unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -570,4 +572,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-09  9:55:28
+-- Dump completed on 2020-05-13 15:35:20

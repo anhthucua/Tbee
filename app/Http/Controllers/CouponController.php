@@ -127,7 +127,6 @@ class CouponController extends Controller
                 $coupons = Coupon::query()
                     ->where([
                         ['code', 'LIKE', "%{$code}%"],
-
                     ])
                     ->whereDate('start_at', '<=', date('Y-m-d'))
                     ->whereDate('end_at', '>=', date('Y-m-d'))
