@@ -2,6 +2,8 @@
 
 @section('title', 'Thanh toan')
 
+@section('classname', 'page-checkout')
+
 @section('header', '')
 
 @section('content')
@@ -46,7 +48,7 @@
           @foreach ($address_infos as $item)
             <div class="detail-addredd-wrapper">
               <label for="">
-                <input type="radio" name="address" {{ ($item->is_main_address) ? 'checked' : '' }} >
+                <input type="radio" name="address" {{ ($item->is_main_address) ? 'checked' : '' }} data-aid={{ $item->id }} >
               </label>
               <div class="detail-address">
                 <dl>
@@ -77,7 +79,7 @@
           </div>
           <div class="order-products">
             @foreach ($products as $product)
-              <div class="order-col">
+              <div class="order-col product-col" data-pid="{{ $product->id }}" data-qty="{{ $product->qty }}">
                 <div>{{ $product->qty }}x {{ $product->name }}</div>
                 <div>{{ $product->sum }}</div>
               </div>
@@ -88,7 +90,7 @@
               <div class="voucher-wrapper">
                 <div class="voucher">
                   <label class="voucher-title"><strong>MÃ GIẢM GIÁ</strong></label>
-                  <input type="text" disabled readonly value="{{ $coupon->code }}">
+                  <input type="text" disabled readonly value="{{ $coupon->code }}" data-cid={{ $coupon->id }}>
                   <div class="voucher-money">-{{ $sale }}</div>
                 </div>
               </div>
@@ -96,7 +98,7 @@
           @endif
           <div class="order-col">
             <div><strong>TỔNG TIỀN</strong></div>
-            <div><strong class="order-total">{{ $sum }}</strong></div>
+            <div><strong class="order-total" data-sid="{{ $sid }}">{{ $sum }}</strong></div>
           </div>
         </div>
 
@@ -110,3 +112,24 @@
 </div>
 <!-- /SECTION -->
 @endsection
+
+<div class="modal fade" id="checkout-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Thành công</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Đặt hàng thành công</p>
+        <form class="form-checkout" action="{{ route('user.orders') }}" method="GET">
+          <div class="d-flex">
+            <button class="btn primary-btn btn-block" type="submit">Đồng ý</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,7 @@ Route::patch('cart/update', 'ProductController@updateCart');
 Route::delete('cart/product/{id}/delete', 'ProductController@deleteFromCart')->name('delete-cart');
 Route::post('cart/submit', 'OrderController@cartSubmit');
 Route::get('checkout', 'OrderController@checkout');
+Route::post('checkout', 'OrderController@store');
 
 // Coupon
 Route::post('coupon/check', 'CouponController@check');

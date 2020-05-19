@@ -856,23 +856,68 @@ $(document).ready(function () {
         }
       });
 
+      if (product_list.length === 0) {
+        return false;
+      }
+
+      sid = $('input.checkbox-shop:checked').data('sid');
+
       if (voucher.prop('data-percent') != undefined) {
         var coupon = voucher.val();
       }
 
       let data = {
         coupon: coupon,
-        product_list: product_list
+        product_list: product_list,
+        sid: sid
       };
 
       axios({
-        method:'post',
+        method: 'post',
         url: '/cart/submit',
         data: data
       }).then(function () {
         window.location.href = '/checkout';
       });
     });
+  }
+
+  // page checkout
+  if ($(document.body).is('.page-checkout')) {
+    $('a.order-submit').click(function (e) {
+      e.preventDefault();
+      let aid = $('.detail-addredd-wrapper input:checked').data('aid'),
+        product_list = [],
+        cid = $('.voucher input').data('cid'),
+        total = $('.order-total').text(),
+        sid = $('.order-total').data('sid');
+
+      $('.order-col.product-col').each(function () {
+        let product = {
+          pid: $(this).data('pid'),
+          qty: $(this).data('qty')
+        };
+        product_list.push(product);
+      });
+
+      axios({
+        method: 'post',
+        url: '/checkout',
+        data: {
+          aid: aid,
+          product_list: product_list,
+          cid: cid,
+          total: total,
+          sid: sid
+        }
+      }).then(() => {
+        $('#checkout-modal').modal('show');
+      })
+    });
+
+    $('#checkout-modal').on('hidden.bs.modal', function () {
+      window.location.href = '/user/orders';
+    })
   }
 
   if ($(document.body).is('.page-shop')) {
