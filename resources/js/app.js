@@ -478,6 +478,96 @@ $(document).ready(function () {
 
   /* End manage products */
 
+  // Manage orders for supplier
+  if ($(document.body).is('.page-supplier.manage-orders')) {
+    // Nhan don hang
+    $('.product-list tbody').on('click', 'tr .btn-accept', function (e) {
+      e.preventDefault();
+      $('#order-accept-modal').modal('show');
+      $('form#accept-order').prop('action', this.href);
+    });
+
+    // Huy don hang
+    $('.product-list tbody').on('click', 'tr .btn-cancel', function (e) {
+      e.preventDefault();
+      $('#order-cancel-modal').modal('show');
+      $('form#cancel-order').prop('action', this.href);
+    });
+
+    $('.pad-filters #search').on('input', function () {
+      supplierSearchOrders();
+    });
+
+    $('#filter-category').change(function () {
+      supplierSearchOrders();
+    });
+
+    function supplierSearchOrders() {
+      let search = $('.pad-filters #search').val(),
+        status = $('#filter-category option:selected').val();
+      axios({
+        method: 'post',
+        url: '/supplier/orders/search',
+        data: {
+          search: search,
+          status: status
+        }
+      }).then((res) => {
+        console.log(res.data);
+        let tbody = document.querySelector('.pads-container table tbody');
+
+        // empty tbody
+        while (tbody.lastChild) {
+          tbody.removeChild(tbody.lastChild);
+        }
+
+        if (res.data.length > 0) {
+          res.data.forEach(order => {
+            let tpl = document.querySelector('#supplier-order-row'),
+              clone = tpl.content.cloneNode(true),
+              td = clone.querySelectorAll('td'),
+              ol = clone.querySelector('td > ol'),
+              status = clone.querySelector('div.order-status'),
+              link = clone.querySelector('.primary-btn');
+            td[0].innerText = order.id;
+            order.products.forEach(product => {
+              let tpl1 = document.querySelector('#product-li'),
+                clone1 = tpl1.content.cloneNode(true),
+                a1 = clone1.querySelector('a'),
+                span = clone1.querySelector('span');
+              a1.href = `/product/${product.id}/show`;
+              a1.textContent = product.name;
+              span.textContent = product.qty;
+              ol.appendChild(clone1);
+            });
+            td[2].innerText = order.username;
+            td[3].innerText = order.time;
+            status.innerText = order.status;
+            if (order.status_class) {
+              status.classList.add(order.status_class);
+            } else {
+              let tpl2 = document.querySelector('#order-action'),
+                clone2 = tpl2.content.cloneNode(true),
+                a = clone2.querySelectorAll('a');
+                a[0].href = `/supplier/order/${order.id}/accept`;
+                a[1].href = `/supplier/order/${order.id}/cancel`;
+                td[4].appendChild(clone2);
+            }
+            td[5].innerText = order.total_price;
+            link.href = `/order-detail/${order.id}`;
+            tbody.appendChild(clone);
+          });
+        } else {
+          $(tbody).html(`
+          <tr>
+            <td colspan="7">Không có đơn hàng nào.</td>
+          </tr>
+          `);
+        }
+      })
+    }
+  }
+
   /////////////////////////////////////////
 
   // Category page
@@ -1281,7 +1371,6 @@ $(document).ready(function () {
           status: status
         }
       }).then((res) => {
-        console.log(res.data);
         let tbody = document.querySelector('.pads-container table tbody');
 
         // empty tbody

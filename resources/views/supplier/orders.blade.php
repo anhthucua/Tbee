@@ -2,7 +2,7 @@
 
 @section('title', 'Quản lý đơn hàng')
 
-@section('classname', 'manage-products')
+@section('classname', 'manage-orders')
 
 @section('content')
 <div class="col-md-9">
@@ -13,14 +13,15 @@
     <div class="pad-filters">
       <input type="text" id="search" class="search" placeholder="Tìm kiếm theo id đơn hàng">
       <div class="filter">
-        <select id="sort" class="dropdown">
-          <option value="id desc">Sắp xếp theo</option>
-          <option value="created_at desc">Ngày tạo mới nhất</option>
-          <option value="updated_at desc">Ngày tạo xa nhất</option>
+        <select id="filter-category" class="dropdown">
+          <option value="all">Trạng thái đơn hàng</option>
+          <option value="pending">Đơn chờ xác nhận</option>
+          <option value="cancel">Đơn đã huỷ</option>
+          <option value="done">Đơn đã nhận</option>
         </select>
       </div>
     </div>
-    <h5>Thông tin các sản phẩm:</h5>
+    <h5>Thông tin các đơn hàng:</h5>
     <div class="pads-container">
       <table class="table product-list">
         <thead>
@@ -35,49 +36,40 @@
           </tr>
         </thead>
         <tbody>
-          {{-- TH1: CHO XAC NHAN --}}
-          <tr>
-            <td>trananhthu</td>
-            <td>
-              <ol>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              </ul>
-            </td>
-            <td>Pham Minh Hieu</td>
-            <td>15:45 28/12/2020</td>
-            <td>
-              <div class="order-status">Chờ xác nhận</div>
-              <a href="#" class="primary-btn btn--small">Nhận đơn</a>
-              <a href="#" class="secondary-btn btn--small">Huỷ đơn</a>
-            </td>
-            <td>20000</td>
-            <td>
-              <a href="#" class="primary-btn btn--small" >Chi tiết</a>
-            </td>
-          </tr>
-          {{-- TH2: DA NHAN DON/HUY DON --}}
-          <tr>
-            <td>trananhthu</td>
-            <td>
-              <ol>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-                <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              </ul>
-            </td>
-            <td>Pham Minh Hieu</td>
-            <td>15:45 28/12/2020</td>
-            <td>
-              <div class="order-status order-status--cancel">Đã huỷ đơn!</div>
-              <div class="order-status order-status--agree">Đã nhận đơn!</div>
-            </td>
-            <td>3000</td>
-            <td>
-              <a href="#" class="primary-btn btn--small" >Chi tiết</a>
-            </td>
-          </tr>
+          @if (count($orders) > 0)
+            @foreach ($orders as $order)
+              <tr>
+                <td>{{ $order->id }}</td>
+                <td>
+                  <ol>
+                    @foreach ($order->products as $product)
+                      <li>
+                        <a href="{{ route('product.show', $product['id']) }}">{{ $product['name'] }}</a>
+                        <p>SL: <span>{{ $product['qty'] }}</span></p>
+                      </li>
+                    @endforeach
+                  </ol>
+                </td>
+                <td>{{ $order->username }}</td>
+                <td>{{ $order->time }}</td>
+                <td>
+                  <div class="order-status {{ $order->status_class }}">{{ $order->status }}</div>
+                  @if ($order->status_class == null)
+                    <a href="{{ route('supplier.order.accept', $order->id) }}" class="primary-btn btn--small btn-accept">Nhận đơn</a>
+                    <a href="{{ route('supplier.order.cancel', $order->id) }}" class="secondary-btn btn--small btn-cancel">Huỷ đơn</a>
+                  @endif
+                </td>
+                <td>{{ $order->total_price }}</td>
+                <td>
+                  <a href="{{ route('order-detail', $order->id) }}" target="_blank" class="primary-btn btn--small">Chi tiết</a>
+                </td>
+              </tr>
+            @endforeach
+          @else
+            <tr>
+              <td colspan="7">Không có đơn hàng nào.</td>
+            </tr>
+          @endif
         </tbody>
       </table>
     </div>
@@ -85,21 +77,21 @@
 </div>
 @endsection
 
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="order-accept-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Bạn có chắc muốn xoá sản phẩm?</h2>
+        <h2 class="modal-title">Xác nhận</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="del-product" action="" method="POST">
+        <form id="accept-order" action="" method="POST">
           @csrf
-          @method('DELETE')
+          <p>Xác nhận đơn hàng?</p>
           <div class="d-flex">
-            <button class="btn primary-btn btn-block" type="submit">Xoá</button>
+            <button class="btn primary-btn btn-block" type="submit">Xác nhận</button>
           </div>
         </form>
       </div>
@@ -107,24 +99,54 @@
   </div>
 </div>
 
-<template id="product-row">
-  <tr>
-    <td>
-      <div class="table-product-img" style=""></div>
-    </td>
-    <td></td> <!--name-->
-    <td></td><!--cat_lv2-->
-    <td>
+<div class="modal fade" id="order-cancel-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Hủy</h2>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="cancel-order" action="" method="POST">
+          @csrf
+          <p>Hủy đơn hàng?</p>
+          <div class="d-flex">
+            <button class="btn primary-btn btn-block" type="submit">Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-    </td>
-    <td></td>  <!--purchased-->
-    <td></td> <!--stock-->
-    <td></td> <!--date-->
+<template id="supplier-order-row">
+  <tr>
+    <td></td><!-- madon -->
     <td>
-      <a href="" class="secondary-btn btn--small" >Sửa</a>
+      <ol></ol><!-- danh sach san pham-->
     </td>
+    <td></td><!-- nguoi mua -->
+    <td></td><!-- thoi gian dat-->
     <td>
-      <a href="" class="primary-btn btn--small btn-delete" data-toggle="modal" data-target="#delete-modal">Xoá</a>
+      <div class="order-status"></div><!-- trang thai -->
+    </td>
+    <td></td><!--tong tien -->
+    <td>
+      <a href="" class="primary-btn btn--small" target="_blank">Chi tiết</a><!-- chi tiet-->
     </td>
   </tr>
+</template>
+
+<template id="product-li">
+  <li>
+    <a href=""></a>
+    <p>SL: <span></span></p>
+  </li>
+</template>
+
+<template id="order-action">
+  <a href="" class="primary-btn btn--small btn-accept">Nhận đơn</a>
+  <a href="" class="secondary-btn btn--small btn-cancel">Huỷ đơn</a>
 </template>

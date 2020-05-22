@@ -179,23 +179,48 @@ class OrderController extends Controller
         return view('order-detail');
     }
 
-    /**
-     * Show supplier orders list
-     */
-    public function supplierOrderList()
+    public function accept($id)
     {
-        return view('supplier.orders');
+        $order = Order::find($id);
+
+        $order->status = 'done';
+        $order->save();
+
+        $sup_name = Supplier::find($order->supplier_id)->shop_name;
+
+        $noti = new Notification();
+        $noti->user_id = $order->user_id;
+        $noti->content = "Đơn hàng {$order->id} của bạn đã được người bán {$sup_name} xác nhận";
+        $noti->url = '/user/orders';
+        $noti->save();
+
+        return redirect(route('supplier.manage-orders'));
     }
 
-    public function adminOrderList()
+    public function cancel($id)
     {
-        return view('admin.orders');
+        $order = Order::find($id);
+
+        $order->status = 'cancel';
+        $order->save();
+
+        $sup_name = Supplier::find($order->supplier_id)->shop_name;
+
+        $noti = new Notification();
+        $noti->user_id = $order->user_id;
+        $noti->content = "Đơn hàng {$order->id} của bạn đã bị người bán {$sup_name} hủy";
+        $noti->url = '/user/orders';
+        $noti->save();
+
+        return redirect(route('supplier.manage-orders'));
     }
 
     private function getOrdersDetail($orders)
     {
         foreach ($orders as $order) {
             $order->supplier_name = Supplier::find($order->supplier_id)->shop_name;
+
+            $order->username = User::find($order->user_id)->username;
 
             $order->time = $order->created_at->format('H:i d/m/Y');
 
@@ -207,6 +232,7 @@ class OrderController extends Controller
                 case 'cancel':
                     $order->status = 'Đã hủy!';
                     $order->status_class = 'order-status--cancel';
+                    break;
                 default:
                     $order->status = 'Chờ xác nhận';
                     $order->status_class = '';
@@ -269,6 +295,49 @@ class OrderController extends Controller
         $orders = $this->getOrdersDetail($orders);
 
         return $orders;
+    }
+
+    public function supplierOrderList()
+    {
+        $supId = Auth::user()->getSupId();
+
+        $orders = Order::where('supplier_id', $supId)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return view('supplier.orders', compact('orders'));
+    }
+
+    public function supplierOrderSearch(Request $request)
+    {
+        $id = ($request['search'] === null) ? '' : $request['search'];
+        if ($request->status === "all") {
+            $orders = Order::where([
+                ['id', 'LIKE', "%{$id}%"],
+                ['supplier_id', Auth::user()->getSupId()]
+            ])
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $orders = Order::where([
+                ['id', 'LIKE', "%{$id}%"],
+                ['supplier_id', Auth::user()->getSupId()],
+                ['status', $request->status]
+            ])
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return $orders;
+    }
+
+    public function adminOrderList()
+    {
+        return view('admin.orders');
     }
 
     /**

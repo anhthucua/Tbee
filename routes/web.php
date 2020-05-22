@@ -46,8 +46,11 @@ Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => 'auth
     Route::get('/products', 'ProductController@supplierProductList')->name('manage-products');
     Route::get('/add-product', 'ProductController@create')->name('add-product');
     Route::get('/orders', 'OrderController@supplierOrderList')->name('manage-orders');
+    Route::post('/orders/search', 'OrderController@supplierOrderSearch');
     Route::get('/edit-shop', 'SupplierController@edit')->name('edit');
     Route::put('/update', 'SupplierController@update')->name('update');
+    Route::post('/order/{id}/accept', 'OrderController@accept')->name('order.accept');
+    Route::post('/order/{id}/cancel', 'OrderController@cancel')->name('order.cancel');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
