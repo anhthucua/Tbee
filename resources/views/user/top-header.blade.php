@@ -5,6 +5,9 @@
         <ul class="header-links left">
           <li><a href="{{ route('home') }}">Trang chủ</a></li>
           <li><a href="{{ route('supplier.new') }}">Kênh người bán</a></li>
+          @if (Auth::user()->is('admin'))
+            <li><a href="{{ route('admin.manage-orders') }}">Quản lý</a></li>
+          @endif
         </ul>
         <ul class="header-links right">
             {{-- Thong bao --}}
@@ -86,7 +89,7 @@
 
             {{-- Trang nguoi dung --}}
             <li>
-              <a href="myaccount.html">
+              <a href="{{ route('user.orders') }}">
                 <i class="fa fa-user-o"></i>{{ Auth::user()->username }}
               </a>
             </li>

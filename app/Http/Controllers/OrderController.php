@@ -337,7 +337,32 @@ class OrderController extends Controller
 
     public function adminOrderList()
     {
-        return view('admin.orders');
+        $orders = Order::orderBy('id', 'desc')->get();
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return view('admin.orders', compact('orders'));
+    }
+
+    public function adminOrderSearch(Request $request)
+    {
+        $id = ($request['search'] === null) ? '' : $request['search'];
+        if ($request->status === "all") {
+            $orders = Order::where('id', 'LIKE', "%{$id}%")
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $orders = Order::where([
+                ['id', 'LIKE', "%{$id}%"],
+                ['status', $request->status]
+            ])
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return $orders;
     }
 
     /**

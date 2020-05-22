@@ -513,7 +513,6 @@ $(document).ready(function () {
           status: status
         }
       }).then((res) => {
-        console.log(res.data);
         let tbody = document.querySelector('.pads-container table tbody');
 
         // empty tbody
@@ -1334,6 +1333,77 @@ $(document).ready(function () {
           $(tbody).html(`
           <tr>
             <td colspan="12">Không có người dùng nào</td>
+          </tr>
+          `);
+        }
+      })
+    }
+  }
+
+  // page manage orders
+  if ($(document.body).is('.page-admin.manage-orders')) {
+    $('.pad-filters #search').on('input', function () {
+      adminSearchOrders();
+    });
+
+    $('#filter-category').change(function () {
+      adminSearchOrders();
+    });
+
+    function adminSearchOrders() {
+      let search = $('.pad-filters #search').val(),
+        status = $('#filter-category option:selected').val();
+      axios({
+        method: 'post',
+        url: '/admin/orders/search',
+        data: {
+          search: search,
+          status: status
+        }
+      }).then((res) => {
+        let tbody = document.querySelector('.pads-container table tbody');
+
+        // empty tbody
+        while (tbody.lastChild) {
+          tbody.removeChild(tbody.lastChild);
+        }
+
+        if (res.data.length > 0) {
+          res.data.forEach(order => {
+            let tpl = document.querySelector('#admin-order-row'),
+              clone = tpl.content.cloneNode(true),
+              td = clone.querySelectorAll('td'),
+              ol = clone.querySelector('td > ol'),
+              shop_link = clone.querySelector('.shop-link'),
+              status = clone.querySelector('div.order-status'),
+              link = clone.querySelector('.primary-btn');
+            td[0].innerText = order.id;
+            order.products.forEach(product => {
+              let tpl1 = document.querySelector('#product-li'),
+                clone1 = tpl1.content.cloneNode(true),
+                a1 = clone1.querySelector('a'),
+                span = clone1.querySelector('span');
+              a1.href = `/product/${product.id}/show`;
+              a1.textContent = product.name;
+              span.textContent = product.qty;
+              ol.appendChild(clone1);
+            });
+            td[2].textContent = order.username;
+            shop_link.href = `/shop/${order.supplier_id}`;
+            shop_link.textContent = order.supplier_name;
+            td[4].innerText = order.time;
+            if (order.status_class) {
+              status.classList.add(order.status_class);
+            }
+            status.innerText = order.status;
+            td[6].innerText = order.total_price;
+            link.href = `/order-detail/${order.id}`;
+            tbody.appendChild(clone);
+          });
+        } else {
+          $(tbody).html(`
+          <tr>
+            <td colspan="7">Không có đơn hàng nào.</td>
           </tr>
           `);
         }

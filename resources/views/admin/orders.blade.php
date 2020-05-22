@@ -15,17 +15,9 @@
     <div class="filter">
       <select id="filter-category" class="dropdown">
         <option value="all">Trạng thái đơn hàng</option>
-        <option value="1">Đơn chờ xác nhận</option>
-        <option value="2">Đơn đã huỷ</option>
-        <option value="3">Đơn đã nhận</option>
-      </select>
-      <select id="sort" class="dropdown">
-        <option value="id desc">Sắp xếp theo</option>
-        <option value="wait-confirm_at desc">Đơn chờ xác nhận</option>
-        <option value="cancel_at desc">Đơn đã huỷ</option>
-        <option value="agree_at desc">Đơn đã nhận</option>
-        <option value="created_at desc">Ngày tạo mới nhất</option>
-        <option value="updated_at desc">Ngày tạo xa nhất</option>
+        <option value="pending">Đơn chờ xác nhận</option>
+        <option value="cancel">Đơn đã huỷ</option>
+        <option value="done">Đơn đã nhận</option>
       </select>
     </div>
   </div>
@@ -44,88 +36,69 @@
         </tr>
       </thead>
       <tbody>
-        {{-- TH1: CHO XAC NHAN --}}
-        <tr>
-          <td>trananhthu</td>
-          <td>
-            <ol>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-            </ol>
-          </td>
-          <td>Pham Minh Hieu</td>
-          <td><a href="#">Nguoi ban</a></td>
-          <td>15:45 28/12/2020</td>
-          <td>
-            <div class="order-status">Chờ xác nhận</div>
-          </td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Chi tiết</a>
-          </td>
-        </tr>
-        {{-- TH2: DA NHAN DON --}}
-        <tr>
-          <td>trananhthu</td>
-          <td>
-            <ol>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-            </ol>
-          </td>
-          <td>Pham Minh Hieu</td>
-          <td><a href="#">Nguoi ban</a></td>
-          <td>15:45 28/12/2020</td>
-          <td>
-            <div class="order-status order-status--agree">Đã nhận đơn</div>
-          </td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Chi tiết</a>
-          </td>
-        </tr>
-        {{-- TH3: DA HUY DON --}}
-        <tr>
-          <td>trananhthu</td>
-          <td>
-            <ol>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-            </ol>
-          </td>
-          <td>Pham Minh Hieu</td>
-          <td><a href="#">Nguoi ban</a></td>
-          <td>15:45 28/12/2020</td>
-          <td>
-            <div class="order-status order-status--cancel">Đã huỷ đơn!</div>
-          </td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Chi tiết</a>
-          </td>
-        </tr>
+        @if (count($orders) > 0)
+          @foreach ($orders as $order)
+            <tr>
+              <td>{{ $order->id }}</td>
+              <td>
+                <ol>
+                  @foreach ($order->products as $product)
+                    <li>
+                      <a href="{{ route('product.show', $product['id']) }}">{{ $product['name'] }}</a>
+                      <p>SL: <span>{{ $product['qty'] }}</span></p>
+                    </li>
+                  @endforeach
+                </ol>
+              </td>
+              <td>{{ $order->username }}</td>
+              <td>
+                <a href="{{ route('products-shop', $order->supplier_id) }}" class="shop-link">{{ $order->supplier_name }}</a>
+              </td>
+              <td>{{ $order->time }}</td>
+              <td>
+                <div class="order-status {{ $order->status_class }}">{{ $order->status }}</div>
+              </td>
+              <td>{{ $order->total_price }}</td>
+              <td>
+                <a href="{{ route('order-detail', $order->id) }}" target="_blank" class="primary-btn btn--small">Chi tiết</a>
+              </td>
+            </tr>
+          @endforeach
+        @else
+          <tr>
+            <td colspan="7">Không có đơn hàng nào.</td>
+          </tr>
+        @endif
       </tbody>
     </table>
   </div>
 </div>
 
 @endsection
-<template id="admin-orders-row">
+
+<template id="admin-order-row">
   <tr>
-    <td>trananhthu</td><!--ma don-->
+    <td></td><!--ma don-->
     <td>
       <ol><!--danh sach san pham-->
-        <li><a href="#"></a></li><!--ten sp-->
+        <li><a href=""></a></li><!--ten sp-->
       </ol>
     </td>
     <td></td><!--nguoi mua-->
-    <td><a href="#"></a></td><!--nguoi ban-->
+    <td><a href="" class="shop-link"></a></td><!--nguoi ban-->
     <td></td><!--thoi gian dat-->
     <td>
       <div class="order-status"></div><!--trang thai-->
     </td>
     <td>
-      <a href="#" class="primary-btn btn--small"></a><!--chi tiet-->
+      <a href="" target="_blank" class="primary-btn btn--small"></a><!--chi tiet-->
     </td>
   </tr>
+</template>
+
+<template id="product-li">
+  <li>
+    <a href=""></a>
+    <p>SL: <span></span></p>
+  </li>
 </template>
