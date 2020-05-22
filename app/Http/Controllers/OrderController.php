@@ -176,7 +176,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('order-detail');
     }
 
     /**
@@ -192,9 +192,83 @@ class OrderController extends Controller
         return view('admin.orders');
     }
 
+    private function getOrdersDetail($orders)
+    {
+        foreach ($orders as $order) {
+            $order->supplier_name = Supplier::find($order->supplier_id)->shop_name;
+
+            $order->time = $order->created_at->format('H:i d/m/Y');
+
+            switch ($order->status) {
+                case 'done':
+                    $order->status = 'Đã hoàn thành!';
+                    $order->status_class = 'order-status--agree';
+                    break;
+                case 'cancel':
+                    $order->status = 'Đã hủy!';
+                    $order->status_class = 'order-status--cancel';
+                default:
+                    $order->status = 'Chờ xác nhận';
+                    $order->status_class = '';
+                    break;
+            }
+
+            $details = DB::table('order_detail')
+                ->where('order_id', $order->id)
+                ->get(['product_id', 'quantity']);
+
+            $products = array();
+            foreach ($details as $detail) {
+                $pname = Product::find($detail->product_id)->name;
+                $item = [
+                    'id' => $detail->product_id,
+                    'name' => $pname,
+                    'qty' => $detail->quantity
+                ];
+                // dump($products, $item);
+                $products[] = $item;
+            }
+
+            $order->products = $products;
+        }
+
+        return $orders;
+    }
+
     public function userOrderList()
     {
-        return view('user.orders');
+        $orders = Order::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return view('user.orders', compact('orders'));
+    }
+
+    public function userOrderSearch(Request $request)
+    {
+        $id = ($request['search'] === null) ? '' : $request['search'];
+        if ($request->status === "all") {
+            $orders = Order::where([
+                ['id', 'LIKE', "%{$id}%"],
+                ['user_id', Auth::user()->id]
+            ])
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $orders = Order::where([
+                ['id', 'LIKE', "%{$id}%"],
+                ['user_id', Auth::user()->id],
+                ['status', $request->status]
+            ])
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+        $orders = $this->getOrdersDetail($orders);
+
+        return $orders;
     }
 
     /**

@@ -15,14 +15,9 @@
     <div class="filter">
       <select id="filter-category" class="dropdown">
         <option value="all">Trạng thái đơn hàng</option>
-        <option value="1">Đơn chờ xác nhận</option>
-        <option value="2">Đơn đã huỷ</option>
-        <option value="3">Đơn đã nhận</option>
-      </select>
-      <select id="sort" class="dropdown">
-        <option value="id desc">Sắp xếp theo</option>
-        <option value="created_at desc">Ngày tạo mới nhất</option>
-        <option value="updated_at desc">Ngày tạo xa nhất</option>
+        <option value="pending">Đơn chờ xác nhận</option>
+        <option value="cancel">Đơn đã huỷ</option>
+        <option value="done">Đơn đã nhận</option>
       </select>
     </div>
   </div>
@@ -41,49 +36,38 @@
         </tr>
       </thead>
       <tbody>
-        {{-- TH1: CHO XAC NHAN thì được huỷ đơn --}}
-        <tr>
-          <td>trananhthu</td>
-          <td>
-            <ol>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-            </ol>
-          </td>
-          <td><a href="#">Nguoi ban</a></td>
-          <td>15:45 28/12/2020</td>
-          <td>
-            <div class="order-status">Chờ xác nhận</div>
-            <a href="#" class="secondary-btn btn--small">Huỷ đơn</a>
-          </td>
-          <td>20000</td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Chi tiết</a>
-          </td>
-        </tr>
-        {{-- TH2: DA NHAN DON --}}
-        <tr>
-          <td>trananhthu</td>
-          <td>
-            <ol>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-              <li><a href="#">ao nam chat cotton re nhat thi truong sieu dep sieu ben</a></li>
-            </ol>
-          </td>
-          <td><a href="#">Nguoi ban</a></td>
-          <td>15:45 28/12/2020</td>
-          <td>
-            <div class="order-status order-status--agree">Đã nhận đơn!</div>
-          </td>
-          <td>
-            3000
-          </td>
-          <td>
-            <a href="#" class="primary-btn btn--small">Chi tiết</a>
-          </td>
-        </tr>
+        @if (count($orders) > 0)
+          @foreach ($orders as $order)
+            <tr>
+              <td>{{ $order->id }}</td>
+              <td>
+                <ol>
+                  @foreach ($order->products as $product)
+                    <li>
+                      <a href="{{ route('product.show', $product['id']) }}">{{ $product['name'] }}</a>
+                      <p>SL: <span>{{ $product['qty'] }}</span></p>
+                    </li>
+                  @endforeach
+                </ol>
+              </td>
+              <td>
+                <a href="{{ route('products-shop', $order->supplier_id) }}">{{ $order->supplier_name }}</a>
+              </td>
+              <td>{{ $order->time }}</td>
+              <td>
+                <div class="order-status {{ $order->status_class }}">{{ $order->status }}</div>
+              </td>
+              <td>{{ $order->total_price }}</td>
+              <td>
+                <a href="{{ route('order-detail', $order->id) }}" target="_blank" class="primary-btn btn--small">Chi tiết</a>
+              </td>
+            </tr>
+          @endforeach
+        @else
+          <tr>
+            <td colspan="7">Không có đơn hàng nào.</td>
+          </tr>
+        @endif
       </tbody>
     </table>
   </div>
@@ -91,22 +75,29 @@
 
 @endsection
 
-<template id="user-orders-row">
+<template id="user-order-row">
   <tr>
     <td></td><!-- madon -->
     <td>
-      <ol><!-- danh sach san pham-->
-        <li><a href="#"></a></li><!-- ten san pham -->
-      </ol>
+      <ol></ol><!-- danh sach san pham-->
     </td>
-    <td><a href="#"></a></td><!-- nguoi ban -->
+    <td>
+      <a href="" class="shop-link"></a>
+    </td><!-- nguoi ban -->
     <td></td><!-- thoi gian dat-->
     <td>
       <div class="order-status"></div><!-- trang thai -->
     </td>
     <td></td><!--tong tien -->
     <td>
-      <a href="#" class="primary-btn btn--small"></a><!-- chi tiet-->
+      <a href="" class="primary-btn btn--small" target="_blank">Chi tiết</a><!-- chi tiet-->
     </td>
   </tr>
+</template>
+
+<template id="product-li">
+  <li>
+    <a href=""></a>
+    <p>SL: <span></span></p>
+  </li>
 </template>

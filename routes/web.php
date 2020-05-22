@@ -11,18 +11,12 @@
 |
 */
 // de tam de style
-Route::get('order-detail', function () {
-    return view('order-detail');
-});
+Route::get('order-detail/{id}', 'OrderController@show')->name('order-detail');
 
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/category', function () {
     return view('category');
-});
-
-Route::get('/product-detail', function () {
-    return view('product-detail');
 });
 
 Route::get('cart', 'ProductController@cart')->name('cart');
@@ -39,6 +33,7 @@ Route::post('coupon/check', 'CouponController@check');
 // User
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
     Route::get('/orders', 'OrderController@userOrderList')->name('orders');
+    Route::post('/orders/search', 'OrderController@userOrderSearch');
     Route::get('/information', 'UserController@edit')->name('edit');
     Route::post('/edit', 'UserController@update')->name('update');
     Route::get('/change-pass', 'UserController@changePass')->name('change-pass');
