@@ -292,7 +292,7 @@ CREATE TABLE `notifications` (
   PRIMARY KEY (`id`),
   KEY `notifications_user_id_foreign` (`user_id`),
   CONSTRAINT `notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +301,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-16 18:32:34','2020-05-16 18:32:34'),(2,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-21 21:19:09','2020-05-21 21:19:09');
+INSERT INTO `notifications` VALUES (1,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-16 18:32:34','2020-05-16 18:32:34'),(2,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-21 21:19:09','2020-05-21 21:19:09'),(3,'Đơn hàng 2 của bạn đã được người bán asus_flagship_hch_store xác nhận',1,'/user/orders','2020-05-23 22:59:45','2020-05-23 22:59:45');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +371,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,5,1,2,16880000,1,'2020-05-16 18:32:34','2020-05-16 18:32:34','pending'),(2,5,1,1,3980000,NULL,'2020-05-21 21:19:09','2020-05-21 21:19:09','pending');
+INSERT INTO `orders` VALUES (1,5,1,2,16880000,1,'2020-05-16 18:32:34','2020-05-16 18:32:34','pending'),(2,5,1,1,3980000,NULL,'2020-05-21 21:19:09','2020-05-23 22:59:45','done');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -577,4 +577,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-21 17:36:41
+-- Dump completed on 2020-05-23 18:12:29

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoryLvl2;
 use App\Coupon;
 use App\Notification;
 use App\Order;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Image as ImageModel;
 
 class OrderController extends Controller
 {
@@ -176,7 +178,54 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return view('order-detail');
+        $order = Order::find($id);
+
+        $order->supplier_name = Supplier::find($order->supplier_id)->shop_name;
+
+        $user = \App\AddressInfo::find($order->address_info_id);
+
+        $order->time = $order->created_at->format('H:i d/m/Y');
+        switch ($order->status) {
+            case 'done':
+                $order->status = 'Đã hoàn thành!';
+                $order->status_class = 'order-status--agree';
+                $order->upd_time = $order->updated_at->format('H:i d/m/Y');
+                break;
+            case 'cancel':
+                $order->status = 'Đã hủy!';
+                $order->status_class = 'order-status--cancel';
+                $order->upd_time = $order->updated_at->format('H:i d/m/Y');
+                break;
+            default:
+                $order->status = 'Chờ xác nhận';
+                $order->status_class = '';
+                $order->upd_time = '';
+                break;
+        }
+
+        $details = DB::table('order_detail')
+            ->where('order_id', $order->id)
+            ->get(['product_id', 'quantity']);
+
+        $products = array();
+        $sum = 0;
+        foreach ($details as $detail) {
+            $product = Product::find($detail->product_id);
+            $product->main_img = ImageModel::find($product->image_id)->url;
+            $product->qty = $detail->quantity;
+            $product->total_price = $product->sale_price * $product->qty;
+            $sum += $product->total_price;
+            $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
+            $products[] = $product;
+        }
+
+        if ($order->coupon_id) {
+            $order->coupon_code = Coupon::find($order->coupon_id)->code;
+            $order->coupon_sale = $sum - $order->total_price;
+        }
+
+        // dump($order, $user, $products);
+        return view('order-detail', compact('order', 'user', 'products'));
     }
 
     public function accept($id)
@@ -251,7 +300,6 @@ class OrderController extends Controller
                     'name' => $pname,
                     'qty' => $detail->quantity
                 ];
-                // dump($products, $item);
                 $products[] = $item;
             }
 

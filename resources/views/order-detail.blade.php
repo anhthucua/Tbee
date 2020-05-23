@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Chi tiet san pham')
+@section('title', 'Chi tiết đơn hàng')
 
 @section('content')
 
@@ -9,11 +9,11 @@
     <main>
       <section class="section">
         <div class="container">
-          <h3>CHI TIẾT HOÁ ĐƠN</h3>
+          <h3>CHI TIẾT ĐƠN HÀNG</h3>
           <br>
           <dl>
-            <dt>Mã hoá đơn:</dt>
-            <dd>123</dd>
+            <dt>Mã đơn hàng:</dt>
+            <dd>{{ $order->id }}</dd>
 
             {{-- shop --}}
             <dt>
@@ -23,35 +23,35 @@
                 stroke-width=".3" stroke="#333" fill="#333" fill-rule="evenodd"></path>
               </svg>
               <!-- /icon shop -->
-              <a href="#" style="margin-left: 5px;">Ten shop</a>
+              <a href="{{ route('products-shop', $order->supplier_id) }}" style="margin-left: 5px;">{{ $order->supplier_name }}</a>
             </dt>
             <dd></dd>
 
             {{-- nguoi mua --}}
             <dt>Người mua:</dt>
-            <dd>Pham Minh Hieu</dd>
+            <dd>{{ $user->name }}</dd>
 
             {{-- phone  --}}
             <dt>Số điện thoại người mua:</dt>
-            <dd>0123456789</dd>
+            <dd>{{ $user->phone }}</dd>
 
             {{-- address  --}}
             <dt>Địa chỉ người mua:</dt>
-            <dd>Số 10 ngõ 168 Thuỵ Khuê, Tây Hồ, Hà Nội</dd>
+            <dd>{{ $user->address }}</dd>
 
             {{-- ngay dat --}}
             <dt>Ngày đặt:</dt>
-            <dd>15:45 25/12/2020</dd>
+            <dd>{{ $order->time }}</dd>
 
             {{-- trang thai: 3 --}}
             <dt>Trạng thái đơn hàng:</dt>
-            <dd>Chờ xác nhận</dd>
-            <dd>Đã nhận đơn 13:45 12/2/2019</dd>
-            <dd>Đã huỷ đơn 13:45 12/2/2019</dd>
-            {{-- ma giam gia ap dung --}}
-            <dt>Mã giảm giá áp dụng:</dt>
-            <dd>APPFree</dd>
-            <dd>Số tiền giảm: -20000</dd>
+            <dd>{{ $order->status . ' ' . $order->upd_time }}</dd>
+            @if ($order->coupon_id)
+              {{-- ma giam gia ap dung --}}
+              <dt>Mã giảm giá áp dụng:</dt>
+              <dd>{{ $order->coupon_code }}</dd>
+              <dd>Số tiền giảm: -{{ $order->coupon_sale }}</dd>
+            @endif
           </dl>
           <br>
           <!-- danh sach chi tiet san pham -->
@@ -70,22 +70,26 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($products as $product)
                   <tr>
-                    <td>123</td>
-                    <td><a href="#">Ten sp</a></td>
+                    <td>{{ $product->id }}</td>
                     <td>
-                      <div class="table-product-img" style="background-image: url('images/man-fashion.png')"></div>
+                      <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
                     </td>
-                    <td>Nganh hang</td>
                     <td>
-                        <div class="product-old-price">23000</div>
-                        <div class="product-price">20000</div>
+                      <div class="table-product-img" style="background-image: url('{{ $product->main_img }}')"></div>
                     </td>
-                    <td>5</td>
-                    <td>350000</td>
-
+                    <td>{{ $product->cat_lv2 }}</td>
+                    <td>
+                      @if ($product->sale_price !== $product->price)
+                        <div class="product-old-price">{{ $product->price }}</div>
+                      @endif
+                        <div class="product-price">{{ $product->sale_price }}</div>
+                    </td>
+                    <td>{{ $product->qty }}</td>
+                    <td>{{ $product->total_price }}</td>
                   </tr>
-
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -97,12 +101,12 @@
                 {{-- so luong --}}
                 <div class="order-col">
                   <div><strong>Tổng số lượng sản phẩm:</strong></div>
-                  <div><strong>5</strong></div>
+                  <div><strong>{{ count($products) }}</strong></div>
                 </div>
                 {{-- tong tien  --}}
                 <div class="order-col">
                   <div><strong>Tổng tiền thanh toán:</strong></div>
-                  <div class="order-total"><strong>500000000</strong></div>
+                  <div class="order-total"><strong>{{ $order->total_price }}</strong></div>
                 </div>
               </div>
 
