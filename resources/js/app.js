@@ -1552,23 +1552,18 @@ $(document).ready(function () {
           name_wrapper = clone.querySelector('.row .col-8.name'),
           phone = clone.querySelector('.row .phone'),
           address = clone.querySelector('.row .address'),
-          btn_edit = clone.querySelector('.btn-edit'),
-          btn_del = clone.querySelector('.btn-delete'),
           action = clone.querySelector('.col-md-4.text-right.action'),
           card = clone.querySelector('.address-card');
 
         name.textContent = item.name;
         phone.textContent = item.phone;
         address.textContent = item.address;
-        $(btn_edit).prop('data-action', `/user/address/${id}/edit`);
-        $(btn_del).prop('data-action', `/user/address/${id}/del`);
+        card.dataset.aid = id;
         if (item.is_main_address) {
           $(name_wrapper).append(`<span class="default">Mặc định</span>`);
           card.classList.add('is-main');
         } else {
-          $(action).append(`
-          <div class="primary-btn primary-btn--square btn--small" data-action="/user/address/${id}/default">Thiết lập mặc định</div>
-          `);
+          $(action).append(`<div class="primary-btn primary-btn--square btn--small btn-default">Thiết lập mặc định</div>`);
         }
 
         wrapper.appendChild(clone);
@@ -1576,17 +1571,99 @@ $(document).ready(function () {
     });
 
     // Edit address info
-    $('.btn-edit').click(function (e) {
+    // $('.address-wrapper').on('click', '.address-card .btn-edit', function (e) {
+    //   e.preventDefault();
+    //   let card = $(this).closest('.address-card'),
+    //     id = card.data('aid'),
+    //     url = `/user/address/${id}/edit`,
+    //     name = card.find('span.name').text(),
+    //     phone = card.find('.col-8.phone').text(),
+    //     address = card.find('.col-8.address').text();
+    //   $('.form-edit-address').prop('action', url);
+    //   $('.form-edit-address .ed-name').val(name);
+    //   $('.form-edit-address .ed-phone').val(phone);
+    //   $('.form-edit-address .ed-address').val(address);
+    //   $('#address-modal').modal('show');
+    // });
+
+    // $('.form-edit-address .primary-btn').click(function (e) {
+    //   e.preventDefault();
+    //   let url = $('.form-edit-address').prop('action'),
+    //     id = url.split('/')[5],
+    //     name = $('.form-edit-address .ed-name').val(),
+    //     phone = $('.form-edit-address .ed-phone').val(),
+    //     address = $('.form-edit-address .ed-address').val();
+    //   axios({
+    //     method: 'put',
+    //     url: url,
+    //     data: {
+    //       name: name,
+    //       phone: phone,
+    //       address: address
+    //     }
+    //   }).then((res) => {
+    //     $('#address-modal').modal('hide');
+    //     $(`.address-card[data-aid=${id}]`).data('aid', res.data);
+    //     $(`.address-card[data-aid=${res.data}]`).find('span.name').text(name);
+    //     $(`.address-card[data-aid=${res.data}]`).find('.col-8.phone').text(phone);
+    //     $(`.address-card[data-aid=${res.data}]`).find('.col-8.address').text(address);
+    //   })
+    // });
+
+    // // delete address info
+    // $('.address-wrapper').on('click', '.address-card .btn-delete', function (e) {
+    //   e.preventDefault();
+    //   let card = $(this).closest('.address-card'),
+    //     id = card.data('aid'),
+    //     url = `/user/address/${id}/del`;
+    //   $('#del-address').prop('action', url);
+    //   $('#delete-modal').modal('show');
+    // });
+
+    // $('#del-address .btn-block').click(function (e) {
+    //   e.preventDefault();
+    //   let url = $('#del-address').prop('action'),
+    //     id = url.split('/')[5];
+    //   axios({
+    //     method: 'delete',
+    //     url: url
+    //   }).then((res) => {
+    //     $('#delete-modal').modal('hide');
+    //     $(`.address-card[data-aid=${id}]`).remove();
+    //     if (res.data != 0) {
+    //       let card = $(`.address-card[data-aid=${res.data}]`),
+    //         name_wrapper = card.find('.col-8.text-dark.name'),
+    //         btn_default = card.find('.btn-default');
+    //       card.addClass('is-main');
+    //       name_wrapper.append('<span class="default">Mặc định</span>');
+    //       btn_default.remove();
+    //     }
+    //   })
+    // });
+
+    // Set default address
+    $('.address-wrapper').on('click', '.address-card .btn-default', function (e) {
       e.preventDefault();
-
-    });
-
-    // delete address info
-    $('.btn-del').click(function (e) {
-      e.preventDefault();
-      // if (condition) {
-
-      // }
+      let card = $(this).closest('.address-card'),
+        id = card.data('aid'),
+        url = `/user/address/${id}/default`,
+        name_wrapper = card.find('.col-8.text-dark.name'),
+        $this = $(this);
+      axios({
+        method: 'post',
+        url: url
+      }).then(() => {
+        $('span.default').remove();
+        $('.address-card').removeClass('is-main');
+        $('.address-card .col-md-4.text-right.action').each(function (index, element) {
+          if ($(element).find('.btn-default').length == 0) {
+            $(element).append(`<div class="primary-btn primary-btn--square btn--small btn-default">Thiết lập mặc định</div>`);
+          }
+        });
+        card.addClass('is-main');
+        name_wrapper.append(`<span class="default">Mặc định</span>`);
+        $this.remove();
+      });
     });
   }
 });

@@ -37,9 +37,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('/information', 'UserController@edit')->name('edit');
     Route::put('/edit', 'UserController@update')->name('update');
     Route::post('address/add', 'UserController@addAddress');
-    Route::put('address/{id}/edit', 'UserController@addressUpdate')->name('address-update');
-    Route::delete('address/{id}/del', 'UserController@addressDelete')->name('address-delete');
-    Route::post('address/{id}/default', 'UserController@makeDefaultAddress')->name('default-address');
+    Route::put('address/{id}/edit', 'UserController@addressUpdate');
+    Route::delete('address/{id}/del', 'UserController@addressDelete');
+    Route::post('address/{id}/default', 'UserController@makeDefaultAddress');
     Route::get('/change-pass', 'UserController@changePass')->name('change-pass');
     Route::post('/change-pass', 'UserController@changePassSubmit')->name('change-pass-submit');
 });

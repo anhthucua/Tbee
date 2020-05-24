@@ -54,8 +54,7 @@
         {{-- address  --}}
         <div class="address-wrapper">
           @foreach ($user->address_infos as $item)
-            <hr>
-            <div class="address-card mg-bottom-50 {{ $item->is_main_address ? 'is-main' : '' }}">
+            <div class="address-card mg-bottom-50 {{ $item->is_main_address ? 'is-main' : '' }}" data-aid="{{ $item->id }}">
               <div class="row justify-content-between">
                 {{-- infor  --}}
                 <div class="col-md-8">
@@ -82,12 +81,12 @@
                 </div>
                 {{-- thao tac  --}}
                 <div class="col-md-4 text-right action">
-                  <div class="secondary-btn btn--small btn-edit" data-action="{{ route('user.address-update', $item->id) }}">Sửa</div>
-                  <div class="primary-btn btn--small btn-delete" data-action="{{ route('user.address-delete', $item->id) }}">Xoá</div>
+                  <div class="secondary-btn btn--small btn-edit">Sửa</div>
+                  <div class="primary-btn btn--small btn-delete">Xoá</div>
                   <br>
                   <br>
                   @unless ($item->is_main_address)
-                    <div class="primary-btn primary-btn--square btn--small" data-action="{{ route('user.default-address', $item->id) }}">Thiết lập mặc định</div>
+                    <div class="primary-btn primary-btn--square btn--small btn-default">Thiết lập mặc định</div>
                   @endunless
                 </div>
               </div>
@@ -166,15 +165,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="form-adress" method="POST">
+        <form class="form-edit-address" method="POST">
         {{-- name  --}}
-        <input class="form-control su-name" type="text" name="name" value="Trần Anh Thư">
+        <input class="form-control ed-name" type="text" placeholder="Tên người nhận">
         <div class="error error-name"></div>
           {{-- phone show du lieu trong db --}}
-        <input class="form-control su-phone" type="tel" name="phone" value="0923843847">
+        <input class="form-control ed-phone" type="tel" placeholder="Số điện thoại">
         <div class="error error-phone"></div>
         {{-- address --}}
-        <input class="form-control su-address" type="text" name="address" value="Số 10 ngõ 168 Thuỵ Khuê, Tây Hồ, Hà Nội">
+        <input class="form-control ed-address" type="text" placeholder="Địa chỉ">
         <div class="error"></div>
         <br>
         <br>
@@ -188,7 +187,7 @@
 </div>
 
 <template id="address-tpl">
-  <div class="address-card mg-bottom-50">
+  <div class="address-card mg-bottom-50" data-aid="">
     <div class="row justify-content-between">
       {{-- infor  --}}
       <div class="col-md-8">
@@ -215,12 +214,12 @@
       </div>
       {{-- thao tac  --}}
       <div class="col-md-4 text-right action">
-        <div class="secondary-btn btn--small btn-edit" data-action="">Sửa</div>
-        <div class="primary-btn btn--small btn-delete" data-action="">Xoá</div>
+        <div class="secondary-btn btn--small btn-edit">Sửa</div>
+        <div class="primary-btn btn--small btn-delete">Xoá</div>
         <br>
         <br>
         {{-- @unless ($item->is_main_address)
-          <div class="primary-btn primary-btn--square btn--small" data-action="{{ route('user.default-address', $item->id) }}">Thiết lập mặc định</div>
+          <div class="primary-btn primary-btn--square btn--small">Thiết lập mặc định</div>
         @endunless --}}
       </div>
     </div>

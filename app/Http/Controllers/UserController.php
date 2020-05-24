@@ -172,6 +172,59 @@ class UserController extends Controller
         return $address;
     }
 
+    public function makeDefaultAddress($id)
+    {
+        $user = Auth::user();
+        foreach ($user->address_infos as $item) {
+            if ($item->id == $id) {
+                $item->is_main_address = true;
+                $item->save();
+            } else {
+                $item->is_main_address = null;
+                $item->save();
+            }
+        }
+    }
+
+    public function addressDelete($id)
+    {
+        $address = AddressInfo::find($id);
+        $user = Auth::user();
+
+        if ($address->is_main_address) {
+            $address->user_id = null;
+            $address->is_main_address = null;
+            $address->save();
+            if (count($user->address_infos) == 0) {
+                return 0;
+            }
+            $new_address = $user->address_infos[0];
+            $new_address->is_main_address = true;
+            $new_address->save();
+
+            return $new_address->id;
+        } else {
+            $address->user_id = null;
+            $address->is_main_address = null;
+            $address->save();
+            return 0;
+        }
+    }
+
+    public function addressUpdate(Request $request, $id)
+    {
+        $address = AddressInfo::find($id);
+        $address->user_id = null;
+        $address->save();
+
+        $new_address = new AddressInfo($request->all());
+        $new_address->user_id = Auth::user()->id;
+        $new_address->is_main_address = $address->is_main_address;
+        $new_address->save();
+
+        return $new_address->id;
+    }
+
     /**
      * Block an user
      *
