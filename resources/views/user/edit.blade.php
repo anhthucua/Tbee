@@ -23,7 +23,7 @@
         <br>
 
         <div class="upload-avt-wrapper">
-          <div class="upload-avt">
+          <div class="upload-avt image-wrapper">
             <img class="avt-img img-responsive" src="{{ $user->avatar_img }}" alt="avatar">
           </div>
         </div>
