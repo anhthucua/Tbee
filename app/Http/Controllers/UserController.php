@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AddressInfo;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Image as ImageModel;
+use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -131,7 +134,42 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if ($request->avatar) {
+            // Upload image
+            $origin_img = $request->file('avatar');
+            $img = Image::make($origin_img);
+            $img->fit(300, 300);
+            $time = Carbon::now()->format('Ymd_His');
+            $url = "/images/users/{$time}_{$origin_img->getClientOriginalName()}";
+            $public_url = public_path($url);
+            $img->save($public_url);
+
+            // Insert image into database
+            $image = new ImageModel(['url' => $url]);
+            $image->save();
+            $user->avatar = $image->id;
+        }
+
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect(route('user.edit'));
+    }
+
+    public function addAddress(Request $request)
+    {
+        $address = new AddressInfo($request->all());
+        if (count(Auth::user()->address_infos) == 0) {
+            $address->is_main_address = true;
+        }
+        $address->user_id = Auth::user()->id;
+
+        $address->save();
+
+        return $address;
     }
 
     /**

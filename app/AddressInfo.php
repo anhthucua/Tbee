@@ -12,4 +12,13 @@ class AddressInfo extends Model
      * @var string
      */
     protected $table = 'address_info';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'phone', 'address'
+    ];
 }

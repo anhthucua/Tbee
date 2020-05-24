@@ -35,7 +35,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('/orders', 'OrderController@userOrderList')->name('orders');
     Route::post('/orders/search', 'OrderController@userOrderSearch');
     Route::get('/information', 'UserController@edit')->name('edit');
-    Route::post('/edit', 'UserController@update')->name('update');
+    Route::put('/edit', 'UserController@update')->name('update');
+    Route::post('address/add', 'UserController@addAddress');
+    Route::put('address/{id}/edit', 'UserController@addressUpdate')->name('address-update');
+    Route::delete('address/{id}/del', 'UserController@addressDelete')->name('address-delete');
+    Route::post('address/{id}/default', 'UserController@makeDefaultAddress')->name('default-address');
     Route::get('/change-pass', 'UserController@changePass')->name('change-pass');
     Route::post('/change-pass', 'UserController@changePassSubmit')->name('change-pass-submit');
 });

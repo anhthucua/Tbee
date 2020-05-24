@@ -548,9 +548,9 @@ $(document).ready(function () {
               let tpl2 = document.querySelector('#order-action'),
                 clone2 = tpl2.content.cloneNode(true),
                 a = clone2.querySelectorAll('a');
-                a[0].href = `/supplier/order/${order.id}/accept`;
-                a[1].href = `/supplier/order/${order.id}/cancel`;
-                td[4].appendChild(clone2);
+              a[0].href = `/supplier/order/${order.id}/accept`;
+              a[1].href = `/supplier/order/${order.id}/cancel`;
+              td[4].appendChild(clone2);
             }
             td[5].innerText = order.total_price;
             link.href = `/order-detail/${order.id}`;
@@ -1488,5 +1488,105 @@ $(document).ready(function () {
         }
       })
     }
+  }
+
+  // chinh sua thong tin ca nhan
+  if ($(document.body).is('.page-user.edit')) {
+    // click on input
+    $('.btn-image').click(function (e) {
+      e.preventDefault();
+      $('.form #avatar').trigger('click');
+      $('.form #avatar').addClass('sss');
+    })
+
+    // show image when select
+    $('.form #avatar').change(function () {
+      let input = document.querySelector('.form #avatar'),
+        url = $(input).val(),
+        ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase(),
+        accepted_ext = ['gif', 'png', 'jpg', 'jpeg', 'jfif', 'svg'];
+
+      if (input.files && input.files[0] && ($.inArray(ext, accepted_ext) !== -1)) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          $('.form .image-name').text(input.files[0].name)
+          $('.form .avt-img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    });
+
+    // Add address info
+    $('.btn-add').click(function (e) {
+      e.preventDefault();
+      if ($('.address-wrapper .address-card').length >= 3) {
+        alert('Chỉ được có tối đa 3 địa chỉ');
+      } else {
+        $('#add-address-modal').modal('show');
+        return false;
+      }
+    });
+
+    // Add address submit
+    $('.form-add-address .primary-btn').click(function (e) {
+      e.preventDefault();
+      let name = $('.form-add-address .name').val(),
+        phone = $('.form-add-address .phone').val(),
+        address = $('.form-add-address .address').val();
+      axios({
+        method: 'post',
+        url: '/user/address/add',
+        data: {
+          name: name,
+          phone: phone,
+          address: address
+        }
+      }).then((res) => {
+        $('#add-address-modal').modal('hide');
+        let wrapper = document.querySelector('.address-wrapper'),
+          item = res.data,
+          id = res.data.id,
+          tpl = document.querySelector('#address-tpl'),
+          clone = tpl.content.cloneNode(true),
+          name = clone.querySelector('.row span.name'),
+          name_wrapper = clone.querySelector('.row .col-8.name'),
+          phone = clone.querySelector('.row .phone'),
+          address = clone.querySelector('.row .address'),
+          btn_edit = clone.querySelector('.btn-edit'),
+          btn_del = clone.querySelector('.btn-delete'),
+          action = clone.querySelector('.col-md-4.text-right.action'),
+          card = clone.querySelector('.address-card');
+
+        name.textContent = item.name;
+        phone.textContent = item.phone;
+        address.textContent = item.address;
+        $(btn_edit).prop('data-action', `/user/address/${id}/edit`);
+        $(btn_del).prop('data-action', `/user/address/${id}/del`);
+        if (item.is_main_address) {
+          $(name_wrapper).append(`<span class="default">Mặc định</span>`);
+          card.classList.add('is-main');
+        } else {
+          $(action).append(`
+          <div class="primary-btn primary-btn--square btn--small" data-action="/user/address/${id}/default">Thiết lập mặc định</div>
+          `);
+        }
+
+        wrapper.appendChild(clone);
+      })
+    });
+
+    // Edit address info
+    $('.btn-edit').click(function (e) {
+      e.preventDefault();
+
+    });
+
+    // delete address info
+    $('.btn-del').click(function (e) {
+      e.preventDefault();
+      // if (condition) {
+
+      // }
+    });
   }
 });
