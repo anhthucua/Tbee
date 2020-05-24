@@ -193,6 +193,87 @@ $(document).ready(function () {
     $('#product-main-img .product-preview').zoom();
   }
 
+  // Page search products
+  if ($(document.body).is('.page-search-product')) {
+    function filterProductSearch() {
+      console.log(1);
+    }
+
+    // Sort
+    $('.store-sort .input-select').change(function () {
+      filterProductSearch();
+    });
+
+    $('.input-number').each(function () {
+      let $this = $(this),
+        $input = $this.find('input[type="number"]'),
+        up = $this.find('.qty-up'),
+        down = $this.find('.qty-down');
+
+      down.on('click', function () {
+        let value = parseInt($input.val()) - 1000;
+        value = value < 1 ? 1 : value;
+        $input.val(value);
+        $input.trigger('change');
+      })
+
+      up.on('click', function () {
+        let value = parseInt($input.val()) + 1000;
+        $input.val(value);
+        $input.trigger('change');
+      })
+    });
+
+    let priceInputMax = document.getElementById('price-max'),
+      priceInputMin = document.getElementById('price-min');
+
+    $(priceInputMax).on('change', function () {
+      updatePriceSlider($(this).parent(), this.value)
+    });
+
+    $(priceInputMin).on('change', function () {
+      updatePriceSlider($(this).parent(), this.value)
+    });
+
+    function updatePriceSlider(elem, value) {
+      if (elem.hasClass('price-min')) {
+        priceSlider.noUiSlider.set([value, null]);
+      } else if (elem.hasClass('price-max')) {
+        priceSlider.noUiSlider.set([null, value]);
+      }
+    }
+
+    // Price Slider
+    var priceSlider = document.getElementById('price-slider');
+    if (priceSlider) {
+      let minPrice = parseInt(document.querySelector('#productMinPrice').value),
+        maxPrice = parseInt(document.querySelector('#productMaxPrice').value);
+      nouislider.create(priceSlider, {
+        start: [minPrice, maxPrice],
+        connect: true,
+        step: 1000,
+        range: {
+          'min': minPrice,
+          'max': maxPrice
+        },
+        format: {
+          to: function (value) {
+            return value;
+          },
+          from: function (value) {
+            return Number(value);
+          }
+        }
+      });
+
+      priceSlider.noUiSlider.on('set', function (values, handle) {
+        var value = values[handle];
+        handle ? priceInputMax.value = value : priceInputMin.value = value;
+        filterProductSearch();
+      });
+    }
+  }
+
   ///////////////////////////////////////////////////////////////////////
   /*
   * Danh cho nguoi ban

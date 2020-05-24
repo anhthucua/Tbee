@@ -19,6 +19,8 @@ Route::get('/category', function () {
     return view('category');
 });
 
+Route::get('/product/search', 'ProductController@search')->name('product.search');
+
 Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');
 Route::patch('cart/update', 'ProductController@updateCart');

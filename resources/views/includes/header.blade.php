@@ -13,9 +13,9 @@
       <!-- search bar -->
       <div class="col-md-6">
         <div class="header-search">
-          <form action="POST" class="search-form">
-            <input class="input" placeholder="Tìm kiếm sản phẩm">
-            <button class="search-btn">Tìm kiếm</button>
+          <form method="GET" action="{{ route('product.search') }}" class="search-form">
+            <input class="input" name="name" type="text" placeholder="Tìm kiếm sản phẩm">
+            <button class="search-btn" type="submit">Tìm kiếm</button>
           </form>
         </div>
       </div>

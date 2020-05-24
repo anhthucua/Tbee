@@ -221,6 +221,42 @@ class ProductController extends Controller
         return view('shop', compact('shop', 'banner', 'user', 'avatar', 'products', 'cat_lv1', 'price_values', 'best_seller_products'));
     }
 
+    public function search(Request $request)
+    {
+        $name = $request->name;
+
+        $products = Product::join('images', 'products.image_id', 'images.id')
+            ->where('products.name', 'LIKE', "%{$name}%")
+            ->orderBy('sale_price', 'asc')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sale_price',
+                'products.purchased_number',
+                'images.url as img_url'
+            )
+            ->get();
+
+        foreach ($products as $product) {
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
+        }
+
+        $price_values = Product::query()
+            ->where('products.name', 'LIKE', "%{$name}%")
+            ->selectRaw('MIN(sale_price) AS min, MAX(sale_price) AS max')
+            ->get();
+
+        return view('search', compact('products', 'price_values', 'name'));
+    }
+
     /**
      * Add product to cart
      *
