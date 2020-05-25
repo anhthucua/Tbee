@@ -29,15 +29,15 @@
 
             {{-- nguoi mua --}}
             <dt>Người mua:</dt>
-            <dd>{{ $user->name }}</dd>
+            <dd>{{ $order->name }}</dd>
 
             {{-- phone  --}}
             <dt>Số điện thoại người mua:</dt>
-            <dd>{{ $user->phone }}</dd>
+            <dd>{{ $order->phone }}</dd>
 
             {{-- address  --}}
             <dt>Địa chỉ người mua:</dt>
-            <dd>{{ $user->address }}</dd>
+            <dd>{{ $order->address }}</dd>
 
             {{-- ngay dat --}}
             <dt>Ngày đặt:</dt>
@@ -64,7 +64,7 @@
                   <th>Tên sản phẩm</th>
                   <th>Ảnh</th>
                   <th>Ngành hàng</th>
-                  <th>Giá gốc/giá bán</th>
+                  <th>Giá bán</th>
                   <th>Số lượng</th>
                   <th>Tổng tiền</th>
                 </tr>
@@ -81,10 +81,7 @@
                     </td>
                     <td>{{ $product->cat_lv2 }}</td>
                     <td>
-                      @if ($product->sale_price !== $product->price)
-                        <div class="product-old-price">{{ $product->price }}</div>
-                      @endif
-                        <div class="product-price">{{ $product->sale_price }}</div>
+                      <div class="product-price">{{ $product->sale_price }}</div>
                     </td>
                     <td>{{ $product->qty }}</td>
                     <td>{{ $product->total_price }}</td>

@@ -865,6 +865,25 @@ $(document).ready(function () {
         $('#error-cart-modal').modal('show');
       })
     });
+
+    $('.buy-now').click(function (e) {
+      e.preventDefault();
+      let pid = window.location.pathname.split("/")[2];
+      axios({
+        method: 'POST',
+        url: '/add-to-cart',
+        data: {
+          pid: pid
+        }
+      }).then((res) => {
+        $('#error-cart-modal p.info').text(res.data);
+        if (res.data === 'Sản phẩm đã được thêm vào giỏ hàng') {
+          window.location.href = '/cart';
+        } else {
+          $('#error-cart-modal').modal('show');
+        }
+      })
+    });
   }
 
   ////////////////////////////////////////
@@ -1625,7 +1644,6 @@ $(document).ready(function () {
     $('.btn-image').click(function (e) {
       e.preventDefault();
       $('.form #avatar').trigger('click');
-      $('.form #avatar').addClass('sss');
     })
 
     // show image when select
@@ -1700,75 +1718,74 @@ $(document).ready(function () {
     });
 
     // Edit address info
-    // $('.address-wrapper').on('click', '.address-card .btn-edit', function (e) {
-    //   e.preventDefault();
-    //   let card = $(this).closest('.address-card'),
-    //     id = card.data('aid'),
-    //     url = `/user/address/${id}/edit`,
-    //     name = card.find('span.name').text(),
-    //     phone = card.find('.col-8.phone').text(),
-    //     address = card.find('.col-8.address').text();
-    //   $('.form-edit-address').prop('action', url);
-    //   $('.form-edit-address .ed-name').val(name);
-    //   $('.form-edit-address .ed-phone').val(phone);
-    //   $('.form-edit-address .ed-address').val(address);
-    //   $('#address-modal').modal('show');
-    // });
+    $('.address-wrapper').on('click', '.address-card .btn-edit', function (e) {
+      e.preventDefault();
+      let card = $(this).closest('.address-card'),
+        id = card.data('aid'),
+        url = `/user/address/${id}/edit`,
+        name = card.find('span.name').text(),
+        phone = card.find('.col-8.phone').text(),
+        address = card.find('.col-8.address').text();
+      $('.form-edit-address').prop('action', url);
+      $('.form-edit-address .ed-name').val(name);
+      $('.form-edit-address .ed-phone').val(phone);
+      $('.form-edit-address .ed-address').val(address);
+      $('#address-modal').modal('show');
+    });
 
-    // $('.form-edit-address .primary-btn').click(function (e) {
-    //   e.preventDefault();
-    //   let url = $('.form-edit-address').prop('action'),
-    //     id = url.split('/')[5],
-    //     name = $('.form-edit-address .ed-name').val(),
-    //     phone = $('.form-edit-address .ed-phone').val(),
-    //     address = $('.form-edit-address .ed-address').val();
-    //   axios({
-    //     method: 'put',
-    //     url: url,
-    //     data: {
-    //       name: name,
-    //       phone: phone,
-    //       address: address
-    //     }
-    //   }).then((res) => {
-    //     $('#address-modal').modal('hide');
-    //     $(`.address-card[data-aid=${id}]`).data('aid', res.data);
-    //     $(`.address-card[data-aid=${res.data}]`).find('span.name').text(name);
-    //     $(`.address-card[data-aid=${res.data}]`).find('.col-8.phone').text(phone);
-    //     $(`.address-card[data-aid=${res.data}]`).find('.col-8.address').text(address);
-    //   })
-    // });
+    $('.form-edit-address .primary-btn').click(function (e) {
+      e.preventDefault();
+      let url = $('.form-edit-address').prop('action'),
+        id = url.split('/')[5],
+        name = $('.form-edit-address .ed-name').val(),
+        phone = $('.form-edit-address .ed-phone').val(),
+        address = $('.form-edit-address .ed-address').val();
+      axios({
+        method: 'put',
+        url: url,
+        data: {
+          name: name,
+          phone: phone,
+          address: address
+        }
+      }).then(() => {
+        $('#address-modal').modal('hide');
+        $(`.address-card[data-aid=${id}]`).find('span.name').text(name);
+        $(`.address-card[data-aid=${id}]`).find('.col-8.phone').text(phone);
+        $(`.address-card[data-aid=${id}]`).find('.col-8.address').text(address);
+      })
+    });
 
     // // delete address info
-    // $('.address-wrapper').on('click', '.address-card .btn-delete', function (e) {
-    //   e.preventDefault();
-    //   let card = $(this).closest('.address-card'),
-    //     id = card.data('aid'),
-    //     url = `/user/address/${id}/del`;
-    //   $('#del-address').prop('action', url);
-    //   $('#delete-modal').modal('show');
-    // });
+    $('.address-wrapper').on('click', '.address-card .btn-delete', function (e) {
+      e.preventDefault();
+      let card = $(this).closest('.address-card'),
+        id = card.data('aid'),
+        url = `/user/address/${id}/del`;
+      $('#del-address').prop('action', url);
+      $('#delete-modal').modal('show');
+    });
 
-    // $('#del-address .btn-block').click(function (e) {
-    //   e.preventDefault();
-    //   let url = $('#del-address').prop('action'),
-    //     id = url.split('/')[5];
-    //   axios({
-    //     method: 'delete',
-    //     url: url
-    //   }).then((res) => {
-    //     $('#delete-modal').modal('hide');
-    //     $(`.address-card[data-aid=${id}]`).remove();
-    //     if (res.data != 0) {
-    //       let card = $(`.address-card[data-aid=${res.data}]`),
-    //         name_wrapper = card.find('.col-8.text-dark.name'),
-    //         btn_default = card.find('.btn-default');
-    //       card.addClass('is-main');
-    //       name_wrapper.append('<span class="default">Mặc định</span>');
-    //       btn_default.remove();
-    //     }
-    //   })
-    // });
+    $('#del-address .btn-block').click(function (e) {
+      e.preventDefault();
+      let url = $('#del-address').prop('action'),
+        id = url.split('/')[5];
+      axios({
+        method: 'delete',
+        url: url
+      }).then((res) => {
+        $('#delete-modal').modal('hide');
+        $(`.address-card[data-aid=${id}]`).remove();
+        if (res.data != 0) {
+          let card = $(`.address-card[data-aid=${res.data}]`),
+            name_wrapper = card.find('.col-8.text-dark.name'),
+            btn_default = card.find('.btn-default');
+          card.addClass('is-main');
+          name_wrapper.append('<span class="default">Mặc định</span>');
+          btn_default.remove();
+        }
+      })
+    });
 
     // Set default address
     $('.address-wrapper').on('click', '.address-card .btn-default', function (e) {

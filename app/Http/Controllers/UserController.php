@@ -192,9 +192,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         if ($address->is_main_address) {
-            $address->user_id = null;
-            $address->is_main_address = null;
-            $address->save();
+            $address->delete();
             if (count($user->address_infos) == 0) {
                 return 0;
             }
@@ -204,9 +202,7 @@ class UserController extends Controller
 
             return $new_address->id;
         } else {
-            $address->user_id = null;
-            $address->is_main_address = null;
-            $address->save();
+            $address->delete();
             return 0;
         }
     }
@@ -214,15 +210,12 @@ class UserController extends Controller
     public function addressUpdate(Request $request, $id)
     {
         $address = AddressInfo::find($id);
-        $address->user_id = null;
+        $address->name = $request->name;
+        $address->phone = $request->phone;
+        $address->address = $request->address;
         $address->save();
 
-        $new_address = new AddressInfo($request->all());
-        $new_address->user_id = Auth::user()->id;
-        $new_address->is_main_address = $address->is_main_address;
-        $new_address->save();
-
-        return $new_address->id;
+        return $address;
     }
 
     /**

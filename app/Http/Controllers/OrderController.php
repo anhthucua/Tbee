@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AddressInfo;
 use App\CategoryLvl2;
 use App\Coupon;
 use App\Notification;
@@ -112,7 +113,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $supplier = Supplier::find($request->sid);
-        $aid = $request->aid;
+        $address_info = AddressInfo::find($request->aid);
         $cid = $request->cid ?? null;
         $total = $request->total;
         $user = User::find(Auth::user()->id);
@@ -121,7 +122,9 @@ class OrderController extends Controller
         $order = new Order();
         $order->supplier_id = $request->sid;
         $order->user_id = $user->id;
-        $order->address_info_id = $aid;
+        $order->name = $address_info->name;
+        $order->phone = $address_info->phone;
+        $order->address = $address_info->address;
         $order->total_price = $total;
         $order->coupon_id = $cid;
         $order->save();
@@ -182,8 +185,6 @@ class OrderController extends Controller
 
         $order->supplier_name = Supplier::find($order->supplier_id)->shop_name;
 
-        $user = \App\AddressInfo::find($order->address_info_id);
-
         $order->time = $order->created_at->format('H:i d/m/Y');
         switch ($order->status) {
             case 'done':
@@ -205,7 +206,7 @@ class OrderController extends Controller
 
         $details = DB::table('order_detail')
             ->where('order_id', $order->id)
-            ->get(['product_id', 'quantity']);
+            ->get(['product_id', 'quantity', 'price']);
 
         $products = array();
         $sum = 0;
@@ -213,6 +214,7 @@ class OrderController extends Controller
             $product = Product::find($detail->product_id);
             $product->main_img = ImageModel::find($product->image_id)->url;
             $product->qty = $detail->quantity;
+            $product->sale_price = $detail->price;
             $product->total_price = $product->sale_price * $product->qty;
             $sum += $product->total_price;
             $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;

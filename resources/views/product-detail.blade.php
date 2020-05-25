@@ -100,7 +100,7 @@
                     Thêm vào giỏ hàng
                   </button>
                 <div style="height: 30px;"></div>
-                  <button class="secondary-btn" data-toggle="modal" data-target="#rqlg-modal">
+                  <button class="secondary-btn buy-now">
                     Mua ngay
                   </button>
                 </div>
