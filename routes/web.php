@@ -20,6 +20,7 @@ Route::get('/category', function () {
 });
 
 Route::get('/product/search', 'ProductController@search')->name('product.search');
+Route::post('/product/search/filter', 'ProductController@searchFilter');
 
 Route::get('cart', 'ProductController@cart')->name('cart');
 Route::post('add-to-cart', 'ProductController@addToCart');

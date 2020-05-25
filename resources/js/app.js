@@ -196,7 +196,55 @@ $(document).ready(function () {
   // Page search products
   if ($(document.body).is('.page-search-product')) {
     function filterProductSearch() {
-      console.log(1);
+      let minPrice = parseInt($('#price-min').val()),
+        maxPrice = parseInt($('#price-max').val()),
+        sort = $('.store-sort .input-select option:selected').val(),
+        name = $('h3 > span.name').text();
+
+      if (!minPrice) {
+        return false;
+      }
+
+      axios({
+        method: 'POST',
+        url: '/product/search/filter',
+        data: {
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          sort: sort,
+          name: name
+        }
+      }).then(function (res) {
+        document.querySelector('#store > .row').innerHTML = '';
+        if (res.data.length > 0) {
+          res.data.forEach(product => {
+            let tpl = document.querySelector('#product-div'),
+              clone = tpl.content.cloneNode(true),
+              p_link = clone.querySelector('.product-link'),
+              p_img = clone.querySelector('.product-img'),
+              p_sale = clone.querySelector('.product-label .sale'),
+              p_purchased = clone.querySelector('.product-purchased'),
+              p_name = clone.querySelector('.product-name a'),
+              price_1 = clone.querySelector('.product-price span'),
+              price_2 = clone.querySelector('.product-old-price');
+            p_link.href = `/product/${product.id}/show`;
+            p_img.style.backgroundImage = `url(${product['img']})`;
+            if (product.sale_percent) {
+              p_sale.textContent = `${product.sale_percent}%`;
+            } else {
+              p_sale.style.display = 'none';
+            }
+            p_purchased.textContent = `Đã bán ${product.purchased_number}`;
+            p_name.textContent = product.name;
+            p_name.href = `/product/${product.id}/show`;
+            price_1.textContent = product.sale_price;
+            price_2.textContent = (product.sale_price === product.price) ? '' : product.price;
+            document.querySelector('#store > .row').appendChild(clone);
+          });
+        } else {
+          $('#store > .row').html('<p class="no-products">Không có sản phẩm nào.</p>');
+        }
+      })
     }
 
     // Sort

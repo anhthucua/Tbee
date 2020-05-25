@@ -339,17 +339,6 @@ class ProductController extends Controller
     }
 
     /**
-     * get total cart price
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function getCartPrice(Request $request)
-    {
-        # code...
-    }
-
-    /**
      * Show cart
      *
      * @return void
@@ -440,6 +429,39 @@ class ProductController extends Controller
             $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
             $product->img = ImageModel::find($product->image_id)->url;
             $product->date = $product->created_at->format('d/m/Y');
+        }
+
+        return $products;
+    }
+
+    public function searchFilter(Request $request)
+    {
+        // Format order by
+        $order_by_arr = explode(' ', $request['sort']);
+        $column = $order_by_arr[0];
+        $direction = $order_by_arr[1];
+
+        $name = ($request['name'] === null) ? '' : $request['name'];
+
+        $products = Product::query()
+            ->where([
+                ['sale_price', '>=', $request['minPrice']],
+                ['sale_price', '<=', $request['maxPrice']],
+                ['name', 'LIKE', "%{$name}%"]
+            ])
+            ->orderBy($column, $direction)
+            ->get();
+
+        foreach ($products as $product) {
+            $product->img = ImageModel::find($product->image_id)->url;
+            if ($product->price !== $product->sale_price) {
+                $product->sale_percent = intval(round($product->sale_price / $product->price * 100 - 100));
+                if ($product->sale_percent === -100) {
+                    $product->sale_percent = -99;
+                } elseif ($product->sale_percent === 0) {
+                    unset($product->sale_percent);
+                }
+            }
         }
 
         return $products;

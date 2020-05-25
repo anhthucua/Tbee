@@ -61,7 +61,7 @@
         <!-- /store top filter -->
 
         <!-- store products -->
-        <h3>Kết quả tìm kiếm cho "{{ $name }}":</h3>
+        <h3>Kết quả tìm kiếm cho "<span class="name">{{ $name }}</span>":</h3>
 
         <div class="row">
           @if (count($products) > 0)
