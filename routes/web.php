@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// de tam de style
 Route::get('order-detail/{id}', 'OrderController@show')->name('order-detail');
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -32,6 +31,10 @@ Route::post('checkout', 'OrderController@store');
 
 // Coupon
 Route::post('coupon/check', 'CouponController@check');
+
+// Notification
+Route::post('noti/mark-all-read', 'NotificationController@markAllRead');
+Route::post('noti/{id}/read', 'NotificationController@read');
 
 // User
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {

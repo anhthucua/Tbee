@@ -6,6 +6,32 @@ $(document).ready(function () {
     });
   });
 
+  // Mark all as read noti
+  $('.noti.dropdown-menu .mark-read a').click(function (e) {
+    e.preventDefault();
+    axios({
+      method:'post',
+      url: '/noti/mark-all-read'
+    }).then(() => {
+      $('.noti-list .no-read').each(function (index, element) {
+        $(element).removeClass('no-read');
+        $('.noti-block .qty').remove();
+      });
+    })
+  });
+
+  // Click on notification
+  $('.noti .noti-list .no-read a.noti-content').click(function (e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+    axios({
+      method:'post',
+      url: `noti/${id}/read`
+    }).then(() => {
+      window.location.href = $(this).prop('href');
+    })
+  });
+
   // handle chat
   $('.chat-box').click(function (e) {
     $('.chat-wrapper').show();

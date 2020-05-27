@@ -241,7 +241,7 @@ class OrderController extends Controller
 
         $noti = new Notification();
         $noti->user_id = $order->user_id;
-        $noti->content = "Đơn hàng {$order->id} của bạn đã được người bán {$sup_name} xác nhận";
+        $noti->content = "Đơn hàng #{$order->id} của bạn đã được người bán {$sup_name} xác nhận";
         $noti->url = '/user/orders';
         $noti->save();
 
@@ -259,7 +259,7 @@ class OrderController extends Controller
 
         $noti = new Notification();
         $noti->user_id = $order->user_id;
-        $noti->content = "Đơn hàng {$order->id} của bạn đã bị người bán {$sup_name} hủy";
+        $noti->content = "Đơn hàng #{$order->id} của bạn đã bị người bán {$sup_name} hủy";
         $noti->url = '/user/orders';
         $noti->save();
 

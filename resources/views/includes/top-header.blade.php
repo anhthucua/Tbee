@@ -25,79 +25,42 @@
           @else
             {{-- Thong bao --}}
             <li class="noti-block dropdown">
-              <a class="noti-icon dropdown-toggle" data-toggle="dropdown">
+              <a href="#" class="noti-icon dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
-                <div class="qty">3</div>
+                @if ($noti_count > 0)
+                  <div class="qty">{{ $noti_count }}</div>
+                @endif
               </a>
-              <ul class="noti dropdown-menu">
-                <li class="mark-read">
-                  <a href="#">Đánh dấu tất cả là đã đọc</a>
-                </li>
-                <li class="noti-list">
-                  <ul>
-                    <li class="noti-item no-read">
-                      <a href="#" class="noti-content">
-                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
-                        <br>
-                        <span class="hour">5:00</span>&nbsp;&nbsp;<span class="date">1/4/2020</span>
-                      </a>
+              @if ($noti_count > 0)
+                <ul class="noti dropdown-menu">
+                  <li class="mark-read">
+                    <a href="#">Đánh dấu tất cả là đã đọc</a>
+                  </li>
+                  <li class="noti-list" data-all="{{ $all_noti_count }}" data-cur="{{ ($all_noti_count > 3) ? 3 : $all_noti_count }}">
+                    <ul>
+                      @foreach ($notis as $noti)
+                        <li class="noti-item {{ $noti->read ?: 'no-read' }}">
+                          <a href="{{ $noti->url }}" class="noti-content" data-id="{{ $noti->id }}">
+                            <span>{{ $noti->content }}</span>
+                            <br>
+                            <span class="hour">{{ $noti->hour }}</span>&nbsp;&nbsp;
+                            <span class="date">{{ $noti->date }}</span>
+                          </a>
+                        </li>
+                      @endforeach
+                    </ul>
+                  </li>
+                  @if ($all_noti_count > 3)
+                    <li class="see-more">
+                      <a href="#">Xem thêm thông báo</a>
                     </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>Shop Xinh đẹp đã đồng ý đơn hàng của bạn</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                    <li class="noti-item">
-                      <a href="#" class="noti-content">
-                        <span>this is notice content</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="see-more">
-                  <a href="#">Xem thêm thông báo</a>
-                </li>
-              </ul>
+                  @endif
+                </ul>
+              @else
+                <ul class="noti dropdown-menu">
+                  <li>Không có thông báo nào</li>
+                </ul>
+              @endif
             </li>
 
             {{-- Trang nguoi dung --}}

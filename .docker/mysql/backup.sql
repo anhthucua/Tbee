@@ -286,6 +286,7 @@ CREATE TABLE `notifications` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
+  `read` tinyint(1) NOT NULL DEFAULT '0',
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -301,7 +302,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-16 18:32:34','2020-05-16 18:32:34'),(2,'Bạn có đơn hàng mới từ tbee',6,'/supplier/orders','2020-05-21 21:19:09','2020-05-21 21:19:09'),(3,'Đơn hàng 2 của bạn đã được người bán asus_flagship_hch_store xác nhận',1,'/user/orders','2020-05-23 22:59:45','2020-05-23 22:59:45'),(4,'Bạn có đơn hàng mới từ tbee2',7,'/supplier/orders','2020-05-26 00:43:10','2020-05-26 00:43:10');
+INSERT INTO `notifications` VALUES (1,'Bạn có đơn hàng mới từ tbee',6,0,'/supplier/orders','2020-05-16 18:32:34','2020-05-16 18:32:34'),(2,'Bạn có đơn hàng mới từ tbee',6,0,'/supplier/orders','2020-05-21 21:19:09','2020-05-21 21:19:09'),(3,'Đơn hàng #2 của bạn đã được người bán asus_flagship_hch_store xác nhận',1,0,'/user/orders','2020-05-23 22:59:45','2020-05-23 22:59:45'),(4,'Bạn có đơn hàng mới từ tbee2',7,0,'/supplier/orders','2020-05-26 00:43:10','2020-05-26 00:43:10');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -579,4 +580,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-25 17:44:06
+-- Dump completed on 2020-05-26 18:17:55
