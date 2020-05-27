@@ -98,7 +98,7 @@
                 {{-- so luong --}}
                 <div class="order-col">
                   <div><strong>Tổng số lượng sản phẩm:</strong></div>
-                  <div><strong>{{ count($products) }}</strong></div>
+                  <div><strong>{{ $product_count }}</strong></div>
                 </div>
                 {{-- tong tien  --}}
                 <div class="order-col">

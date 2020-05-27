@@ -210,6 +210,7 @@ class OrderController extends Controller
 
         $products = array();
         $sum = 0;
+        $product_count = 0;
         foreach ($details as $detail) {
             $product = Product::find($detail->product_id);
             $product->main_img = ImageModel::find($product->image_id)->url;
@@ -217,6 +218,7 @@ class OrderController extends Controller
             $product->sale_price = $detail->price;
             $product->total_price = $product->sale_price * $product->qty;
             $sum += $product->total_price;
+            $product_count += $product->qty;
             $product->cat_lv2 = CategoryLvl2::find($product->category_level2_id)->name;
             $products[] = $product;
         }
@@ -227,7 +229,7 @@ class OrderController extends Controller
         }
 
         // dump($order, $user, $products);
-        return view('order-detail', compact('order', 'user', 'products'));
+        return view('order-detail', compact('order', 'user', 'products', 'product_count'));
     }
 
     public function accept($id)
