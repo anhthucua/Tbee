@@ -4,7 +4,7 @@
 		<div class="sidebar-category sidebar-default">
 			<div class="sidebar-user">
 				<div class="category-content">
-          <h6>Admin</h6>
+          <h6>{{ Auth::user()->username }}</h6>
 				</div>
 			</div>
 		</div>

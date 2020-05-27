@@ -20,7 +20,7 @@
                   <li class="mark-read">
                     <a href="#">Đánh dấu tất cả là đã đọc</a>
                   </li>
-                  <li class="noti-list" data-all="{{ $all_noti_count }}" data-cur="{{ ($all_noti_count > 3) ? 3 : $all_noti_count }}">
+                  <li class="noti-list">
                     <ul>
                       @foreach ($notis as $noti)
                         <li class="noti-item {{ $noti->read ?: 'no-read' }}">
@@ -35,7 +35,7 @@
                     </ul>
                   </li>
                   @if ($all_noti_count > 3)
-                    <li class="see-more">
+                    <li class="see-more" data-all="{{ $all_noti_count }}" data-cur="{{ ($all_noti_count > 3) ? 3 : $all_noti_count }}">
                       <a href="#">Xem thêm thông báo</a>
                     </li>
                   @endif
@@ -88,3 +88,14 @@
     </div>
   </div>
 </div>
+
+<template id="noti-li">
+  <li class="noti-item"> <!-- them class no-read neu unread -->
+    <a href="" class="noti-content"> <!-- them data-id-->
+      <span></span> <!-- them content-->
+      <br>
+      <span class="hour"></span>&nbsp;&nbsp;  <!-- them hour-->
+      <span class="date"></span>   <!-- them date-->
+    </a>
+  </li>
+</template>

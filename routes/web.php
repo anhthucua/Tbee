@@ -35,6 +35,7 @@ Route::post('coupon/check', 'CouponController@check');
 // Notification
 Route::post('noti/mark-all-read', 'NotificationController@markAllRead');
 Route::post('noti/{id}/read', 'NotificationController@read');
+Route::post('get-more-noti', 'NotificationController@getMoreNoti');
 
 // User
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {

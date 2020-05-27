@@ -10,7 +10,7 @@ $(document).ready(function () {
   $('.noti.dropdown-menu .mark-read a').click(function (e) {
     e.preventDefault();
     axios({
-      method:'post',
+      method: 'post',
       url: '/noti/mark-all-read'
     }).then(() => {
       $('.noti-list .no-read').each(function (index, element) {
@@ -25,10 +25,45 @@ $(document).ready(function () {
     e.preventDefault();
     let id = $(this).data('id');
     axios({
-      method:'post',
+      method: 'post',
       url: `noti/${id}/read`
     }).then(() => {
       window.location.href = $(this).prop('href');
+    })
+  });
+
+  // Load more noti
+  $('.noti-block .see-more ').click(function (e) {
+    e.preventDefault();
+    let btn = $(this).closest('.see-more'),
+      noti_list = document.querySelector('.noti-block .noti-list ul');
+    axios({
+      method: 'post',
+      url: '/get-more-noti',
+      data: {
+        current: btn.data('cur')
+      }
+    }).then((res) => {
+      btn.data('cur', btn.data('cur') + res.data.length);
+      res.data.forEach(noti => {
+        let tpl = document.getElementById('noti-li'),
+          clone = tpl.content.cloneNode(true),
+          li = clone.querySelector('li'),
+          a = clone.querySelector('a'),
+          span = clone.querySelectorAll('span');
+        if (noti.read == 0) {
+          li.classList.add('no-read');
+        }
+        a.href = noti.url;
+        a.dataset.id = noti.id;
+        span[0].textContent = noti.content;
+        span[1].textContent = noti.hour;
+        span[2].textContent = noti.date;
+        noti_list.appendChild(clone);
+      });
+      if (btn.data('cur') >= btn.data('all')) {
+        btn.remove();
+      }
     })
   });
 

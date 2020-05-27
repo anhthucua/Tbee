@@ -228,7 +228,6 @@ class OrderController extends Controller
             $order->coupon_sale = $sum - $order->total_price;
         }
 
-        // dump($order, $user, $products);
         return view('order-detail', compact('order', 'user', 'products', 'product_count'));
     }
 
