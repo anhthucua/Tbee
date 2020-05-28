@@ -18,6 +18,6 @@
   @yield('header', View::make('includes.header'))
   @yield('content', 'Hello')
   @yield('footer', View::make('includes.footer'))
-  @yield('chat', View::make('includes.chat'))
+  {{-- @yield('chat', View::make('includes.chat')) --}}
 </body>
 </html>
