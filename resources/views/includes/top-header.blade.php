@@ -66,7 +66,8 @@
             {{-- Trang nguoi dung --}}
             <li>
               <a href="{{ route('user.orders') }}">
-                <i class="fa fa-user-o"></i>{{ Auth::user()->username }}
+                <img src="{{ $avatar_img }}" class="avatar-img">
+                <span class="name">{{ Auth::user()->username }}</span>
               </a>
             </li>
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use App\Supplier;
+use App\Image as ImageModel;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -58,10 +59,16 @@ class ViewServiceProvider extends ServiceProvider
                     ['user_id', Auth::user()->id],
                     ['read', 0]
                 ])->count();
+                if (Auth::user()->avatar) {
+                    $avatar_img = ImageModel::find(Auth::user()->avatar)->url;
+                } else {
+                    $avatar_img = '/images/default-avt.png';
+                }
                 $all_noti_count = Notification::where('user_id', Auth::user()->id)->count();
                 $view->with('notis', $notis)
                     ->with('noti_count', $noti_count)
-                    ->with('all_noti_count', $all_noti_count);
+                    ->with('all_noti_count', $all_noti_count)
+                    ->with('avatar_img', $avatar_img);
             }
         });
     }
