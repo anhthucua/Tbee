@@ -542,6 +542,16 @@ $(document).ready(function () {
     })
   }
 
+  // Edit product form
+  if ($(document.body).is('.edit-product')) {
+    $('.upload-img-container .image-wrapper .product-img').click(function (e) {
+      e.preventDefault();
+      $('.upload-img-container .img-wrapper.active').removeClass('active');
+      $(this).closest('.img-wrapper').addClass('active');
+      $('.main-img-input').val($(this).data('id'));
+    });
+  }
+
   // Click on category_lv1 show cat_lv2
   $('.form .cat-lv1-section .cat-lv1').click(function (e) {
     if (!$(this).hasClass('active')) {

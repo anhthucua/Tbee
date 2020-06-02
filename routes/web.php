@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'supplier'], function () {
     Route::post('/create', 'ProductController@store')->name('create');
     Route::get('/{id}/edit', 'ProductController@edit')->name('edit');
+    Route::put('/{id}/update', 'ProductController@update')->name('update');
     Route::delete('{id}/delete', 'ProductController@softDelete')->name('delete');
 });
 

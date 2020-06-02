@@ -701,8 +701,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        dd("Trang sua san pham co id = {$id}");
-        return view('supplier.edit-product');
+        $product = Product::find($id);
+
+        return view('supplier.edit-product', compact('product'));
     }
 
     /**
@@ -712,9 +713,19 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update($id, Request $request)
     {
-        //
+        $product = Product::find($id);
+        $product->image_id = $request->image_id;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->sale_price = $request->sale_price ?? $request->price;
+
+        $product->save();
+
+        return redirect(route('product.edit', $id));
     }
 
     /**
