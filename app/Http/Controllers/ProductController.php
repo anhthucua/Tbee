@@ -737,5 +737,6 @@ class ProductController extends Controller
     public function softDelete($id)
     {
         Product::find($id)->delete();
+        return redirect(route('supplier.manage-products'));
     }
 }
